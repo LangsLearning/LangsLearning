@@ -1,4 +1,3 @@
-require('bootstrap');
-
-require('../../node_modules/bootstrap/scss/bootstrap.scss');
-require('../styles/index.scss');
+$(function() {
+    console.log( "ready!" );
+});
