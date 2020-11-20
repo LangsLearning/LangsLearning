@@ -4,6 +4,7 @@ const nodemailer = require('nodemailer');
 const uuid = require('uuid');
 const pino = require('pino');
 const expressPino = require('express-pino-logger');
+const cors = require('cors');
 
 const logger = pino({ level: process.env.LOG_LEVEL || 'info' });
 const expressLogger = expressPino({ logger });
@@ -11,6 +12,7 @@ const expressLogger = expressPino({ logger });
 const app = express();
 app.use(bodyParser.json());
 app.use(expressLogger);
+app.use(cors());
 
 const port = 3000;
 const tokens = {};
@@ -24,6 +26,7 @@ app.get('/contact', (req, res) => {
 
 app.post('/contact', (req, res) => {
     const { email, text, token } = req.body;
+    console.log(req.body);
     if (!email || !text || !token || tokens[token] == undefined) {
         logger.info("Invalid contact data");
         res.status(400).json({ message: 'Invalid contact data' });
