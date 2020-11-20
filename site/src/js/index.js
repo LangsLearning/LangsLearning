@@ -66,6 +66,7 @@ const submitContact = () => {
         },
         error: (jqXHR, textStatus, error) => {
             console.log(error);
+            cleanContactForm();
             showContactNotSentMessage();
         },
         dataType: "json",
