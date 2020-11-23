@@ -5,6 +5,17 @@ const uuid = require('uuid');
 const pino = require('pino');
 const expressPino = require('express-pino-logger');
 const cors = require('cors');
+const { MongoClient } = require("mongodb");
+const uri =
+  "mongodb+srv://langslearning:q1w2e3@cluster0.zuiev.mongodb.net/<dbname>?retryWrites=true&w=majority";
+
+const mongoClient = new MongoClient(uri);
+
+mongoClient.connect()
+ .then(client => {
+     const db = client.db("langslearning");
+     db.collection('users').find().toArray().then(users => console.log(users));
+ })
 
 const logger = pino({ level: process.env.LOG_LEVEL || 'info' });
 const expressLogger = expressPino({ logger });
