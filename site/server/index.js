@@ -27,8 +27,10 @@ app.use(cors());
 
 const port = 3000;
 const contactRouter = require('./contact/router');
+const staticRouter = require('./static/router');
 
-contactRouter.apply(app, logger);
+contactRouter.apply(app);
+staticRouter.apply(app);
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)

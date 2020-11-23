@@ -1,8 +1,8 @@
-@import url('/site/src/styles/variables.css');
+@import url('/styles/variables.css');
 
 @font-face {
     font-family: 'Spartwell';
-    src: url('/site/src/fonts/Spartwell.otf');
+    src: url('/fonts/Spartwell.otf');
 }
 
 /* Header */
