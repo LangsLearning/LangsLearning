@@ -31,11 +31,13 @@
 
 .title__color-primary {
     color: var(--primary-color);
+    text-shadow: 2px 2px rgba(0, 0, 0, .7);
     font-family: 'Spartwell';
 }
 
 .title__color-secondary {
     color: var(--secondary-color);
+    text-shadow: 2px 2px rgba(0, 0, 0, .7);
     font-family: 'Spartwell', cursive;    
 }
 
@@ -48,6 +50,7 @@
 /* Banner */
 .banner {
     background-image: url('../images/background.jpg');
+    -webkit-box-reflect: below 0px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(70%, transparent) , to(rgba(250, 250, 250, 0.2)));
     background-repeat: no-repeat;
     background-size: cover;
     background-position: unset;
@@ -55,26 +58,24 @@
     height: 30%;
 	top: 84px;
     left: 0;
-    margin-top: 60px;
+    margin-top: 68px;
     display: inline-block;
 }
-
-
 
 .banner__text {
     background-color: rgba(255, 214, 0, .5);
     width: 30%;
     font-family: 'Spartwell';
-    font-size: 1rem;
-    text-align: center; 
+    font-size: 1rem; 
+    text-align: center;
     align-items: flex-end;
     margin-left: 0;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .all__texts {
-    top: 45px;
+    top: 10px;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -82,7 +83,7 @@
 }
 
 .calling__text {
-    top: 180px;
+    top: 135px;
     display: flex;
     flex-direction: column;
     align-content: flex-start;
@@ -113,6 +114,37 @@
     font-size: .7rem;
     justify-content: center;
    
+}
+
+/* Cards */
+.card.padding {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    margin-top: 2.5rem;
+    margin-bottom: 2.5rem;
+    margin-left: 1.5rem;
+    
+}
+
+.card {
+    border-color: #dbdbdb;
+    border-width: 1.5px;
+}
+
+.img__size {
+    width: 100px;
+    height: 100px;
+    align-self: center;  
+}
+
+.card-text.aligment {
+    text-align: center;
+}
+
+/* Plans */
+.plans {
+    font-family: 'Spartwell';
+    text-align: center;
 }
 
 /* Footer */
@@ -158,6 +190,8 @@ footer {
     margin-top: .3rem;
 }
 
+/* Responsive */
+
 @media (min-width: 768px) {
     .banner {
         height: 100vh;
@@ -182,6 +216,12 @@ footer {
 
     .calling__two {
         font-size: 1rem;
+    }
+
+    .cards__adjust {
+        display: flex;
+        justify-content: space-between;
+        align-content: center;
     }
 }
 

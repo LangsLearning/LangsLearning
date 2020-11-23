@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -61,6 +62,37 @@
       </div>
     </section>
 
+    <section class="container cards__adjust">
+      <div class="card padding shadow p-3 mb-5 bg-white rounded" style="width: 18rem;">
+        <img src="../src/images/schedule_icon.png" class="card-img-top img__size" alt="Ícone do agendamento">
+        <div class="card-body">
+          <p class="card-text aligment">Agende sua aula para o dia e hora que melhor se encaixar na sua agenda</p>
+        </div>
+      </div>
+      <div class="card padding shadow p-3 mb-5 bg-white rounded" style="width: 18rem;">
+        <img src="../src/images/material_icon.png" class="card-img-top img__size" alt="Ícone do material">
+        <div class="card-body">
+          <p class="card-text aligment">Material exclusivo com abordagem dinâmica e descontraída</p>
+        </div>
+      </div>
+      <div class="card padding shadow p-3 mb-5 bg-white rounded" style="width: 18rem;">
+        <img src="../src/images/download_icon.png" class="card-img-top img__size" alt="Ícone do download">
+        <div class="card-body">
+          <p class="card-text aligment">Material do aluno disponível para download antes da aula</p>
+        </div>
+      </div>
+      <div class="card padding shadow p-3 mb-5 bg-white rounded" style="width: 18rem;">
+        <img src="../src/images/conversation_icon.png" class="card-img-top img__size" alt="Ícone da conversação">
+        <div class="card-body">
+          <p class="card-text aligment">Aulas de conversação com tema específico e/ou tema livre</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h1 class="plans">Planos</h1>
+    </section>
+
     <section id="contact" class="container contact">
       <div id="contact-alert-sucess" class="alert alert-success" role="alert" style="display: none;">
         Sua mensagem foi recebida com sucesso, muito obrigado pelo seu interesse!
@@ -72,20 +104,24 @@
         <div class="form-row">
           <div class="form-group col-md-6">
             <label for="ipt-contact-name">Nome</label>
-            <input type="text" class="form-control" id="ipt-contact-name" aria-describedby="emailHelp">
+            <input type="text" class="form-control" id="ipt-contact-name" aria-describedby="emailHelp" placeholder="Digite aqui o seu nome">
           </div>
           <div class="form-group col-md-6">
             <label for="ipt-contact-email">E-mail</label>
-            <input type="email" class="form-control" id="ipt-contact-email">
+            <input type="email" class="form-control" id="ipt-contact-email" placeholder="seuemail@dominio.com">
           </div>
         </div>
         <div class="form-group">
-          <label for="ipt-contact-text">Comentario</label>
-          <textarea class="form-control" id="ipt-contact-text"></textarea>
+          <label for="ipt-contact-text">Comentário</label>
+          <textarea class="form-control" id="ipt-contact-text" placeholder="Deixe o seu comentário aqui!"></textarea>
         </div>
         <input type="hidden" id="ipt-contact-token">
         <button id="btn-contact-submit" type="button" class="btn btn-primary" disabled="true">Enviar</button>
       </form>
+    </section>
+
+    <section>
+
     </section>
   </main>
     
@@ -104,9 +140,9 @@
   <div class="container footer">
     <p class="followus__text">Siga-nos!</p>
     <div class="icons">
-      <img src="./images/facebook_icon.ico" class="facebook__icon" alt="Ícone do Facebook">
-      <img src="./images/instagram_icon.ico" class="instagram__icon" alt="Ícone do Instagram">
-      <img src="./images/twitter_icon.ico" class="twitter__icon" alt="Ícone do Twitter">
+      <a href="#"><img src="./images/facebook_icon.ico" class="facebook__icon" alt="Ícone do Facebook"></a>
+      <a href="#"><img src="./images/instagram_icon.ico" class="instagram__icon" alt="Ícone do Instagram"></a>
+      <a href="#"><img src="./images/twitter_icon.ico" class="twitter__icon" alt="Ícone do Twitter"></a>
     </div>
   </div>
 </footer>
