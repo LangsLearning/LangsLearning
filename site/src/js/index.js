@@ -1,3 +1,5 @@
+const $window = $(window);
+const $navbar = $('nav.navbar');
 const $iptContactName = $('#ipt-contact-name');
 const $iptContactEmail = $('#ipt-contact-email');
 const $iptContactText = $('#ipt-contact-text');
@@ -81,8 +83,27 @@ const getContactFormToken = () => {
       });
 };
 
+const listenOnWindowScroll = () => {
+    $window.scroll((event) => {
+        setNavbarClass();
+    });
+};
+
+const setNavbarClass = () => {
+    const scroll = $window.scrollTop();
+    if (scroll > 60) {
+        $navbar.removeClass('nav__invisible');
+        $navbar.addClass('nav__visible', 1000);
+    } else {
+        $navbar.removeClass('nav__visible');
+        $navbar.addClass('nav__invisible', 1000);
+    }
+};
+
 $(function() {
+    setNavbarClass();
     getContactFormToken();
+    listenOnWindowScroll();
 
     $iptContactName.on('keyup', toggleContactSubmitButton);
     $iptContactEmail.on('keyup', toggleContactSubmitButton);
