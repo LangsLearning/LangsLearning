@@ -12,8 +12,12 @@ module.exports = {
 
         app.set('view engine', 'html');
 
-        app.get('/', function (req, res) {
+        app.get('/', (req, res) => {
             res.render('index', {});
+        });
+
+        app.get('/student', (req, res) => {
+            res.render('student', {});
         });
     }
 };

@@ -1,4 +1,6 @@
 const passport = require('passport');
+const pino = require('pino');
+const logger = pino({ level: process.env.LOG_LEVEL || 'info' });
 
 const FacebookStrategy = require('passport-facebook').Strategy;
 
@@ -7,21 +9,23 @@ passport.use(new FacebookStrategy({
     clientSecret: "a459e88b6e25755c9fc7e0ad84e3813c",
     callbackURL: "http://localhost:3000/auth/facebook/callback"
 },
-    function (accessToken, refreshToken, profile, done) {
-        console.log(accessToken, refreshToken, profile);
+    (accessToken, refreshToken, profile, done) => {
+        logger.info(`accessToken: ${accessToken}, refreshToken: ${refreshToken}, profile: ${profile}`);
         done(null);
     }
 ));
 
-app.get('/auth/facebook', passport.authenticate('facebook'));
+module.exports = {
+    apply: (app) => {
+        app.get('/auth/facebook', passport.authenticate('facebook'));
 
-app.get('/auth/facebook/callback',
-    passport.authenticate('facebook', {
-        successRedirect: '/',
-        failureRedirect: '/login'
-    }));
-
-
+        app.get('/auth/facebook/callback',
+            passport.authenticate('facebook', {
+                successRedirect: '/',
+                failureRedirect: '/student'
+            }));
+    }
+};
 
 /**
 const GoogleStrategy = require('passport-google-oauth20').Strategy;

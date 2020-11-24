@@ -9,6 +9,7 @@ const uri =
 
 const mail = require('./contact/mail');
 
+/**
 const mongoClient = new MongoClient(uri);
 
 mongoClient.connect()
@@ -16,6 +17,7 @@ mongoClient.connect()
      const db = client.db("langslearning");
      db.collection('users').find().toArray().then(users => console.log(users));
  })
+*/
 
 const logger = pino({ level: process.env.LOG_LEVEL || 'info' });
 const expressLogger = expressPino({ logger });
@@ -28,9 +30,11 @@ app.use(cors());
 const port = 3000;
 const contactRouter = require('./contact/router');
 const staticRouter = require('./static/router');
+const authRouter = require('./auth/router');
 
 contactRouter.apply(app);
 staticRouter.apply(app);
+authRouter.apply(app);
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)

@@ -20,8 +20,10 @@
 <body>
   <header>
     <nav class="navbar navbar-expand-lg navbar-light nav__invisible navsize fixed-top">
-      <a class="navbar-brand whole__title" href="#"><span class="title__color-primary">Langs</span><span class="title__color-secondary">learning</span></a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <a class="navbar-brand whole__title" href="#"><span class="title__color-primary">Langs</span><span
+          class="title__color-secondary">learning</span></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
@@ -38,11 +40,11 @@
           <li>
             <a href="#">
               <button type="button" class="btn btn-outline-warning enter__button">Entrar</button>
-            </a>  
+            </a>
           </li>
           <li>
             <a href="#">
-              <button type="button" class="btn btn-warning tryit__button">Experimente</button>
+              <button type="button" class="btn btn-warning tryit__button" data-toggle="modal" data-target="#modal-trial">Experimente</button>
             </a>
           </li>
         </ul>
@@ -107,7 +109,8 @@
         <div class="form-row">
           <div class="form-group col-md-6">
             <label for="ipt-contact-name">Nome</label>
-            <input type="text" class="form-control" id="ipt-contact-name" aria-describedby="emailHelp" placeholder="Digite aqui o seu nome">
+            <input type="text" class="form-control" id="ipt-contact-name" aria-describedby="emailHelp"
+              placeholder="Digite aqui o seu nome">
           </div>
           <div class="form-group col-md-6">
             <label for="ipt-contact-email">E-mail</label>
@@ -127,14 +130,45 @@
 
     </section>
   </main>
-    
+
+  <div class="modal fade" id="modal-trial" tabindex="-1" aria-labelledby="modal-trial-label" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modal-trial-label">Aula experimental</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Recipient:</label>
+              <input type="text" class="form-control" id="recipient-name">
+            </div>
+            <div class="form-group">
+              <label for="message-text" class="col-form-label">Message:</label>
+              <textarea class="form-control" id="message-text"></textarea>
+            </div>
+          </form>
+          <div>
+            <a href="http://localhost:3000/auth/facebook">Entrar com Google</a>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Send message</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- JUST LIBRARIES -->
   <script src="/jquery/dist/jquery.min.js"></script>
   <script src="/lodash/lodash.min.js"></script>
   <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
   <!-- JUST LIBRARIES -->
-  
+
   <!-- OUR JS FILES HERE -->
   <script src="/js/index.js"></script>
   <!-- OUR JS FILES HERE -->
