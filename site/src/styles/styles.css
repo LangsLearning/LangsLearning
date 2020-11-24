@@ -76,13 +76,13 @@
 
 /* Banner */
 .banner {
-    background-image: url('../images/background.jpg');
+    background-image: url('../images/new_background.png');
     -webkit-box-reflect: below 0px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(80%, transparent) , to(rgba(250, 250, 250, 0.2)));
     background-repeat: no-repeat;
     background-size: cover;
     background-position: unset;
     width:100%;
-    height: 70%;
+    height: 15rem;
 	top: 84px;
     left: 0;
     display: inline-block;
@@ -102,7 +102,7 @@
 
 .all__texts {
     top: 10px;
-    display: flex;
+    display: none;
     flex-direction: column;
     align-items: flex-end;
     position: relative;
@@ -148,11 +148,8 @@
 }
 
 .card.padding {
-    padding-top: 2rem;
     padding-bottom: 2rem;
-    margin-top: 2.5rem;
     margin-bottom: 2.5rem;
-    margin-left: 1.5rem;
     
 }
 
@@ -241,6 +238,7 @@ footer {
 
     .all__texts {
         top: 315px;
+        display: flex;
     }
 
     .calling__text {
