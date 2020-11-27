@@ -1,5 +1,7 @@
 @import url('/styles/variables.css');
 
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
+
 @font-face {
     font-family: 'Spartwell';
     src: url('/fonts/Spartwell.otf');
@@ -47,7 +49,8 @@
 }
 
 .enter__button:hover {
-    background-color: #C00045;
+    background-color: var(--button-enter-hover);
+    border-color: var(--primary-color);
 }
 
 .tryit__button {
@@ -115,7 +118,6 @@
     align-content: flex-start;
     text-align: center;
     margin-left: 1rem;
-    background-color: rgba(0, 0, 0, .5);
     align-content: center;
     position: absolute;
     padding-left: .5rem;
@@ -142,44 +144,191 @@
    
 }
 
-/* Cards */
+/* Why joining us */
 .background__definition {
-    background-color: black;
-}
-
-.card.padding {
+    background-color: white;
+    padding-top: 3rem;
     padding-bottom: 2rem;
-    margin-bottom: 2.5rem;
-    
 }
 
-.card {
-    border-color: #dbdbdb;
-    border-width: 1.5px;
+.why__icons {
+    width: 18rem;
+    display: block;
+    align-items: center;
+    margin-left: 3rem;
 }
 
-.img__size {
-    width: 100px;
-    height: 100px;
-    align-self: center;  
-}
-
-.card-text.aligment {
+.why__text {
+    display: flex;
+    align-items: center;
+    vertical-align: center;
     text-align: center;
 }
 
+.why__img {
+    width: 100px;
+    height: 100px;
+    margin-right: 0;
+    margin-left: 5.5rem;
+}
+
 /* Plans */
+.plans__area {
+   background-image: url('../images/background_plans.jpg');
+   background-repeat: no-repeat;
+   background-size: auto;
+   background-position: top;
+   background-color: var(--secondary-color);
+   padding-bottom: 2rem;
+}
+
+.card__header-style {
+    background-color: var(--white);
+    border-bottom: thin;
+    border-bottom-style: solid;
+    border-bottom-color: gray;
+}
+
 .title__style {
     font-family: 'Spartwell';
     font-size: 3rem;
     text-align: center;
     margin-bottom: 1.5rem;
+    padding-top: 2rem;
+}
+
+.whole__card {
+    font-family: 'Quicksand';
+    width: 90%;
+    height: auto;
+    border-radius: .5rem;
+    border-color: gray;
+    margin-bottom: 1.5rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cards__title {
+    text-align: center;
+    margin-bottom: 0;
+}
+
+.cards__text {
+    font-size: .8rem;
+    text-align: center;
+    margin-bottom: 0;
+    color: gray;
+}
+
+.number__classes {
+    font-size: 2rem;
+    text-align: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.class__price {
+    text-align: center;
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 0;
+}
+
+.text__price {
+    font-size: 1rem;
+    font-weight: bold;
+    color: grey;
+    display: block;
+    text-align: center;
+    margin-bottom: .75rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.main__price {
+    text-align: center;
+}
+
+.prices__button {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 10rem;
 }
 
 /* Contact */
 .contact {
-    margin-bottom: 1.5rem;
-    width: 50%;
+    padding-bottom: 1.5rem;
+    margin-top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 2rem;
+}
+
+.title__style.contact {
+    padding-top: 4rem;
+    width: 30rem;
+    padding-bottom: 3rem;
+}
+
+.form__style input[type="text"],
+.form__style input[type="email"],
+.form__style textarea
+{
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	outline: none;
+	width: 100%;
+	padding: 7px;
+	border: none;
+	border-bottom: 1px solid #ddd;
+	background: transparent;
+	margin-bottom: 10px;
+    height: 45px;
+    box-shadow: none;
+}
+
+.form__style textarea {
+	resize:none;
+    overflow: hidden;
+    box-shadow: none;
+    height: 5rem;
+}
+
+textarea::after {
+    box-shadow: none;
+    border-bottom: var(--secondary-color);
+}
+
+.form__style {
+    width: 30rem;
+    padding-top: 1.5rem;
+}
+
+#ipt-contact-name::placeholder,
+#ipt-contact-email::placeholder,
+#ipt-contact-text::placeholder {
+    text-align: start;
+    font-size: .8rem;
+    font-family: 'Quicksand';
+}
+
+.contact__button {
+    background-color: none;
+    border: none;
+    color: var(--primary-color);
+    font-family: 'Quicksand';
+    font-size: 1.5rem;
+}
+
+.contact__button:hover {
+    color: var(--secondary-color);
 }
 
 /* Footer */
@@ -242,7 +391,7 @@ footer {
     }
 
     .calling__text {
-        top: 450px;
+        top: 400px;
         background-color: unset;
     }
 
@@ -254,12 +403,35 @@ footer {
         font-size: 1rem;
     }
 
-    .cards__adjust {
+    .why__container {
+        margin-left: 1.2rem;
+    }
+
+    .why__icons {
+        display: inline-block;
+        margin-left: 1rem;
+    }
+
+    .whole__card {
         display: flex;
+        flex-wrap: wrap;
         justify-content: space-between;
+        align-items: center;
+        width: 20%;
+        margin-left: .5rem;
+        margin-right: .5rem;
+    }
+
+    .only__cards {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
         align-content: center;
     }
 
+    .plans__area {
+        background-position: center;
+     }
 }
 
 @media (min-width: 991px) {

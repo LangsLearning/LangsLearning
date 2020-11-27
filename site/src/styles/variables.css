@@ -1,8 +1,11 @@
 :root {
     --primary-color:#F50057;
     --secondary-color: #FFD600;
+    --lighter-secondary: #FFEC8F;
     --white: #ffffff;
 
 
     --background-color-nav: #4db6ac;
+
+    --button-enter-hover: #C00045;
 }
