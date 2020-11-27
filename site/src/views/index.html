@@ -47,7 +47,8 @@
           </li>
           <li>
             <a href="#">
-              <button type="button" class="btn btn-warning tryit__button" data-toggle="modal" data-target="#modal-trial">Experimente</button>
+              <button type="button" class="btn btn-warning tryit__button" data-toggle="modal"
+                data-target="#modal-trial">Experimente</button>
             </a>
           </li>
         </ul>
@@ -174,33 +175,31 @@
     </section>
   </main>
 
-  <div class="modal fade" id="modal-trial" tabindex="-1" aria-labelledby="modal-trial-label" aria-hidden="true">
+  <div class="modal fade trial__modal" id="modal-trial" tabindex="-1" aria-labelledby="modal-trial-label"
+    aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="modal-trial-label">Aula experimental</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
         <div class="modal-body">
-          <form>
-            <div class="form-group">
-              <label for="recipient-name" class="col-form-label">Recipient:</label>
-              <input type="text" class="form-control" id="recipient-name">
+          <section class="trial_socialmedia__section">
+            <div>
+              <h5>Cadastre-se para fazer sua aula experimental</h5>
             </div>
-            <div class="form-group">
-              <label for="message-text" class="col-form-label">Message:</label>
-              <textarea class="form-control" id="message-text"></textarea>
+            <div>
+              <a class="facebook_login__button" href="http://localhost:3000/auth/facebook">Cadastrar-se com Facebook</a>
             </div>
-          </form>
-          <div>
-            <a href="http://localhost:3000/auth/facebook">Entrar com Google</a>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Send message</button>
+          </section>
+          <div class="separator">OU</div>
+          <section class="trial_registration__section">
+            <div>
+              <h5>Cadastre-se com seu e-mail</h5>
+            </div>
+            <div>
+              <form>
+                <input type="text" class="form-control" id="ipt-trial-email" placeholder="Insira seu e-mail">
+                <button type="submit" class="btn btn-primary">Cadastrar</button>
+              </form>
+            </div>
+          </section>
         </div>
       </div>
     </div>
