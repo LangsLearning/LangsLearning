@@ -1,28 +1,54 @@
 const passport = require('passport');
 const pino = require('pino');
 const logger = pino({ level: process.env.LOG_LEVEL || 'info' });
+const mail = require('../contact/mail');
 
 const FacebookStrategy = require('passport-facebook').Strategy;
+
+const getEmail = profile => {
+    try {
+        return profile.emails[0].value;
+    } catch (error) {
+        return null;
+    }
+};
+
+passport.serializeUser((user, done) => {
+    done(null, user);
+});
+
+passport.deserializeUser((user, done) => {
+    done(null, user);
+});
 
 passport.use(new FacebookStrategy({
     clientID: "862620514500093",
     clientSecret: "a459e88b6e25755c9fc7e0ad84e3813c",
-    callbackURL: "http://localhost:3000/auth/facebook/callback"
+    callbackURL: "http://localhost:3000/auth/facebook/callback",
+    profileFields: ['emails']
 },
     (accessToken, refreshToken, profile, done) => {
-        logger.info(`accessToken: ${accessToken}, refreshToken: ${refreshToken}, profile: ${profile}`);
-        done(null);
+        const email = getEmail(profile);
+        if (email) {
+            logger.info(`Sending trial class e-mail for email: ${email}...`);
+            mail.sendToTeachers('Trial class', `There is a new user requesting trial class. Email: ${email}`)
+            done(null, { email });
+        } else {
+            done(new Error("User has no e-mail"), profile);
+        }
     }
 ));
 
 module.exports = {
     apply: (app) => {
-        app.get('/auth/facebook', passport.authenticate('facebook'));
+        app.use(passport.initialize());
+        app.use(passport.session());
+        app.get('/auth/facebook', passport.authenticate('facebook', { scope: ['email'] }));
 
         app.get('/auth/facebook/callback',
             passport.authenticate('facebook', {
-                successRedirect: '/',
-                failureRedirect: '/student'
+                successRedirect: '/?trial_class=success',
+                failureRedirect: '/?trial_class=error'
             }));
     }
 };

@@ -24,7 +24,8 @@ const expressLogger = expressPino({ logger });
 
 const app = express();
 app.use(bodyParser.json());
-app.use(expressLogger);
+app.use(bodyParser.urlencoded({ extended: true })); 
+//app.use(expressLogger);
 app.use(cors());
 
 const port = 3000;

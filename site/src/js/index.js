@@ -7,6 +7,11 @@ const $iptContactToken = $('#ipt-contact-token');
 const $btnContactSubmit = $('#btn-contact-submit');
 const $formContact = $('#form-contact')[0];
 
+const $iptTrialEmail = $('#ipt-trial-email');
+const $btnTrialSubmit = $('#btn-trial-submit');
+const $modalTrialSuccess = $('#modal-trial-success');
+const $modalTrialFailure = $('#modal-trial-failure');
+
 const $contactAlertSuccess = $('#contact-alert-sucess');
 const $contactAlertError = $('#contact-alert-error');
 
@@ -100,6 +105,29 @@ const setNavbarClass = () => {
     }
 };
 
+const trialDataIsValid = () => {
+    const email = $iptTrialEmail.val();
+    return isValidEmail(email);
+};
+
+const toggleTrialSubmitButton = () => {
+    if (trialDataIsValid()) {
+        $btnTrialSubmit.prop('disabled', false);
+    } else {
+        $btnTrialSubmit.prop('disabled', true);
+    }
+};
+
+const showTrialRequestResponse = () => {
+    const params = new URLSearchParams(window.location.search);
+    const result = params.get('trial_class');
+    if (result == 'success') {
+        $modalTrialSuccess.modal('show');
+    } else if (result == 'failure') {
+        $modalTrialFailure.modal('show');
+    }
+};
+
 $(function() {
     setNavbarClass();
     getContactFormToken();
@@ -108,5 +136,8 @@ $(function() {
     $iptContactName.on('keyup', toggleContactSubmitButton);
     $iptContactEmail.on('keyup', toggleContactSubmitButton);
     $iptContactText.on('keyup', toggleContactSubmitButton);
+    $iptTrialEmail.on('keyup', toggleTrialSubmitButton);
     $btnContactSubmit.on('click', submitContact);
+
+    showTrialRequestResponse();
 });
