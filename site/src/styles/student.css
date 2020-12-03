@@ -1,0 +1,59 @@
+.background {
+    background-color: #313335;
+}
+
+.card {
+    top: 84px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.class__header-style {
+    background-color:  #FFEC8F;
+    font-size: 1.2rem;
+    margin-left: -16px;
+    margin-right: -16px;
+    margin-top: -1px;
+    border-radius: 5px 5px 0px 0px;
+    border: 1px solid #e3e3e3;
+}
+
+.card__title-style {
+    color: var(--primary-color);
+}
+
+.teacher__image {
+    width: 5rem;
+    height: 5rem;
+}
+
+.card__style {
+    text-align: center;
+    font-family: 'Quicksand';
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card__style .card {
+    margin-top: 40px;
+}
+
+.schedule__button {
+    color: white;
+    background-color: var(--primary-color);
+}
+
+.schedule__button:hover {
+    background-color: var( --button-enter-hover);
+}
+
+.card-footer {
+    background-color: var(--lighter-secondary);
+    color: black;
+}
+
+.material__download-icon {
+    width: 2rem;
+    height: 2rem;
+    cursor: pointer;
+}
