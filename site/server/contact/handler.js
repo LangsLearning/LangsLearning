@@ -24,7 +24,7 @@ const sendContact = (req, res) => {
             Contact from: ${email}.
             Message: ${text}
         `;
-        mail.send('support@langslearning.com', 'Visitant Contact', content).then((info, err) => {
+        mail.sendToSupport('Visitant Contact', content).then((info, err) => {
             if (err) {
                 logger.error(err);
                 res.status(500).json({message: 'Error sending the e-mail'});
@@ -36,7 +36,14 @@ const sendContact = (req, res) => {
     }
 };
 
+const requestTrial = (req, res) => {
+    const {email} = req.body;
+    mail.sendToTeachers('Trial class', `There is a new user requesting trial class. Email: ${email}`);
+    res.redirect('/?trial_class=success');
+};
+
 module.exports = {
     getContactToken,
-    sendContact
+    sendContact,
+    requestTrial
 };

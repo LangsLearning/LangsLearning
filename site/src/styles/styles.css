@@ -477,8 +477,13 @@ footer {
     text-align: center;
 }
 
-.trial_socialmedia__section div {
+.trial_socialmedia__section > div {
     padding: 10px;
+}
+
+.trial_socialmedia__section > div > p {
+    color: gray;
+    font-size: 0.9em;
 }
 
 .trial_registration__section {

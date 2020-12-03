@@ -194,25 +194,39 @@
         <div class="modal-body">
           <section class="trial_socialmedia__section">
             <div>
-              <h5>Cadastre-se para fazer sua aula experimental</h5>
+              <h5>Solicite aqui sua aula experimental!</h5>
+              <p>Precisamos do seu e-mail para que um de nossos professores entre em contato e agende sua aula experimental</p>
             </div>
             <div>
-              <a class="facebook_login__button" href="http://localhost:3000/auth/facebook">Cadastrar-se com Facebook</a>
+              <a class="facebook_login__button" href="http://localhost:3000/auth/facebook">Solicitar aula atraves do Facebook</a>
             </div>
           </section>
           <div class="separator">OU</div>
           <section class="trial_registration__section">
             <div>
-              <h5>Cadastre-se com seu e-mail</h5>
-            </div>
-            <div>
-              <form>
-                <input type="text" class="form-control" id="ipt-trial-email" placeholder="Insira seu e-mail">
-                <button type="submit" class="btn btn-primary">Cadastrar</button>
+              <form action="/contact/trial" method="POST">
+                <input type="text" class="form-control" id="ipt-trial-email" placeholder="Insira seu e-mail" name="email">
+                <button id="btn-trial-submit" type="submit" class="btn btn-primary" disabled="true">Soliciar minha aula experimental</button>
               </form>
             </div>
           </section>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade trial_success__modal" tabindex="-1" id="modal-trial-success">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        Recebemos seu interesse, entraremos em contato nas proximas 24 horas
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade trial_failure__modal" tabindex="-1" id="modal-trial-failure">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        Tivemos um problema interno e nao conseguimos receber seu e-mail, por favor tente novamente
       </div>
     </div>
   </div>

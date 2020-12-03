@@ -10,6 +10,14 @@ const transport = nodemailer.createTransport({
     }
 });
 
+const sendToSupport = (subject, content) => {
+    return send('support@langslearning.com', subject, content);
+};
+
+const sendToTeachers = (subject, content) => {
+    return send(['support@langslearning.com', 'lara@langslearning.com', 'maju@langslearning.com'], subject, content);
+};
+
 const send = (email, subject, content) => {
     const message = {
         from: senderEmail, // Sender address
@@ -21,5 +29,7 @@ const send = (email, subject, content) => {
 };
 
 module.exports = {
-    send
+    send,
+    sendToSupport,
+    sendToTeachers
 };
