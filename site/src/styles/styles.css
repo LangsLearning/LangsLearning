@@ -145,9 +145,14 @@
 /* Why joining us */
 
 .background__definition {
-    background-color: white;
+    background-color: #151313;
     padding-top: 3rem;
     padding-bottom: 2rem;
+    border-bottom: 5px solid var(--secondary-color);
+}
+
+.title__style.why {
+    color: white;
 }
 
 .why__icons {
@@ -163,6 +168,7 @@
     vertical-align: center;
     text-align: center;
     font-family: 'Quicksand';
+    color: white;
 }
 
 .why__img {
