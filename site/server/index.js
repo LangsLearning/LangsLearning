@@ -25,11 +25,13 @@ const contactRouter = require('./contact/router');
 const staticRouter = require('./static/router');
 const authRouter = require('./auth/router');
 const trialRouter = require('./trial/router');
+const studentRouter = require('./student/router');
 
 contactRouter.apply(app);
 staticRouter.apply(app);
 authRouter.apply(mongoClient, app);
 trialRouter.apply(mongoClient, app);
+studentRouter.apply(mongoClient, app);
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
