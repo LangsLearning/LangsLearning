@@ -39,11 +39,38 @@
     text-align: center;
 }
 
+.navbar {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.navbar-brand {
+    margin-left: 20px;
+}
+
+.hamburger__icon {
+    margin-right: 10px;
+}
+
+.navbar-dark .navbar-nav > li {
+    background-color: #151313;
+    font-size: 1.2rem;
+}
+
+.navbar-nav > li:last-child {
+    margin-top: 5px;
+}
+
+.navbar-dark.navbar-shown {
+    background-color: #151313;
+}
+
 .enter__button {
     border-color: var(--primary-color);
     background-color: var(--primary-color);
     color: white;
     margin-top: 3px;
+    width: 150px;
 }
 
 .enter__button:hover {
@@ -55,6 +82,7 @@
     color: var(--white);
     margin-left: 0;
     margin-top: 3px;
+    width: 150px;
 }
 
 .title__color-primary {
@@ -147,14 +175,11 @@
 .background__definition {
     background-color: white;
     padding-top: 3rem;
-    padding-bottom: 2rem;
+    padding-bottom: 3rem;
 }
 
 .why__icons {
-    width: 18rem;
-    display: block;
-    align-items: center;
-    margin-left: 3rem;
+    text-align: center;
 }
 
 .why__text {
@@ -168,8 +193,8 @@
 .why__img {
     width: 100px;
     height: 100px;
-    margin-right: 0;
-    margin-left: 5.5rem;
+    margin-right: auto;
+    margin-left: auto;
 }
 
 /* Methodology */
@@ -266,7 +291,7 @@
     font-family: 'Spartwell';
     font-size: 3rem;
     text-align: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: 3.5rem;
     padding-top: 2rem;
 }
 
@@ -504,13 +529,6 @@ footer {
     .calling__two {
         font-size: 1rem;
     }
-    .why__container {
-        margin-left: 1.2rem;
-    }
-    .why__icons {
-        display: inline-block;
-        margin-left: 1rem;
-    }
     .whole__card {
         display: flex;
         flex-wrap: wrap;
@@ -563,7 +581,6 @@ footer {
     border-left: none;
     border-right: none;
     border-bottom-color: black;
-    box-shadow: -18px 18px 0px -17px #848181, 18px 18px 0px -17px #848181;
     overflow: auto;
 }
 
@@ -589,6 +606,22 @@ footer {
 }
 
 @media (min-width: 991px) {
+    .navbar-nav > li:last-child {
+        margin-top: 0px;
+    }
+
+    .enter__button {
+        width: 70px;
+    }
+
+    .tryit__button {
+        width: 120px;
+    }
+
+    .navbar-collapse {
+        margin-right: 10px;
+    }
+
     .tryit__button {
         margin-left: .5rem;
     }
