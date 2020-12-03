@@ -4,6 +4,7 @@ const uuid = require('uuid');
 
 const getTrials = mongoClient => (req, res) => mongoClient.connect()
     .then(client => {
+        logger.info(req);
         const db = client.db("langslearning");
         logger.info('Fetching trials in the database...');
         return db.collection('trials').find({ level: null }).toArray();

@@ -19,9 +19,5 @@
   "devDependencies": {
     "http-server": "^0.12.3",
     "url-loader": "^4.1.1"
-  },
-  "dependencies": {
-    "passport-http": "^0.3.0",
-    "passport-local": "^1.0.0"
   }
 }

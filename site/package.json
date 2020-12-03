@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.1",
     "body-parser": "^1.19.0",
     "bootstrap": "^4.5.3",
     "cors": "^2.8.5",
@@ -23,6 +24,7 @@
     "nodemailer": "^6.4.16",
     "passport": "^0.4.1",
     "passport-facebook": "^3.0.0",
+    "passport-http": "^0.3.0",
     "pino": "^6.7.0",
     "popper.js": "^1.16.1",
     "uuid": "^8.3.1"

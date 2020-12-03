@@ -123,8 +123,10 @@ const showTrialRequestResponse = () => {
     const result = params.get('trial_class');
     if (result == 'success') {
         $modalTrialSuccess.modal('show');
+        setTimeout(() => $modalTrialSuccess.modal('hide'), 5000);
     } else if (result == 'failure') {
         $modalTrialFailure.modal('show');
+        setTimeout(() => $modalTrialFailure.modal('hide'), 5000);
     }
 };
 
