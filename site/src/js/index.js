@@ -99,9 +99,13 @@ const setNavbarClass = () => {
     if (scroll > 60) {
         $navbar.removeClass('nav__invisible');
         $navbar.addClass('nav__visible', 1000);
+        $navbar.removeClass('navbar-dark');
+        $navbar.addClass('navbar-light', 1000);
     } else {
         $navbar.removeClass('nav__visible');
         $navbar.addClass('nav__invisible', 1000);
+        $navbar.removeClass('navbar-light');
+        $navbar.addClass('navbar-dark', 1000);
     }
 };
 
