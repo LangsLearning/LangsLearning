@@ -1,7 +1,5 @@
 @import url('/styles/variables.css');
-
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
-
 @font-face {
     font-family: 'Spartwell';
     src: url('/fonts/Spartwell.otf');
@@ -68,7 +66,7 @@
 .title__color-secondary {
     color: var(--secondary-color);
     text-shadow: 2px 2px rgba(0, 0, 0, .7);
-    font-family: 'Spartwell', cursive;    
+    font-family: 'Spartwell', cursive;
 }
 
 .whole__title {
@@ -78,15 +76,16 @@
 }
 
 /* Banner */
+
 .banner {
     background-image: url('../images/new_background.png');
-    -webkit-box-reflect: below 0px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(80%, transparent) , to(rgba(250, 250, 250, 0.2)));
+    -webkit-box-reflect: below 0px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(80%, transparent), to(rgba(250, 250, 250, 0.2)));
     background-repeat: no-repeat;
     background-size: cover;
     background-position: unset;
-    width:100%;
+    width: 100%;
     height: 15rem;
-	top: 84px;
+    top: 84px;
     left: 0;
     display: inline-block;
 }
@@ -95,7 +94,7 @@
     background-color: rgba(255, 214, 0, .5);
     width: 30%;
     font-family: 'Spartwell';
-    font-size: 1rem; 
+    font-size: 1rem;
     text-align: center;
     align-items: flex-end;
     margin-left: 0;
@@ -141,10 +140,10 @@
     text-align: center;
     font-size: .7rem;
     justify-content: center;
-   
 }
 
 /* Why joining us */
+
 .background__definition {
     background-color: white;
     padding-top: 3rem;
@@ -163,6 +162,7 @@
     align-items: center;
     vertical-align: center;
     text-align: center;
+    font-family: 'Quicksand';
 }
 
 .why__img {
@@ -172,14 +172,87 @@
     margin-left: 5.5rem;
 }
 
+/* Methodology */
+
+.methodology {
+    padding-bottom: 2rem;
+}
+
+.methodology__content {
+    text-align: center;
+    /*background-image: url('../images/methodology_mobile.png');*/
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.methodology__content-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 0px 0px;
+    grid-template-areas: ". image schedule" "material image ." ". image join";
+}
+
+.methodology__content-container>div.txt {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.methodology__image {
+    grid-area: image;
+}
+
+.methodology__txt-schedule {
+    grid-area: schedule;
+}
+
+.schedule__text {
+    font-size: 1.1rem;
+    text-align: center;
+    margin-right: 1.2rem;
+}
+
+.methodology__txt-material {
+    grid-area: material;
+}
+
+.material__text {
+    font-size: 1.1rem;
+    text-align: center;
+    margin-left: 1.2rem;
+}
+
+.methodology__txt-join {
+    grid-area: join;
+}
+
+.join__text {
+    font-size: 1.1rem;
+    text-align: center;
+    margin-right: 1.2rem;
+}
+
+.methodology__content img {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.methodology__content img.large {
+    display: none;
+}
+
+.methodology__content img.small {
+    display: block;
+}
+
 /* Plans */
+
 .plans__area {
-   background-image: url('../images/background_plans.jpg');
-   background-repeat: no-repeat;
-   background-size: auto;
-   background-position: top;
-   background-color: var(--secondary-color);
-   padding-bottom: 2rem;
+    background-color: var(--secondary-color);
+    padding-bottom: 2rem;
 }
 
 .card__header-style {
@@ -199,7 +272,7 @@
 
 .whole__card {
     font-family: 'Quicksand';
-    width: 90%;
+    width: 20rem;
     height: auto;
     border-radius: .5rem;
     border-color: gray;
@@ -238,7 +311,7 @@
 .text__price {
     font-size: 1rem;
     font-weight: bold;
-    color: grey;
+    color: black;
     display: block;
     text-align: center;
     margin-bottom: .75rem;
@@ -258,80 +331,83 @@
 }
 
 /* Contact */
+
 .contact {
+    display: block;
+    background-color: white;
     padding-bottom: 1.5rem;
-    margin-top: 0;
     width: 100%;
-    display: flex;
-    justify-content: space-around;
-    align-content: center;
     margin-right: auto;
     margin-left: auto;
-    margin-top: 2rem;
+    padding-right: 10rem;
+    padding-top: 2rem;
 }
 
 .title__style.contact {
     padding-top: 4rem;
-    width: 30rem;
+    width: 5rem;
     padding-bottom: 3rem;
+    background: transparent;
+    font-size: 1rem;
+    padding-right: initial;
 }
 
-.form__style input[type="text"],
-.form__style input[type="email"],
-.form__style textarea
-{
-	box-sizing: border-box;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	outline: none;
-	width: 100%;
-	padding: 7px;
-	border: none;
-	border-bottom: 1px solid #ddd;
-	background: transparent;
-	margin-bottom: 10px;
+.form__style input[type="text"], .form__style input[type="email"], .form__style textarea {
+    color: black;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    outline: none;
+    width: 100%;
+    padding: 7px;
+    border: none;
+    border-bottom: 1px solid black;
+    background: transparent;
+    margin-bottom: 10px;
     height: 45px;
     box-shadow: none;
+    border-radius: 0;
 }
 
-.form__style textarea {
-	resize:none;
-    overflow: hidden;
+.form__style textarea:focus {
+    background-color: transparent;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom-color: black;
     box-shadow: none;
-    height: 5rem;
-}
-
-textarea::after {
-    box-shadow: none;
-    border-bottom: var(--secondary-color);
+    overflow: auto;
 }
 
 .form__style {
-    width: 30rem;
+    background-color: var(--white);
+    width: 100%;
     padding-top: 1.5rem;
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+    padding-bottom: 1.5rem;
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.22);
+    -moz-box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.22);
+    -webkit-box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.22);
 }
 
-#ipt-contact-name::placeholder,
-#ipt-contact-email::placeholder,
-#ipt-contact-text::placeholder {
+#ipt-contact-name::placeholder, #ipt-contact-email::placeholder, #ipt-contact-text::placeholder {
     text-align: start;
-    font-size: .8rem;
+    font-size: 1rem;
     font-family: 'Quicksand';
+    color: black;
 }
 
 .contact__button {
-    background-color: none;
+    background-color: transparent;
     border: none;
     color: var(--primary-color);
     font-family: 'Quicksand';
     font-size: 1.5rem;
 }
 
-.contact__button:hover {
-    color: var(--secondary-color);
-}
-
 /* Footer */
+
 footer {
     background-color: var(--background-color-nav);
 }
@@ -382,14 +458,17 @@ footer {
     margin-top: 10px;
     margin-bottom: 10px;
 }
+
 .trial__modal .separator::before, .trial__modal .separator::after {
     content: '';
     flex: 1;
     border-bottom: 1px solid #403838;
 }
+
 .trial__modal .separator::before {
     margin-right: .25em;
 }
+
 .trial__modal .separator::after {
     margin-left: .25em;
 }
@@ -427,7 +506,7 @@ footer {
     padding: 13px 30px 15px 44px;
     background: #3A5A97;
     color: #fff;
-    text-shadow: 0 -1px 0 rgba(0,0,20,.4);
+    text-shadow: 0 -1px 0 rgba(0, 0, 20, .4);
     text-decoration: none;
     line-height: 1;
     position: relative;
@@ -462,38 +541,30 @@ footer {
     .banner {
         height: 100vh;
     }
-
     .banner__text {
         font-size: 1.7rem;
     }
-
     .all__texts {
         top: 315px;
         display: flex;
     }
-
     .calling__text {
         top: 400px;
         background-color: unset;
     }
-
     .calling__one {
         font-size: 1.5rem;
     }
-
     .calling__two {
         font-size: 1rem;
     }
-
     .why__container {
         margin-left: 1.2rem;
     }
-
     .why__icons {
         display: inline-block;
         margin-left: 1rem;
     }
-
     .whole__card {
         display: flex;
         flex-wrap: wrap;
@@ -503,21 +574,70 @@ footer {
         margin-left: .5rem;
         margin-right: .5rem;
     }
-
     .only__cards {
         display: flex;
         justify-content: space-around;
         flex-wrap: wrap;
         align-content: center;
     }
-
     .plans__area {
+        background-image: url('../images/background_plans.jpg');
+        background-repeat: no-repeat;
+        background-size: auto;
         background-position: center;
-     }
+    }
 }
 
 @media (min-width: 991px) {
     .tryit__button {
         margin-left: .5rem;
     }
+    .contact {
+        display: flex;
+        justify-content: space-around;
+        align-content: center;
+    }
+    .methodology__content img {
+        width: 60%;
+    }
+    .methodology__content img.large {
+        display: block;
+    }
+    .methodology__content img.small {
+        display: none;
+    }
+    
+    .methodology__content-container {
+        display: grid;
+        grid-template-columns: 2fr 1fr 2fr;
+        grid-template-rows: 0.5fr 2fr 0.5fr;
+        gap: 0px 0px;
+        grid-template-areas:
+          ". material ."
+          "image image image"
+          "schedule . join";
+    }
+      
+    .methodology__image { 
+        grid-area: image;
+    }
+    
+    .methodology__txt-schedule { 
+        grid-area: schedule;
+    }
+
+    .schedule__text {
+        font-family: 'Quicksand';
+        font-size: 1.5rem;
+        margin-left: 4rem;
+    }
+    
+    .methodology__txt-material { 
+        grid-area: material; 
+    }
+    
+    .methodology__txt-join { 
+        grid-area: join;
+    }
+
 }
