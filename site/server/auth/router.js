@@ -1,4 +1,5 @@
 const passport = require('passport');
+const BasicStrategy = require('passport-http').BasicStrategy;
 const pino = require('pino');
 const logger = pino({ level: process.env.LOG_LEVEL || 'info' });
 const mail = require('../contact/mail');
@@ -21,6 +22,18 @@ passport.deserializeUser((user, done) => {
     done(null, user);
 });
 
+passport.use(new BasicStrategy(
+    (username, password, done) => {
+        console.log(username);
+        console.log(password);
+        if (username === 'teacher' && password === 'q1w2e3r4') {
+            done(null, { username, role: 'teacher' });
+        } else {
+            done(new Error('Invalid user'));
+        }
+    }
+));
+
 passport.use(new FacebookStrategy({
     clientID: "862620514500093",
     clientSecret: "a459e88b6e25755c9fc7e0ad84e3813c",
@@ -40,9 +53,13 @@ passport.use(new FacebookStrategy({
 ));
 
 module.exports = {
-    apply: (app) => {
+    apply: (mongoClient, app) => {
         app.use(passport.initialize());
         app.use(passport.session());
+
+        app.get('/admin/login', passport.authenticate('basic'), (req, res) => {
+            res.redirect('/trials');
+        });
         app.get('/auth/facebook', passport.authenticate('facebook', { scope: ['email'] }));
 
         app.get('/auth/facebook/callback',
