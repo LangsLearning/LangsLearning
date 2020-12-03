@@ -332,79 +332,7 @@
 
 /* Contact */
 
-.contact {
-    display: block;
-    background-color: white;
-    padding-bottom: 1.5rem;
-    width: 100%;
-    margin-right: auto;
-    margin-left: auto;
-    padding-right: 10rem;
-    padding-top: 2rem;
-}
 
-.title__style.contact {
-    padding-top: 4rem;
-    width: 5rem;
-    padding-bottom: 3rem;
-    background: transparent;
-    font-size: 1rem;
-    padding-right: initial;
-}
-
-.form__style input[type="text"], .form__style input[type="email"], .form__style textarea {
-    color: black;
-    box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    outline: none;
-    width: 100%;
-    padding: 7px;
-    border: none;
-    border-bottom: 1px solid black;
-    background: transparent;
-    margin-bottom: 10px;
-    height: 45px;
-    box-shadow: none;
-    border-radius: 0;
-}
-
-.form__style textarea:focus {
-    background-color: transparent;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    border-bottom-color: black;
-    box-shadow: none;
-    overflow: auto;
-}
-
-.form__style {
-    background-color: var(--white);
-    width: 100%;
-    padding-top: 1.5rem;
-    padding-left: 2.5rem;
-    padding-right: 2.5rem;
-    padding-bottom: 1.5rem;
-    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.22);
-    -moz-box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.22);
-    -webkit-box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.22);
-}
-
-#ipt-contact-name::placeholder, #ipt-contact-email::placeholder, #ipt-contact-text::placeholder {
-    text-align: start;
-    font-size: 1rem;
-    font-family: 'Quicksand';
-    color: black;
-}
-
-.contact__button {
-    background-color: transparent;
-    border: none;
-    color: var(--primary-color);
-    font-family: 'Quicksand';
-    font-size: 1.5rem;
-}
 
 /* Footer */
 
@@ -606,14 +534,63 @@ footer {
     }
 }
 
+.contact {
+    padding-top: 80px;
+    padding-bottom: 80px;
+    padding-left: 20px;
+    padding-right: 20px;
+
+    border-top: 1px solid #808080;
+    border-bottom: 1px solid #808080;
+    background-image: url('../images/contact_background_new.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.contact input, .contact textarea {
+    background-color: transparent;
+    margin-bottom: 30px;
+    padding: 0px 10px 0px 10px;
+    border: 0; 
+    outline: none;
+    box-shadow: -18px 18px 0px -17px #848181, 18px 18px 0px -17px #848181;
+}
+
+.contact input:focus, .contact textarea:focus {
+    background-color: transparent;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom-color: black;
+    box-shadow: -18px 18px 0px -17px #848181, 18px 18px 0px -17px #848181;
+    overflow: auto;
+}
+
+.contact textarea {
+    margin-bottom: 10px;
+}
+
+.contact .contact__button {
+    margin-top: 20px;
+    background-color: var(--primary-color);
+    width: 100%;
+    border: 1px solid #c7084a;
+}
+
+.contact .contact__button:hover {
+    background-color: #F73E7C;
+}
+
+.contact__body {
+    max-width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 @media (min-width: 991px) {
     .tryit__button {
         margin-left: .5rem;
-    }
-    .contact {
-        display: flex;
-        justify-content: space-around;
-        align-content: center;
     }
     .methodology__content img {
         width: 60%;
@@ -628,5 +605,11 @@ footer {
 
     .schedule__text, .material__text, .join__text {
         display: none;
+    }
+
+    .contact__body {
+        max-width: 40%;
+        margin-left: auto;
+        margin-right: auto;
     }
 }

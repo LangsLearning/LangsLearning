@@ -72,9 +72,10 @@
     <section class="background__definition" id="advantages">
       <h2 class="title__style">Por que juntar-se a nós?</h2>
       <div class="why__container">
-       <div class="why__icons">
+        <div class="why__icons">
           <img src="/images/schedule_icon.png" class="why__img" alt="Ícone do agendamento">
-            <p class="why__text">Agende sua aula para o dia e hora que melhor se encaixar na sua agenda</p>        </div>
+          <p class="why__text">Agende sua aula para o dia e hora que melhor se encaixar na sua agenda</p>
+        </div>
         <div class="why__icons">
           <img src="/images/material_icon.png" class="why__img" alt="Ícone do material">
           <p class="why__text">Material exclusivo com abordagem dinâmica e descontraída</p>
@@ -99,9 +100,15 @@
             <img src="../images/methodology_desktop.png" class="large">
             <img src="/images/methodology_mobile.png" class="small">
           </div>
-          <div class="txt methodology__txt-schedule"><p class="schedule__text">Escolha o horário</p></div>
-          <div class="txt methodology__txt-material"><p class="material__text">Baixe o material</p></div>
-          <div class="txt methodology__txt-join"><p class="join__text">Entre em aula e pratique</p></div>
+          <div class="txt methodology__txt-schedule">
+            <p class="schedule__text">Escolha o horário</p>
+          </div>
+          <div class="txt methodology__txt-material">
+            <p class="material__text">Baixe o material</p>
+          </div>
+          <div class="txt methodology__txt-join">
+            <p class="join__text">Entre em aula e pratique</p>
+          </div>
         </div>
       </div>
     </section>
@@ -112,7 +119,7 @@
         <div class="card whole__card">
           <div class="card-header card__header-style">
             <h4 class="cards__title">Primeiros Passos</h4>
-              <p class="cards__text">Pequenos passos para quem tem uma agenda limitada</p>
+            <p class="cards__text">Pequenos passos para quem tem uma agenda limitada</p>
           </div>
           <div class="card-body body__card">
             <p class="number__classes">5 aulas</p>
@@ -125,7 +132,7 @@
         <div class="card whole__card">
           <div class="card-header card__header-style">
             <h4 class="cards__title">Mantendo o ritmo</h4>
-              <p class="cards__text">Para quem quer começar a manter um ritmo de estudos</p>
+            <p class="cards__text">Para quem quer começar a manter um ritmo de estudos</p>
           </div>
           <div class="card-body body__card">
             <p class="number__classes">10 aulas</p>
@@ -138,7 +145,7 @@
         <div class="card whole__card">
           <div class="card-header card__header-style">
             <h4 class="cards__title">Aprofundando</h4>
-              <p class="cards__text">Para intensificar e aprofundar os estudos</p>
+            <p class="cards__text">Para intensificar e aprofundar os estudos</p>
           </div>
           <div class="card-body body__card">
             <p class="number__classes">20 aulas</p>
@@ -165,21 +172,27 @@
     </section>
 
     <section id="contact" class="contact">
-      <h1 class="title__style contact">Como podemos te ajudar?</h1>
       <div id="contact-alert-sucess" class="alert alert-success" role="alert" style="display: none;">
         Sua mensagem foi recebida com sucesso, muito obrigado pelo seu interesse!
       </div>
       <div id="contact-alert-error" class="alert alert-warning" role="alert" style="display: none;">
         Infelizmente nao conseguimos receber sua mensagem, tente novamente mais tarde...
       </div>
-      <div class="form__style">
-        <form id="form-contact">
-          <input type="text" class="form-control" id="ipt-contact-name" aria-describedby="emailHelp" placeholder="Nome">
-          <input type="email" class="form-control" id="ipt-contact-email" placeholder="E-mail">
-          <textarea class="form-control textarea__contact" id="ipt-contact-text" placeholder="Deixe o seu comentário aqui!"></textarea>
-          <input type="hidden" id="ipt-contact-token">
-          <button id="btn-contact-submit" type="button" class="contact__button" disabled="true">Enviar</button>
-        </form>
+      <div class="contact__body">
+        <h1 class="title__style">Como podemos te ajudar?</h1>
+        <div class="contact_form__container">
+          <form id="form-contact">
+            <input type="text" class="form-control" id="ipt-contact-name" aria-describedby="emailHelp"
+              placeholder="Nome">
+            <input type="email" class="form-control" id="ipt-contact-email" placeholder="E-mail">
+            <textarea class="form-control textarea__contact" id="ipt-contact-text"
+              placeholder="Deixe o seu comentário aqui!"></textarea>
+            <input type="hidden" id="ipt-contact-token">
+            <button id="btn-contact-submit" type="button" class="btn btn-primary contact__button">
+              <i class="far fa-paper-plane"></i> Enviar
+            </button>
+          </form>
+        </div>
       </div>
     </section>
   </main>
@@ -192,18 +205,22 @@
           <section class="trial_socialmedia__section">
             <div>
               <h5>Solicite aqui sua aula experimental!</h5>
-              <p>Precisamos do seu e-mail para que um de nossos professores entre em contato e agende sua aula experimental</p>
+              <p>Precisamos do seu e-mail para que um de nossos professores entre em contato e agende sua aula
+                experimental</p>
             </div>
             <div>
-              <a class="facebook_login__button" href="http://localhost:3000/auth/facebook">Solicitar aula atraves do Facebook</a>
+              <a class="facebook_login__button" href="http://localhost:3000/auth/facebook">Solicitar aula atraves do
+                Facebook</a>
             </div>
           </section>
           <div class="separator">OU</div>
           <section class="trial_registration__section">
             <div>
               <form action="/contact/trial" method="POST">
-                <input type="text" class="form-control" id="ipt-trial-email" placeholder="Insira seu e-mail" name="email">
-                <button id="btn-trial-submit" type="submit" class="btn btn-primary" disabled="true">Soliciar minha aula experimental</button>
+                <input type="text" class="form-control" id="ipt-trial-email" placeholder="Insira seu e-mail"
+                  name="email">
+                <button id="btn-trial-submit" type="submit" class="btn btn-primary" disabled="true">Soliciar minha aula
+                  experimental</button>
               </form>
             </div>
           </section>
