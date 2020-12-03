@@ -499,6 +499,24 @@ footer {
     width: 100%;
 }
 
+.trial_failure__modal .modal-content, .trial_failure__modal .modal-body {
+    border-radius: 8px;
+    background-color: var(--lighter-secondary);
+}
+
+.trial_failure__modal i {
+    font-size: 3em;
+}
+
+.trial_success__modal .modal-content, .trial_success__modal .modal-body {
+    border-radius: 8px;
+    background-color: #B2EBF2;
+}
+
+.trial_success__modal i {
+    font-size: 3em;
+}
+
 .facebook_login__button {
     font-family: Lucida Grande, Helvetica Neue, Helvetica, Arial, sans-serif;
     display: inline-block;

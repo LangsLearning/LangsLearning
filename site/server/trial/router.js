@@ -1,3 +1,4 @@
+
 module.exports = {
     apply: (mongoClient, app) => {
         const handler = require('./handler')(mongoClient);
