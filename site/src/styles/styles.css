@@ -602,42 +602,13 @@ footer {
     }
     .methodology__content img.large {
         display: block;
+        width: 100%;
     }
     .methodology__content img.small {
         display: none;
     }
-    
-    .methodology__content-container {
-        display: grid;
-        grid-template-columns: 2fr 1fr 2fr;
-        grid-template-rows: 0.5fr 2fr 0.5fr;
-        gap: 0px 0px;
-        grid-template-areas:
-          ". material ."
-          "image image image"
-          "schedule . join";
-    }
-      
-    .methodology__image { 
-        grid-area: image;
-    }
-    
-    .methodology__txt-schedule { 
-        grid-area: schedule;
-    }
 
-    .schedule__text {
-        font-family: 'Quicksand';
-        font-size: 1.5rem;
-        margin-left: 4rem;
+    .schedule__text, .material__text, .join__text {
+        display: none;
     }
-    
-    .methodology__txt-material { 
-        grid-area: material; 
-    }
-    
-    .methodology__txt-join { 
-        grid-area: join;
-    }
-
 }
