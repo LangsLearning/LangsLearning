@@ -28,8 +28,19 @@ const send = (email, subject, content) => {
     return transport.sendMail(message);
 };
 
+const sendHtml = (email, subject, content) => {
+    const message = {
+        from: senderEmail, // Sender address
+        to: email,         // List of recipients
+        subject: subject, // Subject line
+        html: content // Plain text body
+    };
+    return transport.sendMail(message);
+};
+
 module.exports = {
     send,
+    sendHtml,
     sendToSupport,
     sendToTeachers
 };
