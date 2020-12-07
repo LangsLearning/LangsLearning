@@ -70,3 +70,16 @@ body {
     height: 2rem;
     cursor: pointer;
 }
+
+.button__icon {
+    width: 100%;
+}
+
+.couch__icon {
+    padding-left: 1rem;
+    color: rgb(95, 95, 95);
+}
+
+.people__inclass {
+    padding-left: .2rem;
+}
