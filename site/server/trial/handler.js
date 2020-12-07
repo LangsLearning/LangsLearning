@@ -1,6 +1,15 @@
 const pino = require("pino");
 const logger = pino({ level: process.env.LOG_LEVEL || 'info' });
 const uuid = require('uuid');
+const mail = require('../contact/mail');
+const ejs = require('ejs');
+const path = require('path');
+
+const getRegisterTrialTemplate = (name, datetime, link) => {
+    return ejs.renderFile(path.join(__dirname, '../mails/register-trial.html'), {
+        name, datetime, link
+    });
+};
 
 const getTrials = mongoClient => (req, res) => mongoClient.connect()
     .then(client => {
@@ -23,7 +32,7 @@ const registerTrial = mongoClient => (req, res) => {
 
     if (!name || !email || !datetime || !link) {
         logger.error('Invalid trial data to be registered');
-        res.render('trials', { trials:[], error: 'Could not register the trial class' });
+        res.render('trials', { trials: [], error: 'Could not register the trial class' });
         return;
     }
 
@@ -34,6 +43,12 @@ const registerTrial = mongoClient => (req, res) => {
             const db = client.db("langslearning");
             logger.info(`Registering trial ${trial} in the database...`);
             return db.collection('trials').insertOne(trial);
+        })
+        .then(result => {
+            return getRegisterTrialTemplate(name, datetime, link);
+        })
+        .then(html => {
+            return mail.sendHtml(email, 'LangsLearning - Aula Experimental', html);
         })
         .then(result => {
             res.redirect('/trials');
@@ -49,7 +64,7 @@ const setLevel = mongoClient => (req, res) => {
 
     if (!id || !level) {
         logger.error('Could not set student level, invalid id or level');
-        res.render('trials', { trials:[], error: 'Could not set student level' });
+        res.render('trials', { trials: [], error: 'Could not set student level' });
         return;
     }
 
@@ -68,7 +83,7 @@ const setLevel = mongoClient => (req, res) => {
         });
 };
 
-module.exports = mongoClient =>( {
+module.exports = mongoClient => ({
     getTrials: getTrials(mongoClient),
     registerTrial: registerTrial(mongoClient),
     setLevel: setLevel(mongoClient)
