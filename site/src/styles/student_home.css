@@ -1,6 +1,7 @@
+/* Card Next Classes */
+
 .classes__card {
     top: 84px;
-    width: 90%;
     margin-bottom: 2rem;
     font-family: 'Quicksand';
 }
@@ -9,14 +10,45 @@
     background-color: white;
 }
 
-.footer__style {
-    background-color: white;
-    padding-bottom: 0;
-    text-align: center;
+.card {
+    word-wrap: initial;
+}
+
+.teacher__image-size {
+    width: 3rem;
+    height: 3rem;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .card__spacing {
     margin-bottom: 1rem;
+    text-align: center;
+}
+
+.showmore__button {
+    color: var(--primary-color);
+    background-color: white;
+    border-color: var(--primary-color);
+}
+
+.showmore__button:hover {
+    background-color: var( --primary-color);
+    color: white;
+}
+
+/* Card Next Class hour */
+
+.current__classes-card {
+    top: 84px;
+    font-family: 'Quicksand';
+    margin-bottom: 2rem;
+    height: 22.5rem;
+}
+
+.footer__style {
+    background-color: white;
+    padding-bottom: 0;
     text-align: center;
 }
 
@@ -30,26 +62,10 @@
     margin-bottom: 0;
 }
 
-.current__classes-card {
-    top: 84px;
-    font-family: 'Quicksand';
-    margin-bottom: 2rem;
-}
 
 .card__hour {
     font-size: 3rem;
     color: gray;
-}
-
-.card {
-    word-wrap: initial;
-}
-
-.student__data-card {
-    top: 84px;
-    width: 50%;
-    font-family: 'Quicksand';
-    margin-bottom: 2rem;
 }
 
 .name__title {
@@ -59,24 +75,6 @@
 
 .name__text {
     font-weight: normal;
-}
-
-.teacher__image-size {
-    width: 3rem;
-    height: 3rem;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.showmore__button {
-    color: var(--primary-color);
-    background-color: white;
-    border-color: var(--primary-color);
-}
-
-.showmore__button:hover {
-    background-color: var( --primary-color);
-    color: white;
 }
 
 .schedule__classes-button {
@@ -91,6 +89,8 @@
     background-color: var( --primary-color);
     color: white;
 }
+
+/* Past Classes */
 
 .scheduled__icon-yes {
     color: green;
