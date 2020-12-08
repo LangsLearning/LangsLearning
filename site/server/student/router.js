@@ -7,5 +7,8 @@ module.exports = {
         app.get('/student/packages', (req, res) => {
             res.render('student_packages');
         });
+        app.get('/student/home', (req, res) => {
+            res.render('student_home');
+        });
     }
 };
