@@ -4,6 +4,8 @@ const pino = require('pino');
 const logger = pino({ level: process.env.LOG_LEVEL || 'info' });
 const mail = require('../contact/mail');
 
+const { adminUserConfig, facebookConfig } = require('../config');
+
 const FacebookStrategy = require('passport-facebook').Strategy;
 
 const getEmail = profile => {
@@ -24,20 +26,18 @@ passport.deserializeUser((user, done) => {
 
 passport.use(new BasicStrategy(
     (username, password, done) => {
-        console.log(username);
-        console.log(password);
-        if (username === 'teacher' && password === 'q1w2e3r4') {
-            done(null, { username, role: 'teacher' });
+        if (username === adminUserConfig.username && password === adminUserConfig.password) {
+            done(null, { username, role: 'admin' });
         } else {
-            done(new Error('Invalid user'));
+            done(null, false);
         }
     }
 ));
 
 passport.use(new FacebookStrategy({
-    clientID: "862620514500093",
-    clientSecret: "a459e88b6e25755c9fc7e0ad84e3813c",
-    callbackURL: "http://localhost:3000/auth/facebook/callback",
+    clientID: facebookConfig.clientId,
+    clientSecret: facebookConfig.clientSecret,
+    callbackURL: facebookConfig.callbackUrl,
     profileFields: ['emails']
 },
     (accessToken, refreshToken, profile, done) => {

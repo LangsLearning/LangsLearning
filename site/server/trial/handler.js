@@ -4,6 +4,7 @@ const uuid = require('uuid');
 const mail = require('../contact/mail');
 const ejs = require('ejs');
 const path = require('path');
+const repository = require("./repository");
 
 const getRegisterTrialTemplate = (name, datetime, link) => {
     return ejs.renderFile(path.join(__dirname, '../mails/register-trial.html'), {
@@ -11,13 +12,13 @@ const getRegisterTrialTemplate = (name, datetime, link) => {
     });
 };
 
-const getTrials = mongoClient => (req, res) => mongoClient.connect()
-    .then(client => {
-        logger.info(req);
-        const db = client.db("langslearning");
-        logger.info('Fetching trials in the database...');
-        return db.collection('trials').find({ level: null }).toArray();
-    })
+const getSetPasswordTemplate = (id, name, level, token) => {
+    return ejs.renderFile(path.join(__dirname, '../mails/student-set-password.html'), {
+        id, name, level, token
+    });
+};
+
+const getTrials = repository => (req, res) => repository.findAll()
     .then(trials => {
         logger.info(`${trials.length} trials found`)
         res.render('trials', { trials });
@@ -27,7 +28,7 @@ const getTrials = mongoClient => (req, res) => mongoClient.connect()
         res.render('trials', { trials: [], error: err.message });
     });
 
-const registerTrial = mongoClient => (req, res) => {
+const registerTrial = repository => (req, res) => {
     const { name, email, datetime, link } = req.body;
 
     if (!name || !email || !datetime || !link) {
@@ -36,14 +37,7 @@ const registerTrial = mongoClient => (req, res) => {
         return;
     }
 
-    const trial = { id: uuid.v4(), name, email, datetime, link };
-
-    mongoClient.connect()
-        .then(client => {
-            const db = client.db("langslearning");
-            logger.info(`Registering trial ${trial} in the database...`);
-            return db.collection('trials').insertOne(trial);
-        })
+    repository.register({ name, email, datetime, link })
         .then(result => {
             return getRegisterTrialTemplate(name, datetime, link);
         })
@@ -59,7 +53,7 @@ const registerTrial = mongoClient => (req, res) => {
         });
 };
 
-const setLevel = mongoClient => (req, res) => {
+const setLevel = (tokens, repository) => (req, res) => {
     const { id, level } = req.body;
 
     if (!id || !level) {
@@ -68,11 +62,17 @@ const setLevel = mongoClient => (req, res) => {
         return;
     }
 
-    mongoClient.connect()
-        .then(client => {
-            const db = client.db("langslearning");
-            logger.info(`Updating level of student ${id} to ${level}`);
-            return db.collection('trials').updateOne({ id }, { $set: { level } });
+    repository.setLevel(id, level)
+        .then(result => repository.findById(id))
+        .then(trial => tokens.createSignInToken(trial.id, trial.email).then(token => [trial, token]))
+        .then(data => {
+            const [trial, token] = data;
+            return getSetPasswordTemplate(trial.id, trial.name, trial.level, token.id).then(html => [trial.email, html]);
+        })
+        .then(data => {
+            const [email, html] = data;
+            logger.info(`Sending signin e-mail to user ${email} with content ${html}`);
+            return mail.sendHtml(email, 'LangsLearning - Bem vindo a Langs Learning!', html);
         })
         .then(result => {
             res.redirect('/trials');
@@ -83,8 +83,25 @@ const setLevel = mongoClient => (req, res) => {
         });
 };
 
-module.exports = mongoClient => ({
-    getTrials: getTrials(mongoClient),
-    registerTrial: registerTrial(mongoClient),
-    setLevel: setLevel(mongoClient)
-});
+const removeTrial = repository => (req, res) => {
+    const { id } = req.params;
+    repository.remove(id)
+        .then(result => {
+            res.redirect('/trials');
+        })
+        .catch(err => {
+            logger.error(err);
+            res.redirect('/trials');
+        });
+};
+
+module.exports = mongoClient => {
+    const repository = require('./repository')(mongoClient);
+    const tokens = require('../token/tokens')(mongoClient);
+    return {
+        getTrials: getTrials(repository),
+        registerTrial: registerTrial(repository),
+        setLevel: setLevel(tokens, repository),
+        removeTrial: removeTrial(repository)
+    }
+};
