@@ -1,0 +1,45 @@
+body {
+    background-color: #151313;
+    color: var(--secondary-color);
+}
+
+.signin__container {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5rem;
+}
+
+.signin__title {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.signin__actions {
+    text-align: center;
+}
+
+.signin__actions button {
+    margin-top: 1rem;
+    width: 100%;
+}
+
+.btn-primary {
+    border-color: var(--primary-color);
+    background-color: var(--primary-color);
+    color: white;
+    margin-top: 3px;
+    width: 150px;
+}
+
+.btn-primary:hover {
+    background-color: var(--button-enter-hover);
+    border-color: var(--primary-color);
+}
+
+@media (min-width: 991px) {
+    .signin__container {
+        width: 400px;
+        margin-top: 5rem;
+    }
+}
