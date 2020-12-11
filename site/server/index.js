@@ -20,18 +20,20 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //app.use(expressLogger);
 app.use(cors());
 
-const port = 3000;
+const port = process.env.PORT || 3000;
 const contactRouter = require('./contact/router');
 const staticRouter = require('./static/router');
 const authRouter = require('./auth/router');
 const trialRouter = require('./trial/router');
 const studentRouter = require('./student/router');
+const orderRouter = require('./orders/router');
 
 contactRouter.apply(app);
 staticRouter.apply(app);
 authRouter.apply(mongoClient, app);
 trialRouter.apply(mongoClient, app);
 studentRouter.apply(mongoClient, app);
+orderRouter.apply(mongoClient, app);
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
