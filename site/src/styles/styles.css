@@ -170,6 +170,25 @@
     justify-content: center;
 }
 
+.question__mark {
+    box-sizing: border-box;
+    display: none;
+    color: var(--primary-color);
+    font-size: 2.5rem;
+    position: fixed;
+    height: 58px;
+    cursor: pointer;
+    perspective: 1000px;
+    bottom: 22px;
+    right: 22px;
+    top: 87%;
+    z-index: 9999999;
+}
+
+.question__mark:hover {
+   color: var( --button-enter-hover);
+}
+
 /* Why joining us */
 
 .background__definition {
@@ -284,6 +303,7 @@
 .plans__area {
     background-color: var(--secondary-color);
     padding-bottom: 2rem;
+    z-index: 1;
 }
 
 .card__header-style {
@@ -310,6 +330,11 @@
     margin-bottom: 1.5rem;
     margin-left: auto;
     margin-right: auto;
+    z-index: 1;
+}
+
+.card {
+    z-index: 1;
 }
 
 .cards__title {
@@ -364,14 +389,19 @@
 /* Contact */
 
 .contact {
-    padding-top: 80px;
-    padding-bottom: 80px;
-    padding-left: 20px;
-    padding-right: 20px;
+    position: fixed;
 
     border-top: 1px solid #808080;
     border-bottom: 1px solid #808080;
+    border-radius: 5%;
     background-color: #F9F9F3;
+
+    box-sizing: border-box;
+    height: 25rem;
+    width: 14rem;
+    bottom: 21.25rem;
+    right: 8.438rem;
+    z-index: 9999999;
 }
 
 .contact input, .contact textarea {
@@ -392,6 +422,11 @@
     overflow: auto;
 }
 
+.title__style.contact__text {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+}
+
 .contact textarea {
     margin-bottom: 10px;
 }
@@ -408,9 +443,13 @@
 }
 
 .contact__body {
-    max-width: 80%;
+    width: 80%;
     margin-left: auto;
     margin-right: auto;
+}
+
+.contact__form-container {
+    width: 100%;
 }
 
 
@@ -647,9 +686,16 @@ footer {
         display: none;
     }
 
-    .contact__body {
-        max-width: 40%;
-        margin-left: auto;
-        margin-right: auto;
+    .contact {
+        bottom: 1.375rem;
+        right: 1.375rem;
+        height: 24rem;
+        width: 40%;
+        height: 24rem;
     }
+
+    .title__style.contact__text {
+        font-size: 2rem;
+    }
+
 }
