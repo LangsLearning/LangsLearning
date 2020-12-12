@@ -163,9 +163,6 @@ const listenOnNavbarCollapse = () => {
     });
 };
 
-<<<<<<< HEAD
-$(function() {
-=======
 const showContactForm = () => {
     $btnQuestion.fadeOut(200, () => {
         $containerContact.fadeIn(200);
@@ -178,8 +175,7 @@ const closeContactForm = () => {
     });
 };
 
-$(function () {
->>>>>>> 6e68f5acab4089aed5e4358f199a5b7fedef7e4c
+$(function() {
     setNavbarClass();
     getContactFormToken();
     listenOnWindowScroll();
