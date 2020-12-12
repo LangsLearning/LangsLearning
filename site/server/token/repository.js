@@ -8,6 +8,11 @@ const register = collectionPromise => token => {
     return collectionPromise.then(tokens => tokens.insertOne(token));
 };
 
+const findById = collectionPromise => id => {
+    logger.info(`Searching for token with id ${id}`);
+    return collectionPromise.then(tokens => tokens.findOne({ id }));
+};
+
 module.exports = mongoClient => {
     const collectionPromise = mongoClient.connect()
         .then(client => {
@@ -16,5 +21,6 @@ module.exports = mongoClient => {
         });
     return {
         register: register(collectionPromise),
+        findById: findById(collectionPromise),
     }
 };
