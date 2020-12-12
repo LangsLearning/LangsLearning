@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Langs learning</title>
+    <link rel="icon" href="/images/LangsLearnning_icon.png" type="image/x-icon">
+    <!-- JUST LIBRARIES -->
+    <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/@fortawesome/fontawesome-free/css/all.css">
+    <!-- JUST LIBRARIES -->
+
+
+    <!-- OUR CSS FILES HERE -->
+    <link rel="stylesheet" href="/styles/variables.css">
+    <link rel="stylesheet" href="/styles/styles.css">
+    <link rel="stylesheet" href="/styles/signin.css">
+    <!-- OUR CSS FILES HERE -->
+</head>
+
+<body>
+
+</body>
+<main class="signin__container">
+    <form>
+        <div class="signin__title">
+            <img src="/images/LangsLearnning_logo_small.png">
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" disabled value="">
+        </div>
+        <div class="form-group">
+            <label for="password">Senha</label>
+            <input type="password" class="form-control" id="password" placeholder="Insira sua senha">
+        </div>
+        <div class="form-group">
+            <label for="password-confirmation">Confirmação de senha</label>
+            <input type="password" class="form-control" id="password-confirmation" placeholder="Confirme sua senha">
+        </div>
+        <input type="hidden" name="token" value="">
+        <div class="signin__actions">
+            <button type="submit" class="btn btn-primary">Confirmar <i class="fas fa-sign-in-alt"></i></button>
+        </div>
+    </form>
+</main>
+
+</html>

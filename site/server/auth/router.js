@@ -57,6 +57,11 @@ module.exports = {
         app.use(passport.initialize());
         app.use(passport.session());
 
+        app.get('/signin/:token', (req, res) => {
+            const { token } = req.params;
+            res.render('signin', { token });
+        });
+
         app.get('/admin/login', passport.authenticate('basic'), (req, res) => {
             res.redirect('/trials');
         });

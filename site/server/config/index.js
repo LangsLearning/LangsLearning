@@ -1,5 +1,6 @@
 const adminUserJsonConfig = require('./admin.json');
 const facebookJsonConfig = require('./facebook.json');
+const serverJsonConfig = require('./server.json');
 
 const adminUserConfig = {
     username: process.env.ADMIN_USERNAME || adminUserJsonConfig.username,
@@ -12,7 +13,12 @@ const facebookConfig = {
     callbackUrl: process.env.FACEBOOK_CALLBACK_URL || facebookJsonConfig.callbackUrl,
 };
 
+const serverConfig = {
+    url: process.env.SERVER_URL || serverJsonConfig.url
+};
+
 module.exports = {
     adminUserConfig,
-    facebookConfig
+    facebookConfig,
+    serverConfig
 }

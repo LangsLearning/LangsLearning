@@ -5,6 +5,7 @@ const mail = require('../contact/mail');
 const ejs = require('ejs');
 const path = require('path');
 const repository = require("./repository");
+const { serverConfig } = require('../config');
 
 const getRegisterTrialTemplate = (name, datetime, link) => {
     return ejs.renderFile(path.join(__dirname, '../mails/register-trial.html'), {
@@ -13,8 +14,9 @@ const getRegisterTrialTemplate = (name, datetime, link) => {
 };
 
 const getSetPasswordTemplate = (id, name, level, token) => {
+    const link = `${serverConfig}/signin/${token}`;    
     return ejs.renderFile(path.join(__dirname, '../mails/student-set-password.html'), {
-        id, name, level, token
+        id, name, level, link
     });
 };
 
