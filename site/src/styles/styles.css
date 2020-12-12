@@ -170,25 +170,6 @@
     justify-content: center;
 }
 
-.question__mark {
-    box-sizing: border-box;
-    display: none;
-    color: var(--primary-color);
-    font-size: 2.5rem;
-    position: fixed;
-    height: 58px;
-    cursor: pointer;
-    perspective: 1000px;
-    bottom: 22px;
-    right: 22px;
-    top: 87%;
-    z-index: 9999999;
-}
-
-.question__mark:hover {
-   color: var( --button-enter-hover);
-}
-
 /* Why joining us */
 
 .background__definition {
@@ -404,6 +385,15 @@
     z-index: 9999999;
 }
 
+.close__button {
+    color: var(--primary-color);
+    font-size: 1rem;
+    position: absolute;
+    top: 0.938rem;
+    right: 1.25rem;
+    cursor: pointer;
+}
+
 .contact input, .contact textarea {
     background-color: transparent;
     margin-bottom: 30px;
@@ -425,6 +415,7 @@
 .title__style.contact__text {
     font-size: 1.5rem;
     margin-bottom: 2rem;
+    position: relative;
 }
 
 .contact textarea {
@@ -451,6 +442,29 @@
 .contact__form-container {
     width: 100%;
 }
+
+.question__mark {
+    box-sizing: border-box;
+    color: var(--primary-color);
+    font-size: 2.5rem;
+    position: fixed;
+    height: 58px;
+    cursor: pointer;
+    perspective: 1000px;
+    bottom: 22px;
+    right: 22px;
+    top: 87%;
+    z-index: 9999999;
+}
+
+.question__mark:hover {
+   color: var( --button-enter-hover);
+}
+
+.invisible {
+    display: none;
+}
+
 
 
 /* Footer */
@@ -690,8 +704,12 @@ footer {
         bottom: 1.375rem;
         right: 1.375rem;
         height: 24rem;
-        width: 40%;
+        width: 30%;
         height: 24rem;
+    }
+
+    .close__button {
+        font-size: 1.5rem;
     }
 
     .title__style.contact__text {

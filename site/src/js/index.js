@@ -1,11 +1,14 @@
 const $window = $(window);
 const $navbar = $('nav.navbar');
+const $containerContact = $('#contact-container');
 const $iptContactName = $('#ipt-contact-name');
 const $iptContactEmail = $('#ipt-contact-email');
 const $iptContactText = $('#ipt-contact-text');
 const $iptContactToken = $('#ipt-contact-token');
 const $btnContactSubmit = $('#btn-contact-submit');
 const $formContact = $('#form-contact')[0];
+const $btnQuestion = $('#question-button');
+const $btnCloseContact = $('#contact-close-button');
 
 const $iptTrialEmail = $('#ipt-trial-email');
 const $btnTrialSubmit = $('#btn-trial-submit');
@@ -162,6 +165,18 @@ const listenOnNavbarCollapse = () => {
     });
 };
 
+const showContactForm = () => {
+    $btnQuestion.fadeOut(200, () => {
+        $containerContact.fadeIn(200);
+    });
+};
+
+const closeContactForm = () => {
+    $containerContact.fadeOut(200, () => {
+        $btnQuestion.fadeIn(200);
+    });
+};
+
 $(function () {
     setNavbarClass();
     getContactFormToken();
@@ -173,6 +188,10 @@ $(function () {
     $iptContactText.on('keyup', toggleContactSubmitButton);
     $iptTrialEmail.on('keyup', toggleTrialSubmitButton);
     $btnContactSubmit.on('click', submitContact);
+
+    $btnQuestion.on('click', showContactForm);
+
+    $btnCloseContact.on('click', closeContactForm);
 
     showTrialRequestResponse();
 });

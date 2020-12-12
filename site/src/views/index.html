@@ -111,7 +111,7 @@
 
     <%- include('components/packages.html'); %>
 
-    <section id="contact" class="contact">
+    <section id="contact-container" class="contact" style="display: none;">
       <div id="contact-alert-sucess" class="alert alert-success" role="alert" style="display: none;">
         Sua mensagem foi recebida com sucesso, muito obrigado pelo seu interesse!
       </div>
@@ -119,6 +119,7 @@
         Infelizmente nao conseguimos receber sua mensagem, tente novamente mais tarde...
       </div>
       <div class="contact__body">
+        <i id="contact-close-button" class="far fa-times-circle close__button"></i>
         <h1 class="title__style contact__text">Como podemos te ajudar?</h1>
         <div class="contact__form-container">
           <form id="form-contact">
@@ -135,11 +136,11 @@
         </div>
       </div>
 
-      <div class="question__mark">
-        <i class="fas fa-question-circle"></i>
-      </div>
-
     </section>
+
+    <div id="question-button" class="question__mark">
+      <i class="fas fa-question-circle"></i>
+    </div>
     
   </main>
 
