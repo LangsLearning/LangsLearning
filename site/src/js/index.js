@@ -15,8 +15,6 @@ const $modalTrialFailure = $('#modal-trial-failure');
 const $contactAlertSuccess = $('#contact-alert-sucess');
 const $contactAlertError = $('#contact-alert-error');
 
-const apiUrl = "http://localhost:3000";
-
 const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 const isValidEmail = (email) => emailRegex.test(email);
 
@@ -64,7 +62,7 @@ const submitContact = () => {
     const { name, email, text, token } = getContactData();
     $.ajax({
         type: "POST",
-        url: `${apiUrl}/contact`,
+        url: `/contact`,
         data: JSON.stringify({ name, email, text, token }),
         success: (response, textStatus, jqXHR) => {
             console.log("E-mail sent!");
@@ -82,7 +80,7 @@ const submitContact = () => {
 };
 
 const getContactFormToken = () => {
-    $.getJSON(`${apiUrl}/contact`, (data) => {
+    $.getJSON(`/contact`, (data) => {
         const { token } = data;
         $iptContactToken.val(token);
     });
@@ -162,7 +160,7 @@ const listenOnNavbarCollapse = () => {
     });
 };
 
-$(function () {
+$(function() {
     setNavbarClass();
     getContactFormToken();
     listenOnWindowScroll();

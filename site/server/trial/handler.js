@@ -1,6 +1,5 @@
 const pino = require("pino");
 const logger = pino({ level: process.env.LOG_LEVEL || 'info' });
-const uuid = require('uuid');
 const mail = require('../contact/mail');
 const ejs = require('ejs');
 const path = require('path');
@@ -9,37 +8,52 @@ const { serverConfig } = require('../config');
 
 const getRegisterTrialTemplate = (name, datetime, link) => {
     return ejs.renderFile(path.join(__dirname, '../mails/register-trial.html'), {
-        name, datetime, link
+        name,
+        datetime,
+        link
     });
 };
 
 const getSetPasswordTemplate = (id, name, level, token) => {
-    const link = `${serverConfig}/signin/${token}`;    
+    const link = `${serverConfig.url}/signin/${token}`;
     return ejs.renderFile(path.join(__dirname, '../mails/student-set-password.html'), {
-        id, name, level, link
+        id,
+        name,
+        level,
+        link
     });
 };
 
-const getTrials = repository => (req, res) => repository.findAll()
-    .then(trials => {
-        logger.info(`${trials.length} trials found`)
-        res.render('trials', { trials });
+const getTrials = (studentsRepository, trialsRepository) => (req, res) => trialsRepository.findAll()
+    .then(trials => studentsRepository.findAllBy({}).then(students => ({ trials, students })))
+    .then(data => {
+        const { trials, students } = data;
+        logger.info(`Rendering trials page: ${trials.length} trials found, ${students.length} students found`);
+        res.render('trials', { trials, students });
     })
     .catch(err => {
         logger.error(err);
-        res.render('trials', { trials: [], error: err.message });
+        res.render('trials', { trials: [], students: [], error: err.message });
     });
 
-const registerTrial = repository => (req, res) => {
+const registerTrial = (studentRepository, trialRepository) => (req, res) => {
     const { name, email, datetime, link } = req.body;
 
     if (!name || !email || !datetime || !link) {
         logger.error('Invalid trial data to be registered');
-        res.render('trials', { trials: [], error: 'Could not register the trial class' });
+        res.render('trials', { trials: [], students: [], error: 'Could not register the trial class' });
         return;
     }
 
-    repository.register({ name, email, datetime, link })
+    studentRepository.findByEmail(email)
+        .then(student => {
+            if (student) {
+                return Promise.reject({ message: 'There is already a Student registered', type: 'existent_student' });
+            } else {
+                return Promise.resolve({});
+            }
+        })
+        .then(result => trialRepository.register({ name, email, datetime, link }))
         .then(result => {
             return getRegisterTrialTemplate(name, datetime, link);
         })
@@ -50,8 +64,8 @@ const registerTrial = repository => (req, res) => {
             res.redirect('/trials');
         })
         .catch(err => {
-            logger.error(err);
-            res.redirect('/trials');
+            logger.error(err.message || err);
+            res.redirect(`/trials?error=${err.type || err}`);
         });
 };
 
@@ -60,7 +74,7 @@ const setLevel = (tokens, repository) => (req, res) => {
 
     if (!id || !level) {
         logger.error('Could not set student level, invalid id or level');
-        res.render('trials', { trials: [], error: 'Could not set student level' });
+        res.render('trials', { trials: [], students: [], error: 'Could not set student level' });
         return;
     }
 
@@ -98,11 +112,12 @@ const removeTrial = repository => (req, res) => {
 };
 
 module.exports = mongoClient => {
+    const studentRepository = require('../student/repository')(mongoClient);
     const repository = require('./repository')(mongoClient);
     const tokens = require('../token/tokens')(mongoClient);
     return {
-        getTrials: getTrials(repository),
-        registerTrial: registerTrial(repository),
+        getTrials: getTrials(studentRepository, repository),
+        registerTrial: registerTrial(studentRepository, repository),
         setLevel: setLevel(tokens, repository),
         removeTrial: removeTrial(repository)
     }
