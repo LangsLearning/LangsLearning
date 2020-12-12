@@ -35,11 +35,11 @@ passport.use(new BasicStrategy(
 ));
 
 passport.use(new FacebookStrategy({
-    clientID: facebookConfig.clientId,
-    clientSecret: facebookConfig.clientSecret,
-    callbackURL: facebookConfig.callbackUrl,
-    profileFields: ['emails']
-},
+        clientID: facebookConfig.clientId,
+        clientSecret: facebookConfig.clientSecret,
+        callbackURL: facebookConfig.callbackUrl,
+        profileFields: ['emails']
+    },
     (accessToken, refreshToken, profile, done) => {
         const email = getEmail(profile);
         if (email) {
@@ -53,15 +53,7 @@ passport.use(new FacebookStrategy({
 ));
 
 module.exports = {
-    apply: (mongoClient, app) => {
-        app.use(passport.initialize());
-        app.use(passport.session());
-
-        app.get('/signin/:token', (req, res) => {
-            const { token } = req.params;
-            res.render('signin', { token });
-        });
-
+    apply: app => {
         app.get('/admin/login', passport.authenticate('basic'), (req, res) => {
             res.redirect('/trials');
         });
