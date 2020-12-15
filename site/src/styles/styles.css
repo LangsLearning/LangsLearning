@@ -452,10 +452,10 @@
 
 .question__mark {
     box-sizing: border-box;
-    box-shadow:  0 0 10px  rgba(0,0,0,0.6);
-      -moz-box-shadow: 0 0 10px  rgba(0,0,0,0.6);
-      -webkit-box-shadow: 0 0 10px  rgba(0,0,0,0.6);
-      -o-box-shadow: 0 0 10px  rgba(0,0,0,0.6);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+    -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+    -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+    -o-box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
     border-radius: 50%;
     height: 46px;
     width: 46px;
@@ -525,6 +525,47 @@ footer {
     height: 2rem;
     width: 2rem;
     margin-top: .3rem;
+}
+
+.login__modal .modal-header {
+    font-size: 1.5em;
+    background-color: var(--primary-color);
+    color: white;
+    text-align: center;
+    display: table-cell;
+}
+
+.login__modal section {
+    padding: 30px;
+}
+
+.login__modal .input-group-text {
+    width: 50px;
+    margin-bottom: 10px;
+}
+
+.login__modal .input-group-text i {
+    font-size: 24px;
+}
+
+.login__modal button[type=submit] {
+    width: 100%;
+    border-color: var(--primary-color);
+    background-color: var(--primary-color);
+    color: white;
+    margin-top: 3px;
+    width: 100%;
+}
+
+.login__modal button[type=submit]:hover {
+    background-color: var(--button-enter-hover);
+    border-color: var(--primary-color);
+}
+
+.login__modal .login_forgot_password {
+    font-size: 0.8em;
+    padding-top: 9px;
+    text-align: center;
 }
 
 .trial__modal .separator {
