@@ -5,6 +5,7 @@
     src: url('/fonts/Spartwell.otf');
 }
 
+
 /* Header */
 
 .nav__invisible {
@@ -52,12 +53,12 @@
     margin-right: 10px;
 }
 
-.navbar-dark .navbar-nav > li {
+.navbar-dark .navbar-nav>li {
     background-color: #151313;
     font-size: 1.2rem;
 }
 
-.navbar-nav > li:last-child {
+.navbar-nav>li:last-child {
     margin-top: 5px;
 }
 
@@ -102,6 +103,7 @@
     padding: 0px;
     font-size: 2.2rem;
 }
+
 
 /* Banner */
 
@@ -170,6 +172,7 @@
     justify-content: center;
 }
 
+
 /* Why joining us */
 
 .background__definition {
@@ -202,6 +205,7 @@
     margin-right: auto;
     margin-left: auto;
 }
+
 
 /* Methodology */
 
@@ -278,6 +282,7 @@
 .methodology__content img.small {
     display: block;
 }
+
 
 /* Plans */
 
@@ -367,21 +372,20 @@
     width: 10rem;
 }
 
+
 /* Contact */
 
 .contact {
     position: fixed;
-
     border-top: 1px solid #808080;
     border-bottom: 1px solid #808080;
     border-radius: 5%;
     background-color: #F9F9F3;
-
     box-sizing: border-box;
     height: 25rem;
     width: 14rem;
-    bottom: 21.25rem;
-    right: 8.438rem;
+    bottom: 1.328rem;
+    right: 0.527rem;
     z-index: 9999999;
 }
 
@@ -394,16 +398,18 @@
     cursor: pointer;
 }
 
-.contact input, .contact textarea {
+.contact input,
+.contact textarea {
     background-color: transparent;
     margin-bottom: 30px;
     padding: 0px 10px 0px 10px;
-    border: 0; 
+    border: 0;
     outline: none;
     box-shadow: -18px 18px 0px -17px #848181, 18px 18px 0px -17px #848181;
 }
 
-.contact input:focus, .contact textarea:focus {
+.contact input:focus,
+.contact textarea:focus {
     background-color: transparent;
     border-top: none;
     border-left: none;
@@ -458,13 +464,12 @@
 }
 
 .question__mark:hover {
-   color: var( --button-enter-hover);
+    color: var( --button-enter-hover);
 }
 
 .invisible {
     display: none;
 }
-
 
 
 /* Footer */
@@ -520,7 +525,8 @@ footer {
     margin-bottom: 10px;
 }
 
-.trial__modal .separator::before, .trial__modal .separator::after {
+.trial__modal .separator::before,
+.trial__modal .separator::after {
     content: '';
     flex: 1;
     border-bottom: 1px solid #403838;
@@ -538,11 +544,11 @@ footer {
     text-align: center;
 }
 
-.trial_socialmedia__section > div {
+.trial_socialmedia__section>div {
     padding: 10px;
 }
 
-.trial_socialmedia__section > div > p {
+.trial_socialmedia__section>div>p {
     color: gray;
     font-size: 0.9em;
 }
@@ -560,7 +566,8 @@ footer {
     width: 100%;
 }
 
-.trial_failure__modal .modal-content, .trial_failure__modal .modal-body {
+.trial_failure__modal .modal-content,
+.trial_failure__modal .modal-body {
     border-radius: 8px;
     background-color: var(--lighter-secondary);
 }
@@ -569,7 +576,8 @@ footer {
     font-size: 3em;
 }
 
-.trial_success__modal .modal-content, .trial_success__modal .modal-body {
+.trial_success__modal .modal-content,
+.trial_success__modal .modal-body {
     border-radius: 8px;
     background-color: #B2EBF2;
 }
@@ -613,6 +621,7 @@ footer {
     padding: 2 25px 0 0;
     content: "f";
 }
+
 
 /* Responsive */
 
@@ -661,30 +670,24 @@ footer {
 }
 
 @media (min-width: 991px) {
-    .navbar-nav > li:last-child {
+    .navbar-nav>li:last-child {
         margin-top: 0px;
     }
-
     .enter__button {
         width: 70px;
     }
-
     .tryit__button {
         width: 120px;
     }
-
     .navbar-collapse {
         margin-right: 10px;
     }
-
     .tryit__button {
         margin-left: .5rem;
     }
-
     .background__definition {
         margin-top: 0;
     }
-
     .methodology__content img {
         width: 60%;
     }
@@ -695,11 +698,11 @@ footer {
     .methodology__content img.small {
         display: none;
     }
-
-    .schedule__text, .material__text, .join__text {
+    .schedule__text,
+    .material__text,
+    .join__text {
         display: none;
     }
-
     .contact {
         bottom: 1.375rem;
         right: 1.375rem;
@@ -707,13 +710,10 @@ footer {
         width: 30%;
         height: 24rem;
     }
-
     .close__button {
         font-size: 1.5rem;
     }
-
     .title__style.contact__text {
         font-size: 2rem;
     }
-
 }
