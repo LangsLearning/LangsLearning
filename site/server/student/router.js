@@ -3,17 +3,20 @@ const passport = require('passport');
 module.exports = {
     apply: (mongoClient, app) => {
         const repository = require('./repository')(mongoClient);
-        const { studentAuthCheck } = require('./handler')(mongoClient);
+        const handler = require('./handler')(mongoClient);
 
-        app.get('/student/bookaclass', studentAuthCheck, (req, res) => {
+        app.get('/student/bookaclass', handler.studentAuthCheck, (req, res) => {
             res.render('student_bookclass', { student: req.session.student });
         });
-        app.get('/student/packages', studentAuthCheck, (req, res) => {
+        app.get('/student/packages', handler.studentAuthCheck, (req, res) => {
             res.render('student_packages', { student: req.session.student });
         });
-        app.get('/student/home', studentAuthCheck, (req, res) => {
+        app.get('/student/home', handler.studentAuthCheck, (req, res) => {
             res.render('student_home', { student: req.session.student });
         });
+
+        app.post('/student/login', handler.login);
+
         app.get('/ops/students/dump.json', passport.authenticate('basic'), (req, res) => {
             repository.deleteBy({})
                 .then(result => res.status(200).json({ message: 'All students deleted' }))

@@ -30,7 +30,12 @@ const registerOrUpdate = collectionPromise => object => {
                 return students.updateOne({ id: student.id }, { $set: updatedStudent }).then(result => updatedStudent);
 
             } else {
-                return register(collectionPromise)(object);
+                return register(collectionPromise)({
+                    name,
+                    email,
+                    password: md5(password),
+                    availableClasses
+                });
             }
         });
 };
