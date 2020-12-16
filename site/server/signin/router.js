@@ -30,5 +30,10 @@ module.exports = {
                     res.redirect('/student/packages');
                 });
         });
+
+        app.get('/signout', (req, res) => {
+            req.session.student = null;
+            res.redirect('/?logout=true');
+        });
     }
 };

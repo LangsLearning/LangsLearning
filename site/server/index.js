@@ -1,6 +1,7 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
 const bodyParser = require('body-parser');
 const pino = require('pino');
 const expressPino = require('express-pino-logger');
@@ -23,7 +24,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //app.use(expressLogger);
 app.use(cors());
 app.use(cookieParser());
-app.use(session({ secret: "XjVC2sECqsWCUJYF" }));
+app.use(session({
+    secret: "XjVC2sECqsWCUJYF",
+    name: "langslearning",
+    resave: true,
+    saveUninitialized: true,
+    store: new MongoStore({ client: mongoClient })
+}));
 
 app.use(passport.initialize());
 app.use(passport.session());
