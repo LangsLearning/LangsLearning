@@ -1,0 +1,31 @@
+.user__name:hover {
+    color: none;
+}
+
+.user__name {
+    color: var(--secondary-color);
+}
+
+.whole__title {
+    font-size: 1.5em;
+}
+
+.navbar-light.nav__invisible .navbar-nav .nav-link, 
+.navbar-light.nav__invisible .navbar-nav button,
+.navbar-light.nav__visible .navbar-nav .nav-link, 
+.navbar-light.nav__visible .navbar-nav button {
+    font-size: 0.9rem;
+    margin-left: 5px;
+}
+
+.navbar-light.nav__invisible .navbar-nav .nav-link, 
+.navbar-light.nav__invisible  {
+    color: var(--primary-color);
+}
+
+.nav__invisible {
+    background-color: white;
+}
+
+
+

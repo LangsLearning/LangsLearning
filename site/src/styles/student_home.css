@@ -1,5 +1,9 @@
 /* Card Next Classes */
 
+.class__title-style {
+    height: 2.3rem;
+}
+
 .classes__card {
     top: 84px;
     margin-bottom: 2rem;
@@ -24,6 +28,8 @@
 .card__spacing {
     margin-bottom: 1rem;
     text-align: center;
+    padding-left: 0;
+    padding-right: 0;
 }
 
 .showmore__button {
