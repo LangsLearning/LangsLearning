@@ -6,6 +6,7 @@ const logger = pino({ level: process.env.LOG_LEVEL || 'info' });
 const register = collectionPromise => object => collectionPromise.then(students => {
     const student = { name, email, password, availableClasses } = object;
     student.id = uuid.v4();
+    student.password = md5(password);
     logger.info(`Registering student with id ${student.id} and email ${student.email}`);
     return students.insertOne(student).then(result => student);
 });
@@ -23,8 +24,8 @@ const registerOrUpdate = collectionPromise => object => {
                 const updatedStudent = {
                     id: student.id,
                     name: name || student.name,
-                    name: md5(password) || student.password,
-                    name: availableClasses || student.availableClasses
+                    password: md5(password) || student.password,
+                    availableClasses: availableClasses || student.availableClasses
                 }
                 logger.info(`Updating student with id ${updatedStudent.id} and email ${updatedStudent.email}`);
                 return students.updateOne({ id: student.id }, { $set: updatedStudent }).then(result => updatedStudent);
@@ -33,7 +34,7 @@ const registerOrUpdate = collectionPromise => object => {
                 return register(collectionPromise)({
                     name,
                     email,
-                    password: md5(password),
+                    password,
                     availableClasses
                 });
             }
