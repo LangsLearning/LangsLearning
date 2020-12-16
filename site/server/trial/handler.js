@@ -58,6 +58,7 @@ const registerTrial = (studentRepository, trialRepository) => (req, res) => {
             return getRegisterTrialTemplate(name, datetime, link);
         })
         .then(html => {
+            logger.info(`Sending trial e-mail to user ${email} with content ${html}`);
             return mail.sendHtml(email, 'LangsLearning - Aula Experimental', html);
         })
         .then(result => {
