@@ -29,18 +29,22 @@ const login = repository => (req, res) => {
         return;
     }
     repository.findByEmail(email)
-        .then(user => {
-            if (!user) {
+        .then(student => {
+            if (!student) {
                 return Promise.reject('Invalid e-mail');
             }
 
-            if (user.password === md5(password)) {
-                return Promise.resolve(user);
+            if (student.password === md5(password)) {
+                return Promise.resolve(student);
             }
 
             return Promise.reject('Invalid password');
         })
-        .then(user => res.redirect('/student/home'))
+        .then(student => {
+            req.session.studentId = student.id;
+            req.session.student = student;
+            res.redirect('/student/home', { student });
+        })
         .catch(err => {
             logger.error(err);
             res.redirect('/?login=error');
