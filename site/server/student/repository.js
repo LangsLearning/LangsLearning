@@ -24,8 +24,8 @@ const addAvailableClasses = collectionPromise => (email, classesToAdd) => {
             const updatedStudent = {
                 availableClasses: student.availableClasses + classesToAdd
             };
-            logger.info(`Adding ${classesToAdd} to student with id ${student.id} and email ${student.email}`);
-            return students.updateOne({ id: student.id }, { $set: updatedStudent }).then(result => updatedStudent);
+            logger.info(`Adding ${classesToAdd} classes to student with id ${student.id} and email ${student.email}`);
+            return students.updateOne({ id: student.id }, { $set: updatedStudent }).then(result => Object.assign({}, student, updatedStudent));
         });
 };
 
