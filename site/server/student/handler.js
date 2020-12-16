@@ -43,7 +43,7 @@ const login = repository => (req, res) => {
         .then(student => {
             req.session.studentId = student.id;
             req.session.student = student;
-            res.redirect('/student/home', { student });
+            res.redirect('/student/home');
         })
         .catch(err => {
             logger.error(err);
