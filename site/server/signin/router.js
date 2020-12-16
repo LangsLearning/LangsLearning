@@ -26,8 +26,8 @@ module.exports = {
                     return studentRepository.register(student);
                 })
                 .then(student => {
-                    req.session.studentId = student.id;
-                    res.redirect('/student/home');
+                    req.session.student = student;
+                    res.redirect('/student/packages');
                 });
         });
     }

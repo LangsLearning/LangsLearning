@@ -4,16 +4,16 @@ const logger = pino({ level: process.env.LOG_LEVEL || 'info' });
 const md5 = require('md5');
 
 const studentAuthCheck = repository => (req, res, next) => {
-    const { studentId } = req.session;
-    if (!studentId) {
+    const { student } = req.session;
+    if (!student || !student.id) {
         logger.warn(`Student check: access denied, invalid session`);
         res.redirect('/');
         return;
     }
 
-    repository.findById(studentId)
-        .then(student => {
-            req.session.student = student;
+    repository.findById(student.id)
+        .then(persistedStudent => {
+            req.session.student = persistedStudent;
             next();
         })
         .catch(err => {
@@ -41,9 +41,14 @@ const login = repository => (req, res) => {
             return Promise.reject('Invalid password');
         })
         .then(student => {
-            req.session.studentId = student.id;
             req.session.student = student;
-            res.redirect('/student/home');
+            const doesntHaveNextClasses = !student.nextClasses || student.nextClasses.length === 0;
+            const hasNoAvailableClasses = student.availableClasses === 0;
+            if (doesntHaveNextClasses && hasNoAvailableClasses) {
+                res.redirect('/student/packages');
+            } else {
+                res.redirect('/student/home');
+            }
         })
         .catch(err => {
             logger.error(err);
