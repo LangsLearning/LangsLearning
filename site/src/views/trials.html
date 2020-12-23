@@ -54,8 +54,8 @@
                                 <%= trial.link %>
                             </td>
                             <td style="text-align: right;">
-                                <a class="btn btn-warning" href="/trials/<%= trial.id %>/edit">Change</a>
-                                <a class="btn btn-danger" href="/trials/<%= trial.id %>/remove">Remove</a>
+                                <a class="btn btn-warning" href="/admin/trials/<%= trial.id %>/edit">Change</a>
+                                <a class="btn btn-danger" href="/admin/trials/<%= trial.id %>/remove">Remove</a>
                                 <button class="btn btn-success" data-toggle="modal" data-target="#trial-set-level-modal" data-id="<%= trial.id %>" data-name="<%= trial.name %>">
                                     Set Level
                                 </button>
@@ -131,7 +131,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="/trials/level" method="POST">
+                    <form action="/admin/trials/level" method="POST">
                         <div class="form-group">
                             <label for="trial-level-student-name" class="col-form-label">Student name:</label>
                             <input type="text" name="name" class="form-control" id="trial-level-student-name" required disabled>
@@ -165,7 +165,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="/trials" method="POST">
+                    <form action="/admin/trials" method="POST">
                         <div class="form-group">
                             <label for="trial-student-name" class="col-form-label">Student name:</label>
                             <input type="text" name="name" class="form-control" id="trial-student-name" required>
