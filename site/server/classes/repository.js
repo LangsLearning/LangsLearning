@@ -34,7 +34,7 @@ const register = object => {
 
 const remove = id => {
     logger.info(`Removing Class with id ${id}`);
-    return Class.updateOne({ id }, { $set: { active: false } });
+    return Class.updateOne({ _id: id }, { $set: { active: false } });
 };
 
 module.exports = {

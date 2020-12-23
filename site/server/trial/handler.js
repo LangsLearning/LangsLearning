@@ -83,10 +83,10 @@ const setLevel = (tokens, repository) => (req, res) => {
 
     repository.setLevel(id, level)
         .then(result => repository.findById(id))
-        .then(trial => tokens.createSignInToken(trial.id, trial.email).then(token => [trial, token]))
+        .then(trial => tokens.createSignInToken(trial._id, trial.email).then(token => [trial, token]))
         .then(data => {
             const [trial, token] = data;
-            return getSetPasswordTemplate(trial.id, trial.name, trial.level, token.id).then(html => [trial.email, html]);
+            return getSetPasswordTemplate(trial._id, trial.name, trial.level, token._id).then(html => [trial.email, html]);
         })
         .then(data => {
             const [email, html] = data;

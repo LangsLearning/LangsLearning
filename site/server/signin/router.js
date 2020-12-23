@@ -20,10 +20,8 @@ module.exports = {
             tokens.getSigninToken(token)
                 .then(signinToken => trialRepository.findById(signinToken.trialId))
                 .then(trial => {
-                    const student = { name, email } = trial;
-                    student.password = password;
-                    student.availableClasses = 0;
-                    return studentRepository.register(student);
+                    const { name, email } = trial;
+                    return studentRepository.register({ name, email, password, availableClasses: 0 });
                 })
                 .then(student => {
                     req.session.student = student;

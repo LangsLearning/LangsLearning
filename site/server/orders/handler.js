@@ -14,7 +14,7 @@ const isValidSid = (order) => {
 };
 
 const products = [{
-    id: '671302',
+    _id: '671302',
     name: 'Primeiros Passos',
     classes: 10
 }];
@@ -33,7 +33,7 @@ const registerOrder = studentRepository => (req, res) => {
     logger.info(`New order received: ${JSON.stringify(order)}`);
     if (isValidSid(order)) {
         const email = order.edz_cli_email;
-        const product = products.find(product => product.id === order.edz_cnt_cod);
+        const product = products.find(product => product._id === order.edz_cnt_cod);
         if (!product) {
             logger.error(`Invalid product received: ${order.edz_cnt_cod} for customer ${email}`);
             res.status(400).json({ message: "Invalid product" });

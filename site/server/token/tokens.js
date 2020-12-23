@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const moment = require('moment');
-const repository = require('./repository');
 
 const TokenSchema = new mongoose.Schema({
     type: String,
@@ -16,7 +15,6 @@ const SIGNIN = 'signin';
 
 const createSignInToken = (trialId, email) => {
     const token = new Token({
-        id: uuid.v4(),
         type: SIGNIN,
         expiresAt: moment().utc().add(7, 'days'),
         usedAt: null,

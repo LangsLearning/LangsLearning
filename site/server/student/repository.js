@@ -16,7 +16,7 @@ const Student = mongoose.model('Student', StudentSchema);
 const register = object => {
     object.password = md5(object.password);
     const student = new Student(object);
-    logger.info(`Registering student with email ${student.email}`);
+    logger.info(`Registering Student with email ${student.email}`);
     return student.save();
 };
 
@@ -30,8 +30,8 @@ const addAvailableClasses = (email, classesToAdd) => {
             const updatedStudent = {
                 availableClasses: student.availableClasses + classesToAdd
             };
-            logger.info(`Adding ${classesToAdd} classes to student with id ${student.id} and email ${student.email}`);
-            return Student.updateOne({ id: student.id }, { $set: updatedStudent });
+            logger.info(`Adding ${classesToAdd} classes to student with id ${student._id} and email ${student.email}`);
+            return Student.updateOne({ _id: student._id }, { $set: updatedStudent });
         });
 };
 
@@ -42,13 +42,12 @@ const registerOrUpdate = object => {
         .then(student => {
             if (student) {
                 const updatedStudent = {
-                    id: student.id,
                     name: name || student.name,
                     password: md5(password) || student.password,
                     availableClasses: availableClasses || student.availableClasses
                 }
-                logger.info(`Updating student with id ${updatedStudent.id} and email ${updatedStudent.email}`);
-                return Student.updateOne({ id: student.id }, { $set: updatedStudent });
+                logger.info(`Updating student with id ${student._id} and email ${updatedStudent.email}`);
+                return Student.updateOne({ _id: student._id }, { $set: updatedStudent });
 
             } else {
                 return register({

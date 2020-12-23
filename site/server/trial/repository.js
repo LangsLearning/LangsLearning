@@ -29,12 +29,12 @@ const register = object => {
 
 const setLevel = (id, level) => {
     logger.info(`Set level for trial with id ${id} to level ${level}`);
-    return Trial.updateOne({ id }, { $set: { level } });
+    return Trial.updateOne({ _id: id }, { $set: { level } });
 };
 
 const remove = id => {
     logger.info(`Removing Trial with id ${id}`);
-    return Trial.deleteOne({ id });
+    return Trial.deleteOne({ _id: id });
 };
 
 const removeAllBy = query => {
