@@ -5,9 +5,7 @@ module.exports = {
         const repository = require('./repository')(mongoClient);
         const handler = require('./handler')(mongoClient);
 
-        app.get('/student/bookaclass', handler.studentAuthCheck, (req, res) => {
-            res.render('student_bookclass', { student: req.session.student });
-        });
+        app.get('/student/bookaclass', handler.studentAuthCheck, handler.bookAClass);
         app.get('/student/packages', handler.studentAuthCheck, (req, res) => {
             res.render('student_packages', { student: req.session.student });
         });

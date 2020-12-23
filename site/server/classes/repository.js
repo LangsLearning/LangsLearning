@@ -7,6 +7,11 @@ const findAll = collectionPromise => () => {
     return collectionPromise.then(classes => classes.find({ active: true }).toArray());
 };
 
+const findAllAvailableFor = collectionPromise => studentId => {
+    logger.info(`Fetching all classes available for student ${studentId}`);
+    return collectionPromise.then(classes => classes.find({ active: true, students: { $nin: [studentId] } }))
+};
+
 const register = collectionPromise => aClass => {
     aClass.id = uuid.v4();
     aClass.active = true;
@@ -27,6 +32,7 @@ module.exports = mongoClient => {
         });
     return {
         findAll: findAll(collectionPromise),
+        findAllAvailableFor: findAllAvailableFor(collectionPromise),
         register: register(collectionPromise),
         remove: remove(collectionPromise),
     }

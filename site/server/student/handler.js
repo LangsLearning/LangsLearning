@@ -56,10 +56,25 @@ const login = repository => (req, res) => {
         });
 };
 
+const bookAClass = classesRepository => (req, res) => {
+    const { id } = req.session.student;
+    classesRepository.findAllAvailableFor(id)
+        .then(classes => {
+            console.log(classes);
+            res.render('student_bookclass', { student: req.session.student, classes });
+        })
+        .catch(err => {
+            logger.error(err);
+            res.redirect('/?login=error');
+        });
+};
+
 module.exports = mongoClient => {
     const repository = require('./repository')(mongoClient);
+    const classesRepository = require('../classes/repository')(mongoClient);
     return {
         studentAuthCheck: studentAuthCheck(repository),
         login: login(repository),
+        bookAClass: bookAClass(classesRepository),
     }
 };
