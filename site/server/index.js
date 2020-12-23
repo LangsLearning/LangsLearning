@@ -56,5 +56,5 @@ orderRouter.apply(app);
 signinRouter.apply(app);
 
 app.listen(port, () => {
-    console.log(`Example app listening at port ${port}`)
+    logger.info(`Example app listening at port ${port}`)
 });

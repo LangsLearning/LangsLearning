@@ -1,3 +1,4 @@
+const { Logger } = require('mongodb');
 const passport = require('passport');
 
 module.exports = {
@@ -20,8 +21,8 @@ module.exports = {
             tokens.getSigninToken(token)
                 .then(signinToken => trialRepository.findById(signinToken.trialId))
                 .then(trial => {
-                    const { name, email } = trial;
-                    return studentRepository.register({ name, email, password, availableClasses: 0 });
+                    const { name, email, level } = trial;
+                    return studentRepository.register({ name, email, level, password, availableClasses: 0 });
                 })
                 .then(student => {
                     req.session.student = student;

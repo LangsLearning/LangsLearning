@@ -16,9 +16,9 @@ const ClassSchema = new mongoose.Schema({
 
 const Class = mongoose.model('Class', ClassSchema);
 
-const findAll = () => {
-    logger.info(`Fetching all classes`);
-    return Class.find({ active: true });
+const findAllBy = query => {
+    logger.info(`Fetching all Classes by ${JSON.stringify(query)}`);
+    return Class.find(query);
 };
 
 const findAllAvailableFor = studentId => {
@@ -37,9 +37,15 @@ const remove = id => {
     return Class.updateOne({ _id: id }, { $set: { active: false } });
 };
 
+const removeAllBy = query => {
+    logger.warn(`Removing all Classes by ${JSON.stringify(query)}`);
+    return Class.deleteMany(query);
+};
+
 module.exports = {
-    findAll,
+    findAllBy,
     findAllAvailableFor,
     register,
     remove,
+    removeAllBy,
 };

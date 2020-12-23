@@ -51,7 +51,7 @@
                                 <%= aClass.level %>
                             </td>
                             <td>
-                                <%= aClass.datetime %>
+                                <%= moment(aClass.datetime).format('dddd DD/MM/yyyy HH:mm') %>
                             </td>
                             <td>
                                 <%= aClass.materialLink %>

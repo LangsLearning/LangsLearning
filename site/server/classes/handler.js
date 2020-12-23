@@ -5,15 +5,16 @@ const ejs = require('ejs');
 const path = require('path');
 const repository = require("./repository");
 const { serverConfig } = require('../config');
+const moment = require('moment');
 
-const getClasses = classesRepository => (req, res) => classesRepository.findAll()
+const getClasses = classesRepository => (req, res) => classesRepository.findAllBy({})
     .then(classes => {
         logger.info(`Rendering admin classes page: ${classes.length} classes found`);
-        res.render('admin_classes', { classes });
+        res.render('admin_classes', { classes, moment });
     })
     .catch(err => {
         logger.error(err);
-        res.render('admin_classes', { classes: [], error: err.message });
+        res.render('admin_classes', { classes: [], error: err.message, moment });
     });
 
 const registerClass = classesRepository => (req, res) => {
@@ -47,11 +48,25 @@ const removeClass = classesRepository => (req, res) => {
         });
 };
 
+const opsDumpAll = repository => (req, res) => {
+    repository.removeAllBy({})
+        .then(result => res.status(200).json({ message: 'All classes deleted' }))
+        .catch(err => res.status(500).json({ message: err }));
+};
+
+const opsFindAll = repository => (req, res) => {
+    repository.findAllBy({})
+        .then(trials => res.status(200).json(trials))
+        .catch(err => res.status(500).json({ message: err }));
+};
+
 module.exports = () => {
     const repository = require('./repository');
     return {
         getClasses: getClasses(repository),
         registerClass: registerClass(repository),
         removeClass: removeClass(repository),
+        opsDumpAll: opsDumpAll(repository),
+        opsFindAll: opsFindAll(repository),
     }
 };

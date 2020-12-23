@@ -13,7 +13,7 @@ const TrialSchema = new mongoose.Schema({
 const Trial = mongoose.model('Trial', TrialSchema);
 
 const findAllBy = query => {
-    logger.info(`Fetching all trials`);
+    logger.info(`Fetching all Trials by ${JSON.stringify(query)}`);
     return Trial.find(query);
 };
 
@@ -28,7 +28,7 @@ const register = object => {
 };
 
 const setLevel = (id, level) => {
-    logger.info(`Set level for trial with id ${id} to level ${level}`);
+    logger.info(`Set level for Trial with id ${id} to level ${level}`);
     return Trial.updateOne({ _id: id }, { $set: { level } });
 };
 

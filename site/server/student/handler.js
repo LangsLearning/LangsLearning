@@ -44,7 +44,6 @@ const login = repository => (req, res) => {
             return Promise.reject('Invalid password');
         })
         .then(student => {
-            logger.info(JSON.stringify(student))
             req.session.student = student;
             const doesntHaveNextClasses = !student.nextClasses || student.nextClasses.length === 0;
             const hasNoAvailableClasses = student.availableClasses === 0;
@@ -64,7 +63,6 @@ const bookAClass = classesRepository => (req, res) => {
     const { id } = req.session.student;
     classesRepository.findAllAvailableFor(id)
         .then(classes => {
-            console.log(classes);
             res.render('student_bookclass', { student: req.session.student, classes });
         })
         .catch(err => {
