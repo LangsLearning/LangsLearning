@@ -55,7 +55,7 @@ passport.use(new FacebookStrategy({
 module.exports = {
     apply: app => {
         app.get('/admin/login', passport.authenticate('basic'), (req, res) => {
-            res.redirect('/trials');
+            res.redirect('/admin/trials');
         });
         app.get('/auth/facebook', passport.authenticate('facebook', { scope: ['email'] }));
 

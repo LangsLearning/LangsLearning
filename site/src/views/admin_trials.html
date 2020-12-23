@@ -21,13 +21,12 @@
 
 <body>
 
-    <main class="container">
+    <main class="container-fluid">
         <section>
             <h1>Trial Classes</h1>
             <table class="table">
                 <thead>
                     <tr>
-                        <td>Id</td>
                         <td>Name</td>
                         <td>E-mail</td>
                         <td>Date/time</td>
@@ -38,9 +37,6 @@
                 <tbody>
                     <% trials.forEach((trial) => { %>
                         <tr>
-                            <td>
-                                <%= trial.id %>
-                            </td>
                             <td>
                                 <%= trial.name %>
                             </td>
@@ -69,7 +65,6 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td></td>
                         <td>
                             <button class="btn btn-primary register_trial__btn" data-toggle="modal" data-target="#trial-register-modal">Registrar trial</button>
                         </td>
@@ -88,6 +83,7 @@
                         <td>E-mail</td>
                         <td>Level</td>
                         <td>Available classes</td>
+                        <td></td>
                         <td></td>
                     </tr>
                 </thead>
@@ -111,6 +107,8 @@
                             </td>
                             <td style="text-align: right;">
                                 <a class="btn btn-warning" href="/students/<%= student.id %>/edit">Edit</a>
+                            </td>
+                            <td>
                                 <button class="btn btn-success" data-toggle="modal" data-target="#trial-change-level-modal" data-id="<%= student.id %>" data-name="<%= student.name %>">
                                     Change Level
                                 </button>

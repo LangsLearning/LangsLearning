@@ -29,19 +29,19 @@ const getTrials = (studentsRepository, trialsRepository) => (req, res) => trials
     .then(data => {
         const { trials, students } = data;
         logger.info(`Rendering trials page: ${trials.length} trials found, ${students.length} students found`);
-        res.render('trials', { trials, students });
+        res.render('admin_trials', { trials, students });
     })
     .catch(err => {
         logger.error(err);
-        res.render('trials', { trials: [], students: [], error: err.message });
+        res.render('admin_trials', { trials: [], students: [], error: err.message });
     });
 
 const registerTrial = (studentRepository, trialRepository) => (req, res) => {
     const { name, email, datetime, link } = req.body;
 
     if (!name || !email || !datetime || !link) {
-        logger.error('Invalid trial data to be registered');
-        res.render('trials', { trials: [], students: [], error: 'Could not register the trial class' });
+        logger.error(`Invalid trial data to be registered, ${JSON.stringify(req.body)}`);
+        res.render('admin_trials', { trials: [], students: [], error: 'Could not register the trial class' });
         return;
     }
 
@@ -62,11 +62,11 @@ const registerTrial = (studentRepository, trialRepository) => (req, res) => {
             return mail.sendHtml(email, 'LangsLearning - Aula Experimental', html);
         })
         .then(result => {
-            res.redirect('/trials');
+            res.redirect('/admin/trials');
         })
         .catch(err => {
             logger.error(err.message || err);
-            res.redirect(`/trials?error=${err.type || err}`);
+            res.redirect(`/admin/trials?error=${err.type || err}`);
         });
 };
 
@@ -75,7 +75,7 @@ const setLevel = (tokens, repository) => (req, res) => {
 
     if (!id || !level) {
         logger.error('Could not set student level, invalid id or level');
-        res.render('trials', { trials: [], students: [], error: 'Could not set student level' });
+        res.render('admin_trials', { trials: [], students: [], error: 'Could not set student level' });
         return;
     }
 
@@ -92,11 +92,11 @@ const setLevel = (tokens, repository) => (req, res) => {
             return mail.sendHtml(email, 'LangsLearning - Bem vindo a Langs Learning!', html);
         })
         .then(result => {
-            res.redirect('/trials');
+            res.redirect('/admin/trials');
         })
         .catch(err => {
             logger.error(err);
-            res.redirect('/trials');
+            res.redirect('/admin/trials');
         });
 };
 
@@ -104,11 +104,11 @@ const removeTrial = repository => (req, res) => {
     const { id } = req.params;
     repository.remove(id)
         .then(result => {
-            res.redirect('/trials');
+            res.redirect('/admin/trials');
         })
         .catch(err => {
             logger.error(err);
-            res.redirect('/trials');
+            res.redirect('/admin/trials');
         });
 };
 
