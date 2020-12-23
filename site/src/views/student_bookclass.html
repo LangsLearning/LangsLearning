@@ -2,185 +2,188 @@
 <html>
 
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Langs learning</title>
-  <link rel="icon" href="/images/LangsLearnning_icon.png" type="image/x-icon">
-  <!-- JUST LIBRARIES -->
-  <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/@fortawesome/fontawesome-free/css/all.css">
-  <!-- JUST LIBRARIES -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Langs learning</title>
+    <link rel="icon" href="/images/LangsLearnning_icon.png" type="image/x-icon">
+    <!-- JUST LIBRARIES -->
+    <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/@fortawesome/fontawesome-free/css/all.css">
+    <!-- JUST LIBRARIES -->
 
 
-  <!-- OUR CSS FILES HERE -->
-  <link rel="stylesheet" href="/styles/variables.css">
-  <link rel="stylesheet" href="/styles/styles.css">
-  <link rel="stylesheet" href="/styles/student.css">
-  <!-- OUR CSS FILES HERE -->
+    <!-- OUR CSS FILES HERE -->
+    <link rel="stylesheet" href="/styles/variables.css">
+    <link rel="stylesheet" href="/styles/styles.css">
+    <link rel="stylesheet" href="/styles/student.css">
+    <link rel="stylesheet" href="/styles/student-navbar.css">
+    <!-- OUR CSS FILES HERE -->
 </head>
 
 <body>
-  
-  <header>
-    <%- include('components/student_navbar.html'); %>
-  </header>
 
-  <main class="container-fluid">
+    <header>
+        <%- include('components/student_navbar.html'); %>
+    </header>
 
-    <section class="class__date">
-      <i class="far fa-calendar-alt"></i>  03/12/2020
-    </section>
+    <main class="container-fluid">
 
-    <section class="row card__style"> 
-      <div class="col-sm-3">
-        <div class="card col-sm-11">
-          <div class="card-header class__header-style">
-            <i class="far fa-clock"></i> 13:00
-          </div>
-          <div class="card-body">
-            <h4 class="class__title-style">PARENTING</h4>
-            <img src="../images/Lara.jpeg" class="rounded-circle teacher__image" alt="Foto do consultor">
-            <p class="card-text">Lara</p>
-            <div class="button__icon">
-              <a href="#" class="btn btn-sm schedule__button">Agendar</a>
-              <i class="fas fa-couch couch__icon"><span class="people__inclass">1</span></i>
-          </div>
-          </div>
-        </div>
-      </div>
+        <section class="class__date">
+            <i class="far fa-calendar-alt"></i> 03/12/2020
+        </section>
 
-      <div class="col-sm-3">
-        <div class="card col-sm-11">
-          <div class="card-header class__header-style">
-            <i class="far fa-clock"></i> 13:00
-          </div>
-          <div class="card-body">
-            <h4 class="class__title-style">PARENTING</h4>
-            <img src="../images/Maju.png" class="rounded-circle teacher__image" alt="Foto do consultor">
-            <p class="card-text">Maju</p>
-            <div class="button__icon">
-              <a href="#" class="btn btn-sm schedule__button">Agendar</a>
-              <i class="fas fa-couch couch__icon"><span class="people__inclass">1</span></i>
-          </div>
-          </div>
-        </div>
-      </div>
+        <section class="row card__style">
+            <div class="col-sm-3">
+                <div class="card col-sm-11">
+                    <div class="card-header class__header-style">
+                        <i class="far fa-clock"></i> 13:00
+                    </div>
+                    <div class="card-body">
+                        <h4 class="class__title-style">PARENTING</h4>
+                        <img src="../images/Lara.jpeg" class="rounded-circle teacher__image" alt="Foto do consultor">
+                        <p class="card-text">Lara</p>
+                        <div class="button__icon">
+                            <% if(student.availableClasses > 1) { %>
+                                <a href="#" class="btn btn-sm schedule__button">Agendar</a>
+                                <% } %>
+                                    <i class="fas fa-couch couch__icon"><span class="people__inclass">1</span></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-      <div class="col-sm-3">
-        <div class="card col-sm-11">
-          <div class="card-header class__header-style">
-            <i class="far fa-clock"></i> 13:00
-          </div>
-          <div class="card-body">
-            <h4 class="class__title-style">PARENTING</h4>
-            <img src="../images/Lara.jpeg" class="rounded-circle teacher__image" alt="Foto do consultor">
-            <p class="card-text">Lara</p>
-            <div class="button__icon">
-              <a href="#" class="btn btn-sm schedule__button">Agendar</a>
-              <i class="fas fa-couch couch__icon"><span class="people__inclass">1</span></i>
-          </div>
-          </div>
-        </div>
-      </div>
+            <div class="col-sm-3">
+                <div class="card col-sm-11">
+                    <div class="card-header class__header-style">
+                        <i class="far fa-clock"></i> 13:00
+                    </div>
+                    <div class="card-body">
+                        <h4 class="class__title-style">PARENTING</h4>
+                        <img src="../images/Maju.png" class="rounded-circle teacher__image" alt="Foto do consultor">
+                        <p class="card-text">Maju</p>
+                        <div class="button__icon">
+                            <a href="#" class="btn btn-sm schedule__button">Agendar</a>
+                            <i class="fas fa-couch couch__icon"><span class="people__inclass">1</span></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-      <div class="col-sm-3">
-        <div class="card col-sm-11">
-          <div class="card-header class__header-style">
-            <i class="far fa-clock"></i> 13:00
-          </div>
-          <div class="card-body">
-            <h4 class="class__title-style">PARENTING</h4>
-            <img src="../images/Lara.jpeg" class="rounded-circle teacher__image" alt="Foto do consultor">
-            <p class="card-text">Lara</p>
-            <div class="button__icon">
-              <a href="#" class="btn btn-sm schedule__button">Agendar</a>
-              <i class="fas fa-couch couch__icon"><span class="people__inclass">1</span></i>
-          </div>
-          </div>
-        </div>
-      </div>
+            <div class="col-sm-3">
+                <div class="card col-sm-11">
+                    <div class="card-header class__header-style">
+                        <i class="far fa-clock"></i> 13:00
+                    </div>
+                    <div class="card-body">
+                        <h4 class="class__title-style">PARENTING</h4>
+                        <img src="../images/Lara.jpeg" class="rounded-circle teacher__image" alt="Foto do consultor">
+                        <p class="card-text">Lara</p>
+                        <div class="button__icon">
+                            <a href="#" class="btn btn-sm schedule__button">Agendar</a>
+                            <i class="fas fa-couch couch__icon"><span class="people__inclass">1</span></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-      <div class="col-sm-3">
-        <div class="card col-sm-11">
-          <div class="card-header class__header-style">
-            <i class="far fa-clock"></i> 13:00
-          </div>
-          <div class="card-body">
-            <h4 class="class__title-style">PARENTING</h4>
-            <img src="../images/Lara.jpeg" class="rounded-circle teacher__image" alt="Foto do consultor">
-            <p class="card-text">Lara</p>
-            <div class="button__icon">
-              <a href="#" class="btn btn-sm schedule__button">Agendar</a>
-              <i class="fas fa-couch couch__icon"><span class="people__inclass">1</span></i>
-          </div>
-          </div>
-        </div>
-      </div>
+            <div class="col-sm-3">
+                <div class="card col-sm-11">
+                    <div class="card-header class__header-style">
+                        <i class="far fa-clock"></i> 13:00
+                    </div>
+                    <div class="card-body">
+                        <h4 class="class__title-style">PARENTING</h4>
+                        <img src="../images/Lara.jpeg" class="rounded-circle teacher__image" alt="Foto do consultor">
+                        <p class="card-text">Lara</p>
+                        <div class="button__icon">
+                            <a href="#" class="btn btn-sm schedule__button">Agendar</a>
+                            <i class="fas fa-couch couch__icon"><span class="people__inclass">1</span></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-      <div class="col-sm-3">
-        <div class="card col-sm-11">
-          <div class="card-header class__header-style">
-            <i class="far fa-clock"></i> 13:00
-          </div>
-          <div class="card-body">
-            <h4 class="class__title-style">PARENTING</h4>
-            <img src="../images/Lara.jpeg" class="rounded-circle teacher__image" alt="Foto do consultor">
-            <p class="card-text">Lara</p>
-            <div class="button__icon">
-              <a href="#" class="btn btn-sm schedule__button">Agendar</a>
-              <i class="fas fa-couch couch__icon"><span class="people__inclass">1</span></i>
-          </div>
-          </div>
-        </div>
-      </div>
+            <div class="col-sm-3">
+                <div class="card col-sm-11">
+                    <div class="card-header class__header-style">
+                        <i class="far fa-clock"></i> 13:00
+                    </div>
+                    <div class="card-body">
+                        <h4 class="class__title-style">PARENTING</h4>
+                        <img src="../images/Lara.jpeg" class="rounded-circle teacher__image" alt="Foto do consultor">
+                        <p class="card-text">Lara</p>
+                        <div class="button__icon">
+                            <a href="#" class="btn btn-sm schedule__button">Agendar</a>
+                            <i class="fas fa-couch couch__icon"><span class="people__inclass">1</span></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-      <div class="col-sm-3">
-        <div class="card col-sm-11">
-          <div class="card-header class__header-style">
-            <i class="far fa-clock"></i> 13:00
-          </div>
-          <div class="card-body">
-            <h4 class="class__title-style">PARENTING</h4>
-            <img src="../images/Lara.jpeg" class="rounded-circle teacher__image" alt="Foto do consultor">
-            <p class="card-text">Lara</p>
-            <div class="button__icon">
-              <a href="#" class="btn btn-sm schedule__button">Agendar</a>
-              <i class="fas fa-couch couch__icon"><span class="people__inclass">1</span></i>
-          </div>
-          </div>
-        </div>
-      </div>
+            <div class="col-sm-3">
+                <div class="card col-sm-11">
+                    <div class="card-header class__header-style">
+                        <i class="far fa-clock"></i> 13:00
+                    </div>
+                    <div class="card-body">
+                        <h4 class="class__title-style">PARENTING</h4>
+                        <img src="../images/Lara.jpeg" class="rounded-circle teacher__image" alt="Foto do consultor">
+                        <p class="card-text">Lara</p>
+                        <div class="button__icon">
+                            <a href="#" class="btn btn-sm schedule__button">Agendar</a>
+                            <i class="fas fa-couch couch__icon"><span class="people__inclass">1</span></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-      <div class="col-sm-3">
-        <div class="card col-sm-11">
-          <div class="card-header class__header-style">
-            <i class="far fa-clock"></i> 13:00
-          </div>
-          <div class="card-body">
-            <h4 class="class__title-style">PARENTING</h4>
-            <img src="../images/Lara.jpeg" class="rounded-circle teacher__image" alt="Foto do consultor">
-            <p class="card-text">Lara</p>
-            <div class="button__icon">
-              <a href="#" class="btn btn-sm schedule__button">Agendar</a>
-              <i class="fas fa-couch couch__icon"><span class="people__inclass">1</span></i>
-          </div>
-          </div>
-        </div>
-      </div>
-     
-      
-    </section>
-  </main>
+            <div class="col-sm-3">
+                <div class="card col-sm-11">
+                    <div class="card-header class__header-style">
+                        <i class="far fa-clock"></i> 13:00
+                    </div>
+                    <div class="card-body">
+                        <h4 class="class__title-style">PARENTING</h4>
+                        <img src="../images/Lara.jpeg" class="rounded-circle teacher__image" alt="Foto do consultor">
+                        <p class="card-text">Lara</p>
+                        <div class="button__icon">
+                            <a href="#" class="btn btn-sm schedule__button">Agendar</a>
+                            <i class="fas fa-couch couch__icon"><span class="people__inclass">1</span></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-  <!-- JUST LIBRARIES -->
-  <script src="/jquery/dist/jquery.min.js"></script>
-  <script src="/lodash/lodash.min.js"></script>
-  <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
-  <!-- JUST LIBRARIES -->
+            <div class="col-sm-3">
+                <div class="card col-sm-11">
+                    <div class="card-header class__header-style">
+                        <i class="far fa-clock"></i> 13:00
+                    </div>
+                    <div class="card-body">
+                        <h4 class="class__title-style">PARENTING</h4>
+                        <img src="../images/Lara.jpeg" class="rounded-circle teacher__image" alt="Foto do consultor">
+                        <p class="card-text">Lara</p>
+                        <div class="button__icon">
+                            <a href="#" class="btn btn-sm schedule__button">Agendar</a>
+                            <i class="fas fa-couch couch__icon"><span class="people__inclass">1</span></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-  <!-- OUR JS FILES HERE -->
-  <script src="/js/index.js"></script>
-  <!-- OUR JS FILES HERE -->
+
+        </section>
+    </main>
+
+    <!-- JUST LIBRARIES -->
+    <script src="/jquery/dist/jquery.min.js"></script>
+    <script src="/lodash/lodash.min.js"></script>
+    <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- JUST LIBRARIES -->
+
+    <!-- OUR JS FILES HERE -->
+    <script src="/js/index.js"></script>
+    <!-- OUR JS FILES HERE -->
 </body>
 
 </html>
