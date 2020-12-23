@@ -124,15 +124,26 @@
                     <div class="card text-center current__classes-card">
                         <h5 class="card-header card__header-classes">Prepare-se!</h5>
                         <div class="card-body">
-                            <h6 class="card-title">Sua próxima aula começa em:</h6>
-                            <p class="card-text card__hour">00:00:00</p>
+                            <% if (student.nextClass) { %>
+                                <h6 class="card-title">Sua próxima aula começa em:</h6>
+                                <p class="card-text card__hour">00:00:00</p>
+                                <% } else { %>
+                                    <h4 class="card-title no_class">Nenhuma aula marcada ate o momento <i class="far fa-grin-beam-sweat"></i></h4>
+                                    <% } %>
                         </div>
 
                         <br>
                         <div class="card-footer footer__style">
-                            <p class="name__title"> Nível: <span class="name__text">Advanced</span></p>
-                            <p class="name__title"> Crédito: <span class="name__text">5 aulas</span></p>
-                            <a href="#" class="btn btn-md schedule__classes-button">Marcar Aulas</a>
+                            <p class="name__title"> Nível: <span class="name__text"><%= student.level %></span></p>
+                            <p class="name__title"> Aulas disponiveis: <span class="name__text">
+                                <%= student.availableClasses%>
+                            </span></p>
+
+                            <% if (student.availableClasses > 0) { %>
+                                <a href="#" class="btn btn-md schedule__classes-button">Marcar Aulas</a>
+                                <% } else { %>
+                                    <a href="/student/packages" class="btn btn-md buy__classes-button">Comprar pacote de aulas</a>
+                                    <% } %>
                         </div>
                     </div>
                 </div>

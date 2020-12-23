@@ -2,6 +2,10 @@ body {
     background-color: whitesmoke;
 }
 
+.nav-link {
+    padding: 0.8rem 1rem;
+}
+
 .class__date {
     margin-top: 120px;
     margin-left: 2rem;
@@ -17,7 +21,7 @@ body {
 }
 
 .class__header-style {
-    background-color:  #FFEC8F;
+    background-color: #FFEC8F;
     font-size: 1.2rem;
     padding: .4rem 1.25rem;
     margin-left: -16px;
