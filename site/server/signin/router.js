@@ -1,10 +1,10 @@
 const passport = require('passport');
 
 module.exports = {
-    apply: (mongoClient, app) => {
-        const tokens = require('../token/tokens')(mongoClient);
-        const trialRepository = require('../trial/repository')(mongoClient);
-        const studentRepository = require('../student/repository')(mongoClient);
+    apply: app => {
+        const tokens = require('../token/tokens');
+        const trialRepository = require('../trial/repository');
+        const studentRepository = require('../student/repository');
 
         app.get('/signin/:token', (req, res) => {
             const { token } = req.params;

@@ -112,10 +112,10 @@ const removeTrial = repository => (req, res) => {
         });
 };
 
-module.exports = mongoClient => {
-    const studentRepository = require('../student/repository')(mongoClient);
-    const repository = require('./repository')(mongoClient);
-    const tokens = require('../token/tokens')(mongoClient);
+module.exports = () => {
+    const studentRepository = require('../student/repository');
+    const repository = require('./repository');
+    const tokens = require('../token/tokens');
     return {
         getTrials: getTrials(studentRepository, repository),
         registerTrial: registerTrial(studentRepository, repository),

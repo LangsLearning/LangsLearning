@@ -1,6 +1,6 @@
 module.exports = {
-    apply: (mongoClient, app) => {
-        const handler = require('./handler')(mongoClient);
+    apply: app => {
+        const handler = require('./handler')();
         app.post('/api/v1/orders', handler.registerOrder);
     }
 };

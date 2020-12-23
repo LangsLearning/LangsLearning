@@ -7,13 +7,14 @@ const pino = require('pino');
 const expressPino = require('express-pino-logger');
 const passport = require('passport');
 const cors = require('cors');
-const { MongoClient } = require("mongodb");
+
 const uri =
     "mongodb+srv://langslearning:q1w2e3@cluster0.zuiev.mongodb.net/langslearning?retryWrites=true&w=majority";
 
-const mail = require('./contact/mail');
+const mongoose = require('mongoose');
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
-const mongoClient = new MongoClient(uri, { useUnifiedTopology: true });
+const mail = require('./contact/mail');
 
 const logger = pino({ level: process.env.LOG_LEVEL || 'info' });
 const expressLogger = expressPino({ logger });
@@ -29,7 +30,7 @@ app.use(session({
     name: "langslearning",
     resave: true,
     saveUninitialized: true,
-    store: new MongoStore({ client: mongoClient })
+    store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
 
 app.use(passport.initialize());
@@ -48,11 +49,11 @@ const signinRouter = require('./signin/router');
 contactRouter.apply(app);
 staticRouter.apply(app);
 authRouter.apply(app);
-trialRouter.apply(mongoClient, app);
-classesRouter.apply(mongoClient, app);
-studentRouter.apply(mongoClient, app);
-orderRouter.apply(mongoClient, app);
-signinRouter.apply(mongoClient, app);
+trialRouter.apply(app);
+classesRouter.apply(app);
+studentRouter.apply(app);
+orderRouter.apply(app);
+signinRouter.apply(app);
 
 app.listen(port, () => {
     console.log(`Example app listening at port ${port}`)

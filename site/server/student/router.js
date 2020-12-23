@@ -1,9 +1,9 @@
 const passport = require('passport');
 
 module.exports = {
-    apply: (mongoClient, app) => {
-        const repository = require('./repository')(mongoClient);
-        const handler = require('./handler')(mongoClient);
+    apply: app => {
+        const repository = require('./repository');
+        const handler = require('./handler')();
 
         app.get('/student/bookaclass', handler.studentAuthCheck, handler.bookAClass);
         app.get('/student/packages', handler.studentAuthCheck, (req, res) => {
@@ -15,15 +15,8 @@ module.exports = {
 
         app.post('/student/login', handler.login);
 
-        app.get('/ops/students/dump.json', passport.authenticate('basic'), (req, res) => {
-            repository.deleteBy({})
-                .then(result => res.status(200).json({ message: 'All students deleted' }))
-                .catch(err => res.status(500).json({ message: err }));
-        });
-        app.get('/ops/students.json', passport.authenticate('basic'), (req, res) => {
-            repository.findAllBy({})
-                .then(students => res.status(200).json(students))
-                .catch(err => res.status(500).json({ message: err }));
-        });
+        app.get('/ops/students/dump.json', passport.authenticate('basic'), handler.opsDumpAll);
+
+        app.get('/ops/students.json', passport.authenticate('basic'), handler.opsFindAll);
     }
 };

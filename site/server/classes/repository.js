@@ -1,39 +1,45 @@
-const uuid = require('uuid');
+const mongoose = require('mongoose');
 const pino = require("pino");
 const logger = pino({ level: process.env.LOG_LEVEL || 'info' });
 
-const findAll = collectionPromise => () => {
+const ClassSchema = new mongoose.Schema({
+    title: String,
+    description: String,
+    level: String,
+    datetime: Date,
+    materialLink: String,
+    classLink: String,
+    active: { type: Boolean, default: true },
+    teacherId: String,
+    students: [String]
+});
+
+const Class = mongoose.model('Class', ClassSchema);
+
+const findAll = () => {
     logger.info(`Fetching all classes`);
-    return collectionPromise.then(classes => classes.find({ active: true }).toArray());
+    return Class.find({ active: true });
 };
 
-const findAllAvailableFor = collectionPromise => studentId => {
+const findAllAvailableFor = studentId => {
     logger.info(`Fetching all classes available for student ${studentId}`);
-    return collectionPromise.then(classes => classes.find({ active: true, students: { $nin: [studentId] } }))
+    return Class.find({ active: true, students: { $nin: [studentId] } });
 };
 
-const register = collectionPromise => aClass => {
-    aClass.id = uuid.v4();
-    aClass.active = true;
-    logger.info(`Registering Class with id ${aClass.id}`);
-    return collectionPromise.then(classes => classes.insertOne(aClass).then(result => aClass));
+const register = object => {
+    const aClass = new Class(object);
+    logger.info(`Registering Class ${aClass}`);
+    return aClass.save();
 };
 
-const remove = collectionPromise => id => {
+const remove = id => {
     logger.info(`Removing Class with id ${id}`);
-    return collectionPromise.then(classes => classes.updateOne({ id }, { $set: { active: false } }));
+    return Class.updateOne({ id }, { $set: { active: false } });
 };
 
-module.exports = mongoClient => {
-    const collectionPromise = mongoClient.connect()
-        .then(client => {
-            const db = client.db('langslearning');
-            return db.collection('classes');
-        });
-    return {
-        findAll: findAll(collectionPromise),
-        findAllAvailableFor: findAllAvailableFor(collectionPromise),
-        register: register(collectionPromise),
-        remove: remove(collectionPromise),
-    }
+module.exports = {
+    findAll,
+    findAllAvailableFor,
+    register,
+    remove,
 };

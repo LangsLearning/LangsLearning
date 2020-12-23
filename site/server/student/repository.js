@@ -2,21 +2,27 @@ const uuid = require('uuid');
 const md5 = require('md5');
 const pino = require("pino");
 const logger = pino({ level: process.env.LOG_LEVEL || 'info' });
+const mongoose = require('mongoose');
 
-const register = collectionPromise => object => collectionPromise.then(students => {
-    const student = { name, email, password, availableClasses } = object;
-    student.id = uuid.v4();
-    student.password = md5(password);
-    logger.info(`Registering student with id ${student.id} and email ${student.email}`);
-    return students.insertOne(student).then(result => student);
+const StudentSchema = new mongoose.Schema({
+    name: String,
+    email: String,
+    password: String,
+    availableClasses: Number
 });
 
-const addAvailableClasses = collectionPromise => (email, classesToAdd) => {
-    return collectionPromise.then(students =>
-            students.findOne({ email }).then(student => ({ students, student }))
-        )
-        .then(data => {
-            const { students, student } = data;
+const Student = mongoose.model('Student', StudentSchema);
+
+const register = object => {
+    object.password = md5(object.password);
+    const student = new Student(object);
+    logger.info(`Registering student with email ${student.email}`);
+    return student.save();
+};
+
+const addAvailableClasses = (email, classesToAdd) => {
+    return Student.findOne({ email })
+        .then(student => {
             if (!student) {
                 return Promise.reject(`Invalid student, ${email}`);
             }
@@ -25,19 +31,15 @@ const addAvailableClasses = collectionPromise => (email, classesToAdd) => {
                 availableClasses: student.availableClasses + classesToAdd
             };
             logger.info(`Adding ${classesToAdd} classes to student with id ${student.id} and email ${student.email}`);
-            return students.updateOne({ id: student.id }, { $set: updatedStudent }).then(result => Object.assign({}, student, updatedStudent));
+            return Student.updateOne({ id: student.id }, { $set: updatedStudent });
         });
 };
 
-const registerOrUpdate = collectionPromise => object => {
+const registerOrUpdate = object => {
     const { name, email, password, availableClasses } = object;
-    return collectionPromise
-        .then(students => {
-            logger.info(`Looking for student with email ${email}`);
-            return students.findOne({ email }).then(student => ({ students, student }));
-        })
-        .then(data => {
-            const { students, student } = data;
+    logger.info(`Looking for student with email ${email}`);
+    return Student.findOne({ email })
+        .then(student => {
             if (student) {
                 const updatedStudent = {
                     id: student.id,
@@ -46,10 +48,10 @@ const registerOrUpdate = collectionPromise => object => {
                     availableClasses: availableClasses || student.availableClasses
                 }
                 logger.info(`Updating student with id ${updatedStudent.id} and email ${updatedStudent.email}`);
-                return students.updateOne({ id: student.id }, { $set: updatedStudent }).then(result => updatedStudent);
+                return Student.updateOne({ id: student.id }, { $set: updatedStudent });
 
             } else {
-                return register(collectionPromise)({
+                return register({
                     name,
                     email,
                     password,
@@ -59,35 +61,28 @@ const registerOrUpdate = collectionPromise => object => {
         });
 };
 
-const findAllBy = collectionPromise => query => {
-    return collectionPromise.then(students => students.find(query).toArray());
+const findAllBy = query => {
+    return Student.find(query);
 };
 
-const findById = collectionPromise => id => {
-    return collectionPromise.then(students => students.findOne({ id }));
+const findById = id => {
+    return Student.findById(id);
 };
 
-const findByEmail = collectionPromise => email => {
-    return collectionPromise.then(students => students.findOne({ email }));
+const findByEmail = email => {
+    return Student.findOne({ email });
 };
 
-const deleteBy = collectionPromise => query => {
-    return collectionPromise.then(students => students.remove(query));
+const deleteBy = query => {
+    return Student.remove(query);
 };
 
-module.exports = mongoClient => {
-    const collectionPromise = mongoClient.connect()
-        .then(client => {
-            const db = client.db("langslearning");
-            return db.collection('students');
-        });
-    return {
-        register: register(collectionPromise),
-        addAvailableClasses: addAvailableClasses(collectionPromise),
-        registerOrUpdate: registerOrUpdate(collectionPromise),
-        findAllBy: findAllBy(collectionPromise),
-        findById: findById(collectionPromise),
-        findByEmail: findByEmail(collectionPromise),
-        deleteBy: deleteBy(collectionPromise),
-    }
+module.exports = {
+    register,
+    addAvailableClasses,
+    registerOrUpdate,
+    findAllBy,
+    findById,
+    findByEmail,
+    deleteBy,
 };

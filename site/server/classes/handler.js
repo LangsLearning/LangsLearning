@@ -47,8 +47,8 @@ const removeClass = classesRepository => (req, res) => {
         });
 };
 
-module.exports = mongoClient => {
-    const repository = require('./repository')(mongoClient);
+module.exports = () => {
+    const repository = require('./repository');
     return {
         getClasses: getClasses(repository),
         registerClass: registerClass(repository),

@@ -1,8 +1,8 @@
 const passport = require('passport');
 
 module.exports = {
-    apply: (mongoClient, app) => {
-        const handler = require('./handler')(mongoClient);
+    apply: app => {
+        const handler = require('./handler')();
 
         app.get('/admin/trials', passport.authenticate('basic'), handler.getTrials);
         app.post('/admin/trials', passport.authenticate('basic'), handler.registerTrial);

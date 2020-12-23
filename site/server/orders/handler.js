@@ -62,8 +62,8 @@ const registerOrder = studentRepository => (req, res) => {
     }
 };
 
-module.exports = mongoClient => {
-    const studentRepository = require('../student/repository')(mongoClient);
+module.exports = () => {
+    const studentRepository = require('../student/repository');
     return {
         registerOrder: registerOrder(studentRepository)
     };
