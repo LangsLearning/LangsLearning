@@ -73,8 +73,8 @@ const findByEmail = email => {
     return Student.findOne({ email });
 };
 
-const deleteBy = query => {
-    return Student.remove(query);
+const removeAllBy = query => {
+    return Student.deleteMany(query);
 };
 
 module.exports = {
@@ -84,5 +84,5 @@ module.exports = {
     findAllBy,
     findById,
     findByEmail,
-    deleteBy,
+    removeAllBy,
 };

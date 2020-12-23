@@ -24,7 +24,9 @@ const getSetPasswordTemplate = (id, name, level, token) => {
     });
 };
 
-const getTrials = (studentsRepository, trialsRepository) => (req, res) => trialsRepository.findAll()
+const getTrials = (studentsRepository, trialsRepository) => (req, res) =>
+    trialsRepository
+    .findAllBy({ level: null })
     .then(trials => studentsRepository.findAllBy({}).then(students => ({ trials, students })))
     .then(data => {
         const { trials, students } = data;
@@ -112,6 +114,18 @@ const removeTrial = repository => (req, res) => {
         });
 };
 
+const opsDumpAll = repository => (req, res) => {
+    repository.removeAllBy({})
+        .then(result => res.status(200).json({ message: 'All trials deleted' }))
+        .catch(err => res.status(500).json({ message: err }));
+};
+
+const opsFindAll = repository => (req, res) => {
+    repository.findAllBy({})
+        .then(trials => res.status(200).json(trials))
+        .catch(err => res.status(500).json({ message: err }));
+};
+
 module.exports = () => {
     const studentRepository = require('../student/repository');
     const repository = require('./repository');
@@ -120,6 +134,8 @@ module.exports = () => {
         getTrials: getTrials(studentRepository, repository),
         registerTrial: registerTrial(studentRepository, repository),
         setLevel: setLevel(tokens, repository),
-        removeTrial: removeTrial(repository)
+        removeTrial: removeTrial(repository),
+        opsDumpAll: opsDumpAll(repository),
+        opsFindAll: opsFindAll(repository),
     }
 };

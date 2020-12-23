@@ -12,9 +12,9 @@ const TrialSchema = new mongoose.Schema({
 
 const Trial = mongoose.model('Trial', TrialSchema);
 
-const findAll = () => {
+const findAllBy = query => {
     logger.info(`Fetching all trials`);
-    return Trial.find({ level: null });
+    return Trial.find(query);
 };
 
 const findById = id => {
@@ -37,10 +37,16 @@ const remove = id => {
     return Trial.deleteOne({ id });
 };
 
+const removeAllBy = query => {
+    logger.warn(`Removing all Trials by ${JSON.stringify(query)}`);
+    return Trial.deleteMany(query);
+};
+
 module.exports = {
-    findAll,
+    findAllBy,
     findById,
     register,
     remove,
-    setLevel
+    removeAllBy,
+    setLevel,
 };

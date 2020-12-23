@@ -74,7 +74,7 @@ const bookAClass = classesRepository => (req, res) => {
 };
 
 const opsDumpAll = repository => (req, res) => {
-    repository.deleteBy({})
+    repository.removeAllBy({})
         .then(result => res.status(200).json({ message: 'All students deleted' }))
         .catch(err => res.status(500).json({ message: err }));
 };
