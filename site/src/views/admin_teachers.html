@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Langs learning</title>
+    <link rel="icon" href="/images/LangsLearnning_icon.png" type="image/x-icon">
+    <!-- JUST LIBRARIES -->
+    <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/@fortawesome/fontawesome-free/css/all.css">
+    <!-- JUST LIBRARIES -->
+
+
+    <!-- OUR CSS FILES HERE -->
+    <link rel="stylesheet" href="/styles/variables.css">
+    <link rel="stylesheet" href="/styles/styles.css">
+    <link rel="stylesheet" href="/styles/teachers.css">
+    <!-- OUR CSS FILES HERE -->
+</head>
+
+<body>
+
+    <main class="container-fluid">
+        <section>
+            <h1>Teachers</h1>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td>Picture</td>
+                        <td>Name</td>
+                        <td>Alias</td>
+                        <td>Email</td>
+                        <td>Description</td>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% teachers.forEach(teacher => { %>
+                        <tr>
+                            <td>
+                                <%= teacher.picture %>
+                            </td>
+                            <td>
+                                <%= teacher.name %>
+                            </td>
+                            <td>
+                                <%= teacher.alias %>
+                            </td>
+                            <td>
+                                <%= teacher.email %>
+                            </td>
+                            <td>
+                                <%= teacher.description %>
+                            </td>
+                            <td style="text-align: right;">
+                                <a class="btn btn-warning" href="/admin/classes/<%= aClass._id %>/edit"><i class="fas fa-pencil-alt"></i></a>
+                                <button class="btn btn-info"><i class="fas fa-user-check"></i></button>
+                                <a class="btn btn-danger" href="/admin/classes/<%= aClass._id %>/remove"><i class="fas fa-trash-alt"></i></a>
+                            </td>
+                        </tr>
+                        <% }); %>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="4"></td>
+                        <td colspan="2">
+                            <button class="btn btn-primary register_teacher__btn" data-toggle="modal" data-target="#teacher-register-modal">Registrar Teacher</button>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </section>
+    </main>
+
+    <div class="modal fade" id="teacher-register-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Register Teacher</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="/admin/teachers" method="POST">
+                        <div class="form-group">
+                            <label for="register-teacher-name" class="col-form-label">Name:</label>
+                            <input type="text" name="name" class="form-control" id="register-teacher-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="register-teacher-alias" class="col-form-label">Alias:</label>
+                            <input type="text" name="alias" class="form-control" id="register-teacher-alias" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="register-teacher-email" class="col-form-label">Email:</label>
+                            <input type="email" name="email" class="form-control" id="register-teacher-email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="register-teacher-description" class="col-form-label">Description:</label>
+                            <textarea type="text" name="description" class="form-control" id="register-teacher-description" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="register-teacher-picture" class="col-form-label">Picture:</label>
+                            <input type="text" name="picture" class="form-control" id="register-teacher-picture" required>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Register</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade teacher_failure__modal" tabindex="-1" id="modal-teacher-failure">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-2"><i class="fas fa-exclamation-triangle"></i></div>
+                        <div class="col-sm-10" id="modal-teacher-failure-message">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JUST LIBRARIES -->
+    <script src="/jquery/dist/jquery.min.js"></script>
+    <script src="/lodash/lodash.min.js"></script>
+    <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- JUST LIBRARIES -->
+
+    <!-- OUR JS FILES HERE -->
+    <script src="/js/teachers.js"></script>
+    <!-- OUR JS FILES HERE -->
+</body>
+
+</html>

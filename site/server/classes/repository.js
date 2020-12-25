@@ -28,7 +28,7 @@ const findAllAvailableFor = studentId => {
 
 const register = object => {
     const aClass = new Class(object);
-    logger.info(`Registering Class ${aClass}`);
+    logger.info(`Registering Class ${aClass.title}`);
     return aClass.save();
 };
 
