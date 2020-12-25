@@ -30,19 +30,13 @@ body {
     font-size: 0.8em;
 }
 
-.classes_by_date__article[data-show=true] .classes_by_date__show {
-    display: block;
-}
-
-.classes_by_date__article[data-show=true] .classes_by_date__hide {
-    display: none;
-}
-
-.classes_by_date__article[data-show=false] .classes_by_date__show {
-    display: none;
-}
-
+.classes_by_date__article[data-show=true] .classes_by_date__show,
 .classes_by_date__article[data-show=false] .classes_by_date__hide {
+    display: none;
+}
+
+.classes_by_date__article[data-show=true] .classes_by_date__hide,
+.classes_by_date__article[data-show=false] .classes_by_date__show {
     display: block;
 }
 

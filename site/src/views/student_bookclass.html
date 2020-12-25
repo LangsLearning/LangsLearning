@@ -58,20 +58,25 @@
                                     <h4 class="class__title-style">
                                         <%= aClass.title %>
                                     </h4>
-                                    <img src="../images/Lara.jpeg" class="rounded-circle teacher__image" alt="Foto do consultor">
-                                    <p class="card-text">Lara</p>
-                                    <div class="button__icon">
-                                        <% if(student.availableClasses > 1) { %>
-                                            <a href="#" class="btn btn-sm schedule__button">Agendar</a>
-                                            <% } else { %>
-                                                <a href="/student/packages" class="btn btn-sm schedule__button">Comprar</a>
-                                                <% } %>
-                                                    <i class="fas fa-couch couch__icon">
+                                    <% if (aClass.teacher) { %>
+                                        <img src="../images/Lara.jpeg" class="rounded-circle teacher__image" alt="Foto do consultor">
+                                        <p class="card-text">Lara</p>
+                                        <% } else { %>
+                                            <img src="../images/unknown_teacher.png" class="rounded-circle teacher__image" alt="Foto do consultor">
+                                            <p class="card-text">Ainda não definido</p>
+                                            <% } %>
+                                                <div class="button__icon">
+                                                    <% if(student.availableClasses > 1) { %>
+                                                        <a href="#" class="btn btn-sm schedule__button">Agendar</a>
+                                                        <% } else { %>
+                                                            <a href="/student/packages" class="btn btn-sm schedule__button">Comprar</a>
+                                                            <% } %>
+                                                                <i class="fas fa-couch couch__icon">
                                             <span class="people__inclass">
                                                 <%= aClass.students.length %>
                                             </span>
                                         </i>
-                                    </div>
+                                                </div>
                                 </div>
                             </div>
                         </div>
