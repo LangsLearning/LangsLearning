@@ -27,8 +27,7 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <td>Picture</td>
-                        <td>Name</td>
+                        <td colspan="2">Name</td>
                         <td>Alias</td>
                         <td>Email</td>
                         <td>Description</td>
@@ -39,7 +38,7 @@
                     <% teachers.forEach(teacher => { %>
                         <tr>
                             <td>
-                                <%= teacher.picture %>
+                                <img height="40px" class="rounded" src="../images/<%= teacher.picture %>">
                             </td>
                             <td>
                                 <%= teacher.name %>
@@ -54,9 +53,8 @@
                                 <%= teacher.description %>
                             </td>
                             <td style="text-align: right;">
-                                <a class="btn btn-warning" href="/admin/classes/<%= aClass._id %>/edit"><i class="fas fa-pencil-alt"></i></a>
-                                <button class="btn btn-info"><i class="fas fa-user-check"></i></button>
-                                <a class="btn btn-danger" href="/admin/classes/<%= aClass._id %>/remove"><i class="fas fa-trash-alt"></i></a>
+                                <a class="btn btn-warning" href="/admin/teachers/<%= teacher._id %>/edit"><i class="fas fa-pencil-alt"></i></a>
+                                <a class="btn btn-danger" href="/admin/teachers/<%= teacher._id %>/remove"><i class="fas fa-trash-alt"></i></a>
                             </td>
                         </tr>
                         <% }); %>

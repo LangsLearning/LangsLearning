@@ -5,5 +5,6 @@ module.exports = {
         const handler = require('./handler')();
 
         app.get('/admin/teachers', passport.authenticate('basic'), handler.getTeachers);
+        app.post('/admin/teachers', passport.authenticate('basic'), handler.registerClass);
     }
 }
