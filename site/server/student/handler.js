@@ -2,6 +2,8 @@ const pino = require("pino");
 const repository = require("./repository");
 const logger = pino({ level: process.env.LOG_LEVEL || 'info' });
 const md5 = require('md5');
+const _ = require('lodash');
+const moment = require('moment');
 
 const studentAuthCheck = repository => (req, res, next) => {
     const { student } = req.session;
@@ -63,7 +65,12 @@ const bookAClass = classesRepository => (req, res) => {
     const { id } = req.session.student;
     classesRepository.findAllAvailableFor(id)
         .then(classes => {
-            res.render('student_bookclass', { student: req.session.student, classes });
+            const classesSortedByDatetime = _.sortBy(classes.map(aClass => {
+                aClass.day = moment(aClass.datetime).format('DD/MM/yyyy');
+                return aClass;
+            }), 'datetime');
+            const classesByDay = _.groupBy(classesSortedByDatetime, 'day');
+            res.render('student_bookclass', { student: req.session.student, classesByDay, moment });
         })
         .catch(err => {
             logger.error(err);

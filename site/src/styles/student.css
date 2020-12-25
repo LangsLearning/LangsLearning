@@ -6,13 +6,44 @@ body {
     padding: 0.8rem 1rem;
 }
 
-.class__date {
-    margin-top: 120px;
-    margin-left: 2rem;
-    margin-bottom: 0;
-    color: white;
+.classes_by_date__article:first-child {
+    margin-top: 80px;
+}
+
+.classes_by_date__article {
+    margin-top: 40px;
+    border-bottom: none;
+}
+
+.classes_by_date__article>.card-header {
+    background-color: white;
+    margin: 0px;
+    color: var(--primary-color);
     font-family: 'Quicksand';
     font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.classes_by_date__article>.card-header>div:last-child {
+    text-align: right;
+    padding-top: 3px;
+    font-size: 0.8em;
+}
+
+.classes_by_date__article[data-show=true] .classes_by_date__show {
+    display: block;
+}
+
+.classes_by_date__article[data-show=true] .classes_by_date__hide {
+    display: none;
+}
+
+.classes_by_date__article[data-show=false] .classes_by_date__show {
+    display: none;
+}
+
+.classes_by_date__article[data-show=false] .classes_by_date__hide {
+    display: block;
 }
 
 .card {
@@ -31,28 +62,33 @@ body {
     border: 1px solid #e3e3e3;
 }
 
-.card-body {
-    padding: 1rem;
-}
-
-.class__title-style {
-    color: var(--primary-color);
-}
-
-.teacher__image {
-    width: 5rem;
-    height: 5rem;
-}
-
-.card__style {
+.classes__section {
+    padding-top: 0px;
+    background-color: whitesmoke;
     text-align: center;
     font-family: 'Quicksand';
     display: flex;
     flex-wrap: wrap;
 }
 
-.card__style .card {
-    margin-top: 40px;
+.classes__section .card {
+    margin-top: 30px;
+}
+
+.classes__section>.col-sm-3 {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.class__title-style {
+    font-size: 1rem;
+    color: var(--primary-color);
+    height: 50px;
+}
+
+.teacher__image {
+    width: 5rem;
+    height: 5rem;
 }
 
 .schedule__button {
@@ -86,4 +122,13 @@ body {
 
 .people__inclass {
     padding-left: .2rem;
+}
+
+
+/* Responsive */
+
+@media (min-width: 768px) {
+    .class__title-style {
+        font-size: 1.3rem;
+    }
 }
