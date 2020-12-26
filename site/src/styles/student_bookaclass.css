@@ -1,0 +1,17 @@
+.classes__section {
+    padding-top: 0px;
+    background-color: whitesmoke;
+    text-align: center;
+    font-family: 'Quicksand';
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.classes__section .card {
+    margin-top: 30px;
+}
+
+.classes__section>.col-sm-3 {
+    padding-left: 5px;
+    padding-right: 5px;
+}

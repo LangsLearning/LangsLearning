@@ -7,11 +7,15 @@
     height: 50px;
 }
 
-.student_classes__container,
-.past_classes__container {
+.student_classes__container {
     top: 70px;
     margin-bottom: 2rem;
     font-family: 'Quicksand';
+}
+
+.past_classes__container {
+    top: 50px;
+    margin-top: 50px;
 }
 
 .student_class_card__container {
