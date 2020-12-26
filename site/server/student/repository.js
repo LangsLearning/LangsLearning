@@ -9,7 +9,8 @@ const StudentSchema = new mongoose.Schema({
     email: String,
     level: String,
     password: String,
-    availableClasses: Number
+    availableClasses: Number,
+    classesIds: [String]
 });
 
 const Student = mongoose.model('Student', StudentSchema);

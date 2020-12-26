@@ -49,8 +49,6 @@ body {
     background-color: #FFEC8F;
     font-size: 1.2rem;
     padding: .4rem 1.25rem;
-    margin-left: -16px;
-    margin-right: -16px;
     margin-top: -1px;
     border-radius: 5px 5px 0px 0px;
     border: 1px solid #e3e3e3;
@@ -72,12 +70,6 @@ body {
 .classes__section>.col-sm-3 {
     padding-left: 0px;
     padding-right: 0px;
-}
-
-.class__title-style {
-    font-size: 1rem;
-    color: var(--primary-color);
-    height: 50px;
 }
 
 .teacher__image {
@@ -116,13 +108,4 @@ body {
 
 .people__inclass {
     padding-left: .2rem;
-}
-
-
-/* Responsive */
-
-@media (min-width: 768px) {
-    .class__title-style {
-        font-size: 1.3rem;
-    }
 }
