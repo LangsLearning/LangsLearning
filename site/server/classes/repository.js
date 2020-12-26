@@ -37,6 +37,11 @@ const remove = id => {
     return Class.updateOne({ _id: id }, { $set: { active: false } });
 };
 
+const assignTeacher = (classId, teacherId) => {
+    logger.info(`Assigning class with id ${classId} to teacher with id ${teacherId}`);
+    return Class.updateOne({ _id: classId }, { $set: { teacherId } });
+};
+
 const removeAllBy = query => {
     logger.warn(`Removing all Classes by ${JSON.stringify(query)}`);
     return Class.deleteMany(query);
@@ -46,6 +51,7 @@ module.exports = {
     findAllBy,
     findAllAvailableFor,
     register,
+    assignTeacher,
     remove,
     removeAllBy,
 };

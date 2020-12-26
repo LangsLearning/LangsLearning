@@ -32,7 +32,7 @@
                 <section class="card-header row">
                     <div class="col-sm-4">
                         <i class="far fa-calendar-alt"></i>
-                        <%= date %>
+                        <%= moment(date, 'DD/MM/yyyy').format('ddd DD/MM/yyyy') %>
                     </div>
                     <div class="col-sm-8">
                         <div class="classes_by_date__hide">
@@ -41,7 +41,7 @@
                         </div>
                         <div class="classes_by_date__show">
                             Exibir horarios deste dia
-                            <i class="far fa-eye-slash"></i>
+                            <i class="far fa-eye"></i>
                         </div>
                     </div>
                 </section>
