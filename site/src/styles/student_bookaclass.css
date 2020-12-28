@@ -15,3 +15,49 @@
     padding-left: 5px;
     padding-right: 5px;
 }
+
+.classes_by_date__article:first-child {
+    margin-top: 80px;
+}
+
+.classes_by_date__article {
+    margin-top: 40px;
+    border-bottom: none;
+}
+
+.classes_by_date__article>.card-header {
+    background-color: white;
+    margin: 0px;
+    color: var(--primary-color);
+    font-family: 'Quicksand';
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.classes_by_date__article>.card-header>div:last-child {
+    text-align: right;
+    padding-top: 3px;
+    font-size: 0.8em;
+}
+
+.classes_by_date__article[data-show=true] .classes_by_date__show,
+.classes_by_date__article[data-show=false] .classes_by_date__hide {
+    display: none;
+}
+
+.classes_by_date__article[data-show=true] .classes_by_date__hide,
+.classes_by_date__article[data-show=false] .classes_by_date__show {
+    display: block;
+}
+
+.modal-body button[type=submit] {
+    margin-top: 30px;
+    width: 100%;
+}
+
+.modal-body button[type=button] {
+    margin-top: 30px;
+    width: 100%;
+    background-color: var(--lighter-secondary);
+    border: 1px solid #f7df68;
+}

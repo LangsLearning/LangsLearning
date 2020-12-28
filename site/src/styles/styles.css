@@ -526,7 +526,7 @@ footer {
     margin-top: .3rem;
 }
 
-.login__modal .modal-header {
+.modal .modal-header {
     font-size: 1.5em;
     background-color: var(--primary-color);
     color: white;
@@ -534,34 +534,33 @@ footer {
     display: table-cell;
 }
 
-.login__modal section {
+.modal section {
     padding: 30px;
 }
 
-.login__modal .input-group-text {
+.modal .input-group-text {
     width: 50px;
     margin-bottom: 10px;
 }
 
-.login__modal .input-group-text i {
+.modal .input-group-text i {
     font-size: 24px;
 }
 
-.login__modal button[type=submit] {
+.modal button[type=submit] {
     width: 100%;
     border-color: var(--primary-color);
     background-color: var(--primary-color);
     color: white;
     margin-top: 3px;
-    width: 100%;
 }
 
-.login__modal button[type=submit]:hover {
+.modal button[type=submit]:hover {
     background-color: var(--button-enter-hover);
     border-color: var(--primary-color);
 }
 
-.login__modal .login_forgot_password {
+.modal .login_forgot_password {
     font-size: 0.8em;
     padding-top: 9px;
     text-align: center;
