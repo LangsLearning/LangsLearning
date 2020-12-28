@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="/styles/variables.css">
     <link rel="stylesheet" href="/styles/styles.css">
     <link rel="stylesheet" href="/styles/student.css">
+    <link rel="stylesheet" href="/styles/student_bookaclass.css">
     <link rel="stylesheet" href="/styles/student-navbar.css">
     <!-- OUR CSS FILES HERE -->
 </head>
@@ -26,7 +27,7 @@
         <%- include('components/student_navbar.html'); %>
     </header>
 
-    <main class="container-fluid">
+    <main class="container-fluid" style="margin-top: 70px;">
         <% for (const [date, classes] of Object.entries(classesByDay)) { %>
             <article class="card classes_by_date__article" data-show="true">
                 <section class="card-header row">
@@ -49,7 +50,7 @@
                 <section class="card-body row classes__section">
                     <% classes.forEach(aClass => {%>
                         <div class="col-sm-3">
-                            <div class="card col-sm-11">
+                            <div class="card">
                                 <div class="card-header class__header-style">
                                     <i class="far fa-clock"></i>
                                     <%= moment(aClass.datetime).format('HH:mm') %>
@@ -66,16 +67,18 @@
                                             <p class="card-text">Ainda não definido</p>
                                             <% } %>
                                                 <div class="button__icon">
-                                                    <% if(student.availableClasses > 1) { %>
-                                                        <a href="#" class="btn btn-sm schedule__button">Agendar</a>
-                                                        <% } else { %>
-                                                            <a href="/student/packages" class="btn btn-sm schedule__button">Comprar</a>
-                                                            <% } %>
-                                                                <i class="fas fa-couch couch__icon">
-                                            <span class="people__inclass">
-                                                <%= aClass.students.length %>
-                                            </span>
-                                        </i>
+                                                    <% if(student.classesIds.find(classId => aClass._id)) { %>
+                                                        <a href="#" class="btn btn-sm schedule__button">Cancelar</a>
+                                                        <% } else if(student.availableClasses > 1) { %>
+                                                            <a href="#" class="btn btn-sm schedule__button" data-join-class>Agendar</a>
+                                                            <% } else { %>
+                                                                <a href="/student/packages" class="btn btn-sm schedule__button">Comprar</a>
+                                                                <% } %>
+                                                                    <i class="fas fa-couch couch__icon">
+                                                                        <span class="people__inclass">
+                                                                            <%= aClass.students.length %>
+                                                                        </span>
+                                                                    </i>
                                                 </div>
                                 </div>
                             </div>
@@ -86,6 +89,34 @@
             <% } %>
     </main>
 
+    <div class="modal fade" tabindex="-1" data-dialog="join_class">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    Agendar aula
+                </div>
+                <div class="modal-body">
+                    <form action="/student/classes/schedule" method="POST">
+                        <section>
+                            <div>
+                                No momento voce possui <b data-id="classes-available-to-schedule">0</b> aulas disponíveis. Ao confirmar o agendamento desta aula voce terá <b data-id="classes-available-to-schedule">0</b> aulas disponíveis.
+                            </div>
+                            <input type="hidden" name="classId" data-id="class-id-to-schedule">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-4">
+                                    <button type="button" class="btn btn-light">Cancelar <i class="fas fa-times"></i></button>
+                                </div>
+                                <div class="col-sm-12 col-md-8">
+                                    <button type="submit" class="btn btn-primary">Confirmar <i class="fas fa-check"></i></button>
+                                </div>
+                            </div>
+                        </section>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- JUST LIBRARIES -->
     <script src="/jquery/dist/jquery.min.js"></script>
     <script src="/lodash/lodash.min.js"></script>
@@ -93,7 +124,7 @@
     <!-- JUST LIBRARIES -->
 
     <!-- OUR JS FILES HERE -->
-    <script src="/js/student.js"></script>
+    <script src="/js/student_bookaclass.js"></script>
     <!-- OUR JS FILES HERE -->
 </body>
 
