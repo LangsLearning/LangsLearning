@@ -1,3 +1,5 @@
+const $joinClassModal = $('div[data-dialog="join_class"]');
+
 $(function() {
     $('.classes_by_date__article>.card-header').on('click', function() {
         const $elem = $(this);
@@ -13,5 +15,9 @@ $(function() {
                 $article.attr('data-show', 'true');
             });
         }
+    });
+
+    $('a[data-join-class]').on('click', function() {
+        $joinClassModal.modal('show');
     });
 });
