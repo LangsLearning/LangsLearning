@@ -70,7 +70,7 @@
                                                     <% if(student.classesIds.find(classId => aClass._id)) { %>
                                                         <a href="#" class="btn btn-sm schedule__button">Cancelar</a>
                                                         <% } else if(student.availableClasses > 1) { %>
-                                                            <a href="#" class="btn btn-sm schedule__button" data-join-class>Agendar</a>
+                                                            <a href="#" class="btn btn-sm schedule__button" data-join-class data-class-id="<%= aClass._id %>">Agendar</a>
                                                             <% } else { %>
                                                                 <a href="/student/packages" class="btn btn-sm schedule__button">Comprar</a>
                                                                 <% } %>
@@ -96,15 +96,15 @@
                     Agendar aula
                 </div>
                 <div class="modal-body">
-                    <form action="/student/classes/schedule" method="POST">
+                    <form action="/student/classes/book" method="POST">
                         <section>
                             <div>
                                 No momento voce possui <b data-id="classes-available-to-schedule">0</b> aulas disponíveis. Ao confirmar o agendamento desta aula voce terá <b data-id="classes-available-to-schedule">0</b> aulas disponíveis.
                             </div>
-                            <input type="hidden" name="classId" data-id="class-id-to-schedule">
+                            <input type="hidden" name="classId" data-id="class-id-to-schedule" required>
                             <div class="row">
                                 <div class="col-sm-12 col-md-4">
-                                    <button type="button" class="btn btn-light">Cancelar <i class="fas fa-times"></i></button>
+                                    <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar <i class="fas fa-times"></i></button>
                                 </div>
                                 <div class="col-sm-12 col-md-8">
                                     <button type="submit" class="btn btn-primary">Confirmar <i class="fas fa-check"></i></button>
