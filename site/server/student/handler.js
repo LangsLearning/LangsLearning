@@ -5,6 +5,27 @@ const md5 = require('md5');
 const _ = require('lodash');
 const moment = require('moment');
 
+const maxStudentsInAClass = 8;
+
+const homePage = classesRepository => (req, res) => {
+    const student = req.session.student;
+    student.classesIds = student.classesIds || [];
+    classesRepository.findAllByIds(student.classesIds).then(classes => {
+        student.nextClasses = [];
+        student.pastClasses = [];
+        classes.forEach(aClass => {
+            if (moment().isAfter(aClass.datetime)) {
+                student.pastClasses.push(aClass);
+            } else {
+                student.nextClasses.push(aClass);
+            }
+        })
+
+        student.nextClasses = [].filter(aClass => moment().isAfter(aClass.datetime));
+        res.render('student_home', { student: req.session.student });
+    });
+};
+
 const studentAuthCheck = repository => (req, res, next) => {
     const { student } = req.session;
     if (!student || !student._id) {
@@ -61,7 +82,7 @@ const login = repository => (req, res) => {
         });
 };
 
-const bookAClass = classesRepository => (req, res) => {
+const bookAClassPage = classesRepository => (req, res) => {
     const { id } = req.session.student;
     classesRepository.findAllAvailableFor(id)
         .then(classes => {
@@ -75,6 +96,34 @@ const bookAClass = classesRepository => (req, res) => {
         .catch(err => {
             logger.error(err);
             res.redirect('/?login=error');
+        });
+};
+
+const bookAClass = classesRepository => (req, res) => {
+    const { id } = req.session.student;
+    const { classId } = req.body;
+    if (!id || !classId) {
+        res.redirect('/student/bookaclass?booking=error');
+        return;
+    }
+
+    classesRepository.findById(classId)
+        .then(aClass => {
+            logger.info(`Class found: ${aClass}`);
+            if (aClass.students.length < maxStudentsInAClass) {
+                logger.info(`Adding student ${id} to class ${aClass._id}`);
+                aClass.students.push(id);
+                aClass.save();
+            } else {
+                Promise.reject('This class cannot accept more students!');
+            }
+        })
+        .then(aClass => {
+            res.redirect('/student/bookaclass?booking=success');
+        })
+        .catch(err => {
+            logger.error(err);
+            res.redirect('/student/bookaclass?booking=error');
         });
 };
 
@@ -95,8 +144,10 @@ module.exports = () => {
     const classesRepository = require('../classes/repository');
 
     return {
+        homePage: homePage(classesRepository),
         studentAuthCheck: studentAuthCheck(repository),
         login: login(repository),
+        bookAClassPage: bookAClassPage(classesRepository),
         bookAClass: bookAClass(classesRepository),
         opsDumpAll: opsDumpAll(repository),
         opsFindAll: opsFindAll(repository),

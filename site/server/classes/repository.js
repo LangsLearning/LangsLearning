@@ -26,6 +26,11 @@ const findAllAvailableFor = studentId => {
     return Class.find({ active: true, students: { $nin: [studentId] } });
 };
 
+const findById = id => {
+    logger.info(`Fetching class by id ${id}`);
+    return Class.findById(id);
+};
+
 const findAllByIds = ids => {
     if (!ids) {
         return Promise.resolve([]);
@@ -59,6 +64,7 @@ const removeAllBy = query => {
 module.exports = {
     findAllBy,
     findAllAvailableFor,
+    findById,
     findAllByIds,
     register,
     assignTeacher,

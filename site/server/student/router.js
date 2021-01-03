@@ -7,28 +7,13 @@ module.exports = {
         const classesRepository = require('../classes/repository');
         const handler = require('./handler')();
 
-        app.get('/student/bookaclass', handler.studentAuthCheck, handler.bookAClass);
+        app.post('/student/classes/book', handler.studentAuthCheck, handler.bookAClass);
+
+        app.get('/student/bookaclass', handler.studentAuthCheck, handler.bookAClassPage);
         app.get('/student/packages', handler.studentAuthCheck, (req, res) => {
             res.render('student_packages', { student: req.session.student });
         });
-        app.get('/student/home', handler.studentAuthCheck, (req, res) => {
-            const student = req.session.student;
-            student.classesIds = student.classesIds || [];
-            classesRepository.findAllByIds(student.classesIds).then(classes => {
-                student.nextClasses = [];
-                student.pastClasses = [];
-                classes.forEach(aClass => {
-                    if (moment().isAfter(aClass.datetime)) {
-                        student.pastClasses.push(aClass);
-                    } else {
-                        student.nextClasses.push(aClass);
-                    }
-                })
-
-                student.nextClasses = [].filter(aClass => moment().isAfter(aClass.datetime));
-                res.render('student_home', { student: req.session.student });
-            });
-        });
+        app.get('/student/home', handler.studentAuthCheck, handler.homePage);
 
         app.post('/student/login', handler.login);
 
