@@ -7,6 +7,12 @@ const moment = require('moment');
 
 const maxStudentsInAClass = 8;
 
+const defaultTeacher = {
+    name: 'Ainda nao definido',
+    alias: 'Ainda nao definido',
+    picture: '../images/unknown_teacher.png'
+};
+
 const homePage = classesRepository => (req, res) => {
     const student = req.session.student;
     student.classesIds = student.classesIds || [];
@@ -14,15 +20,17 @@ const homePage = classesRepository => (req, res) => {
         student.nextClasses = [];
         student.pastClasses = [];
         classes.forEach(aClass => {
+            if (!aClass.teacher) {
+                aClass.teacher = defaultTeacher;
+            }
+
             if (moment().isAfter(aClass.datetime)) {
                 student.pastClasses.push(aClass);
             } else {
                 student.nextClasses.push(aClass);
             }
-        })
-
-        student.nextClasses = [].filter(aClass => moment().isAfter(aClass.datetime));
-        res.render('student_home', { student: req.session.student });
+        });
+        res.render('student_home', { student: req.session.student, moment });
     });
 };
 
@@ -100,9 +108,9 @@ const bookAClassPage = classesRepository => (req, res) => {
 };
 
 const bookAClass = classesRepository => (req, res) => {
-    const { id } = req.session.student;
+    const student = req.session.student;
     const { classId } = req.body;
-    if (!id || !classId) {
+    if (!student || !classId) {
         res.redirect('/student/bookaclass?booking=error');
         return;
     }
@@ -111,14 +119,18 @@ const bookAClass = classesRepository => (req, res) => {
         .then(aClass => {
             logger.info(`Class found: ${aClass}`);
             if (aClass.students.length < maxStudentsInAClass) {
-                logger.info(`Adding student ${id} to class ${aClass._id}`);
-                aClass.students.push(id);
-                aClass.save();
+                logger.info(`Adding student ${student._id} to class ${aClass._id}`);
+                aClass.students.push(student._id);
+                return aClass.save();
             } else {
-                Promise.reject('This class cannot accept more students!');
+                return Promise.reject('This class cannot accept more students!');
             }
         })
         .then(aClass => {
+            student.classesIds.push(aClass._id);
+            student.save();
+        })
+        .then(_ => {
             res.redirect('/student/bookaclass?booking=success');
         })
         .catch(err => {

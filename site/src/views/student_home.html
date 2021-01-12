@@ -153,70 +153,29 @@
                 <div class="card-body">
                     <div class="row row-cols-lg-4">
 
-                        <div class="col-sm-3">
-                            <div class="card h-100">
-                                <div class="card-header class__header-style">
-                                    <p class="class__scheduled">7 Dez 2020, 13:00</p>
-                                </div>
-                                <div class="card-body">
-                                    <h6 class="class__title-style">PARENTING</h6>
-                                    <img src="../images/Lara.jpeg" class="rounded-circle teacher__image-size" alt="Foto do consultor">
-                                    <p class="card-text class__scheduled">Lara</p>
-                                    <div class="button__icon">
-                                        <i class="fas fa-calendar-check scheduled__icon-yes"></i>
+                        <% student.pastClasses.forEach(aClass => { %>
+                            <div class="col-sm-3">
+                                <div class="card h-100">
+                                    <div class="card-header class__header-style">
+                                        <p class="class__scheduled">
+                                            <%= moment(aClass.datetime).format('ddd DD/MM/yyyy HH:mm') %>
+                                        </p>
+                                    </div>
+                                    <div class="card-body">
+                                        <h6 class="class__title-style">
+                                            <%= aClass.title %>
+                                        </h6>
+                                        <img src="<%= aClass.teacher.picture %>" class="rounded-circle teacher__image-size" alt="Foto do consultor">
+                                        <p class="card-text class__scheduled">
+                                            <%= aClass.teacher.alias %>
+                                        </p>
+                                        <div class="button__icon">
+                                            <i class="fas fa-calendar-check scheduled__icon-yes"></i>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="col-sm-3">
-                            <div class="card h-100">
-                                <div class="card-header class__header-style">
-                                    <p class="class__scheduled">7 Dez 2020, 13:00</p>
-                                </div>
-                                <div class="card-body">
-                                    <h6 class="class__title-style">INSTITUTIONAL RACISM</h6>
-                                    <img src="../images/Maju.png" class="rounded-circle teacher__image-size" alt="Foto do consultor">
-                                    <p class="card-text class__scheduled">Maju</p>
-                                    <div class="button__icon">
-                                        <i class="fas fa-calendar-times scheduled__icon-no"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-3">
-                            <div class="card h-100">
-                                <div class="card-header class__header-style">
-                                    <p class="class__scheduled">7 Dez 2020, 13:00</p>
-                                </div>
-                                <div class="card-body">
-                                    <h6 class="class__title-style">PARENTING</h6>
-                                    <img src="../images/Maju.png" class="rounded-circle teacher__image-size" alt="Foto do consultor">
-                                    <p class="card-text class__scheduled">Maju</p>
-                                    <div class="button__icon">
-                                        <i class="fas fa-calendar-check scheduled__icon-yes"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-3">
-                            <div class="card h-100">
-                                <div class="card-header class__header-style">
-                                    <p class="class__scheduled">7 Dez 2020, 13:00</p>
-                                </div>
-                                <div class="card-body">
-                                    <h6 class="class__title-style">PARENTING</h6>
-                                    <img src="../images/Maju.png" class="rounded-circle teacher__image-size" alt="Foto do consultor">
-                                    <p class="card-text class__scheduled">Maju</p>
-                                    <div class="button__icon">
-                                        <i class="fas fa-calendar-check scheduled__icon-yes"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
+                            <% }); %>
                     </div>
                 </div>
 
