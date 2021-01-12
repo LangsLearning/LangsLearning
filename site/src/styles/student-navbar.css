@@ -23,9 +23,14 @@
     color: var(--primary-color);
 }
 
+.navbar-light.nav__invisible .navbar-nav .nav-link:hover {
+    color: var(--secondary-color);
+}
+
 .nav__invisible {
     background-color: white;
 }
+
 
 
 

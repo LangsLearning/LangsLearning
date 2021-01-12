@@ -504,26 +504,31 @@ footer {
     margin-top: 1rem;
 }
 
-.icons {
-    display: flex;
-    justify-content: space-around;
-}
 
 .facebook__icon {
-    height: 2rem;
-    width: 2rem;
-    margin-top: .2rem;
+    font-size: 2rem;
+    margin-right: .5rem;
+    color: #cccccc;
+}
+
+.facebook__icon:hover {
+    text-decoration: none;
+    -webkit-box-shadow: 4px 7px 26px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 4px 7px 26px 0px rgba(0,0,0,0.75);
+    box-shadow: 4px 7px 26px 0px rgba(0,0,0,0.75);
 }
 
 .instagram__icon {
-    height: 2.5rem;
-    width: 2.5rem;
+    font-size: 2rem;
+    color: #cccccc;
+    border-radius: 25%;
 }
 
-.twitter__icon {
-    height: 2rem;
-    width: 2rem;
-    margin-top: .3rem;
+.instagram__icon:hover {
+    text-decoration: none;
+    -webkit-box-shadow: 4px 7px 26px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 4px 7px 26px 0px rgba(0,0,0,0.75);
+    box-shadow: 4px 7px 26px 0px rgba(0,0,0,0.75); 
 }
 
 .modal .modal-header {
