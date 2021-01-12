@@ -117,7 +117,7 @@ const bookAClass = classesRepository => (req, res) => {
 
     classesRepository.findById(classId)
         .then(aClass => {
-            logger.info(`Class found: ${aClass}`);
+            logger.info(`Class found: ${JSON.stringify(aClass)}`);
             if (aClass.students.length < maxStudentsInAClass) {
                 logger.info(`Adding student ${student._id} to class ${aClass._id}`);
                 aClass.students.push(student._id);
@@ -128,6 +128,7 @@ const bookAClass = classesRepository => (req, res) => {
         })
         .then(aClass => {
             student.classesIds.push(aClass._id);
+            student.availableClasses--;
             student.save();
         })
         .then(_ => {
@@ -142,6 +143,13 @@ const bookAClass = classesRepository => (req, res) => {
 const opsDumpAll = repository => (req, res) => {
     repository.removeAllBy({})
         .then(result => res.status(200).json({ message: 'All students deleted' }))
+        .catch(err => res.status(500).json({ message: err }));
+};
+
+const opsDumpClasses = repository => (req, res) => {
+    const { id } = req.params;
+    repository.removeAllClassesOf(id)
+        .then(result => res.status(200).json({ message: `All classes of student ${id} deleted` }))
         .catch(err => res.status(500).json({ message: err }));
 };
 
@@ -162,6 +170,7 @@ module.exports = () => {
         bookAClassPage: bookAClassPage(classesRepository),
         bookAClass: bookAClass(classesRepository),
         opsDumpAll: opsDumpAll(repository),
+        opsDumpClasses: opsDumpClasses(repository),
         opsFindAll: opsFindAll(repository),
     }
 };

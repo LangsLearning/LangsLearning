@@ -78,6 +78,10 @@ const removeAllBy = query => {
     return Student.deleteMany(query);
 };
 
+const removeAllClassesOf = studentId => {
+    return Student.updateOne({ _id: studentId }, { $set: { classesIds: [] } });
+};
+
 module.exports = {
     register,
     addAvailableClasses,
@@ -86,4 +90,5 @@ module.exports = {
     findById,
     findByEmail,
     removeAllBy,
+    removeAllClassesOf,
 };

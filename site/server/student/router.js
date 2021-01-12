@@ -18,6 +18,7 @@ module.exports = {
         app.post('/student/login', handler.login);
 
         app.get('/ops/students/dump.json', passport.authenticate('basic'), handler.opsDumpAll);
+        app.get('/ops/students/:id/classes/dump.json', passport.authenticate('basic'), handler.opsDumpClasses);
         app.get('/ops/students.json', passport.authenticate('basic'), handler.opsFindAll);
     }
 };

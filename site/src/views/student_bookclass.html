@@ -67,8 +67,8 @@
                                             <p class="card-text">Ainda não definido</p>
                                             <% } %>
                                                 <div class="button__icon">
-                                                    <% if(student.classesIds.find(classId => aClass._id)) { %>
-                                                        <a href="#" class="btn btn-sm schedule__button">Cancelar</a>
+                                                    <% if(student.classesIds.find(classId => classId === aClass._id)) { %>
+                                                        <a href="#" class="btn btn-sm schedule__button">Cancelar <i class="fas fa-times"></i></a>
                                                         <% } else if(student.availableClasses > 1) { %>
                                                             <a href="#" class="btn btn-sm schedule__button" data-join-class data-class-id="<%= aClass._id %>">Agendar</a>
                                                             <% } else { %>
@@ -98,18 +98,24 @@
                 <div class="modal-body">
                     <form action="/student/classes/book" method="POST">
                         <section>
-                            <div>
-                                No momento voce possui <b data-id="classes-available-to-schedule">0</b> aulas disponíveis. Ao confirmar o agendamento desta aula voce terá <b data-id="classes-available-to-schedule">0</b> aulas disponíveis.
-                            </div>
-                            <input type="hidden" name="classId" data-id="class-id-to-schedule" required>
-                            <div class="row">
-                                <div class="col-sm-12 col-md-4">
-                                    <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar <i class="fas fa-times"></i></button>
+                            <% if (student.availableClasses > 0) { %>
+                                <div>
+                                    No momento voce possui <b data-id="classes-available-to-schedule"><%= student.availableClasses %></b> aulas disponíveis. Ao confirmar o agendamento desta aula voce terá <b data-id="classes-available-to-schedule"><%= student.availableClasses - 1%></b>                                    aulas disponíveis.
                                 </div>
-                                <div class="col-sm-12 col-md-8">
-                                    <button type="submit" class="btn btn-primary">Confirmar <i class="fas fa-check"></i></button>
+                                <input type="hidden" name="classId" data-id="class-id-to-schedule" required>
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-4">
+                                        <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar <i class="fas fa-times"></i></button>
+                                    </div>
+                                    <div class="col-sm-12 col-md-8">
+                                        <button type="submit" class="btn btn-primary">Confirmar <i class="fas fa-check"></i></button>
+                                    </div>
                                 </div>
-                            </div>
+                                <% } else { %>
+                                    <div>
+                                        Infelizmente voce nao tem aulas disponíveis, <a href="/student/packages">que tal comprar mais aulas?</a>
+                                    </div>
+                                    <% } %>
                         </section>
                     </form>
                 </div>
