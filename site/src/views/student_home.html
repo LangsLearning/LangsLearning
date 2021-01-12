@@ -36,79 +36,32 @@
                         <h5 class="card-header card__header-classes">Próximas aulas</h5>
                         <div class="card-body">
                             <div class="row">
-
-                                <div class="col-sm-12 col-md-6 col-lg-3 student_class_card__container">
-                                    <div class="card class__card">
-                                        <div class="card-header class__header-style">
-                                            <p class="class__scheduled">7 Dez 2020, 13:00</p>
-                                        </div>
-                                        <div class="card-body">
-                                            <h6 class="class__title-style">PARENTING</h6>
-                                            <img src="../images/Lara.jpeg" class="rounded-circle teacher__image-size" alt="Foto do consultor">
-                                            <div class="card-text class__scheduled">Lara</div>
-                                            <div class="button__icon">
-                                                <i class="fas fa-couch couch__icon"><span class="people__inclass">1</span></i>
+                                <% student.nextClasses.forEach(nextClass => { %>
+                                    <div class="col-sm-12 col-md-6 col-lg-3 student_class_card__container">
+                                        <div class="card class__card">
+                                            <div class="card-header class__header-style">
+                                                <p class="class__scheduled">
+                                                    <%= moment(nextClass.datetime).format('ddd DD/MM/yyyy HH:mm') %>
+                                                </p>
                                             </div>
-                                            <div>
-                                                <a href="#" class="btn btn-sm schedule__button">Cancelar</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-md-6 col-lg-3 student_class_card__container">
-                                    <div class="card class__card">
-                                        <div class="card-header class__header-style">
-                                            <p class="class__scheduled">7 Dez 2020, 13:00</p>
-                                        </div>
-                                        <div class="card-body">
-                                            <h6 class="class__title-style">PARENTING</h6>
-                                            <img src="../images/Lara.jpeg" class="rounded-circle teacher__image-size" alt="Foto do consultor">
-                                            <div class="card-text class__scheduled">Lara</div>
-                                            <div class="button__icon">
-                                                <i class="fas fa-couch couch__icon"><span class="people__inclass">1</span></i>
-                                            </div>
-                                            <div>
-                                                <a href="#" class="btn btn-sm schedule__button">Cancelar</a>
+                                            <div class="card-body">
+                                                <h6 class="class__title-style">
+                                                    <%= nextClass.title %>
+                                                </h6>
+                                                <img src="../images/<%= nextClass.teacher.picture %>" class="rounded-circle teacher__image-size" alt="Foto do consultor">
+                                                <div class="card-text class__scheduled">
+                                                    <%= nextClass.teacher.alias %>
+                                                </div>
+                                                <div class="button__icon">
+                                                    <i class="fas fa-couch couch__icon"><span class="people__inclass">1</span></i>
+                                                </div>
+                                                <div>
+                                                    <a href="#" class="btn btn-sm schedule__button">Cancelar</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-sm-12 col-md-6 col-lg-3 student_class_card__container">
-                                    <div class="card class__card">
-                                        <div class="card-header class__header-style">
-                                            <p class="class__scheduled">7 Dez 2020, 13:00</p>
-                                        </div>
-                                        <div class="card-body">
-                                            <h6 class="class__title-style">PARENTING</h6>
-                                            <img src="../images/Lara.jpeg" class="rounded-circle teacher__image-size" alt="Foto do consultor">
-                                            <div class="card-text class__scheduled">Lara</div>
-                                            <div class="button__icon">
-                                                <i class="fas fa-couch couch__icon"><span class="people__inclass">1</span></i>
-                                            </div>
-                                            <div>
-                                                <a href="#" class="btn btn-sm schedule__button">Cancelar</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-md-6 col-lg-3 student_class_card__container">
-                                    <div class="card class__card">
-                                        <div class="card-header class__header-style">
-                                            <p class="class__scheduled">7 Dez 2020, 13:00</p>
-                                        </div>
-                                        <div class="card-body">
-                                            <h6 class="class__title-style">PARENTING</h6>
-                                            <img src="../images/Lara.jpeg" class="rounded-circle teacher__image-size" alt="Foto do consultor">
-                                            <div class="card-text class__scheduled">Lara</div>
-                                            <div class="button__icon">
-                                                <i class="fas fa-couch couch__icon"><span class="people__inclass">1</span></i>
-                                            </div>
-                                            <div>
-                                                <a href="#" class="btn btn-sm schedule__button">Cancelar</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                    <% }) %>
                             </div>
 
                             <div class="card-footer footer__style" data-total-classes="<%= student.nextClasses.length %>">

@@ -13,25 +13,36 @@ const defaultTeacher = {
     picture: '../images/unknown_teacher.png'
 };
 
-const homePage = classesRepository => (req, res) => {
+const homePage = (classesRepository, teachersRepository) => (req, res) => {
     const student = req.session.student;
     student.classesIds = student.classesIds || [];
-    classesRepository.findAllByIds(student.classesIds).then(classes => {
-        student.nextClasses = [];
-        student.pastClasses = [];
-        classes.forEach(aClass => {
-            if (!aClass.teacher) {
-                aClass.teacher = defaultTeacher;
-            }
 
-            if (moment().isAfter(aClass.datetime)) {
-                student.pastClasses.push(aClass);
-            } else {
-                student.nextClasses.push(aClass);
-            }
+    teachersRepository.findAllBy({})
+        .then(teachers =>
+            classesRepository.findAllByIds(student.classesIds).then(classes => ({ teachers, classes }))
+        )
+        .then(data => {
+            const { teachers, classes } = data;
+            student.nextClasses = [];
+            student.pastClasses = [];
+            classes.forEach(aClass => {
+                if (aClass.teacherId) {
+                    logger.info(`Trying to find teacher ${aClass.teacherId} inside ${JSON.stringify(teachers)}`);
+                    aClass.teacher = teachers.find(teacher => teacher._id == aClass.teacherId);
+                }
+
+                if (!aClass.teacher) {
+                    aClass.teacher = defaultTeacher;
+                }
+
+                if (moment().isAfter(aClass.datetime)) {
+                    student.pastClasses.push(aClass);
+                } else {
+                    student.nextClasses.push(aClass);
+                }
+            });
+            res.render('student_home', { student: req.session.student, moment });
         });
-        res.render('student_home', { student: req.session.student, moment });
-    });
 };
 
 const studentAuthCheck = repository => (req, res, next) => {
@@ -90,12 +101,25 @@ const login = repository => (req, res) => {
         });
 };
 
-const bookAClassPage = classesRepository => (req, res) => {
+const bookAClassPage = (classesRepository, teachersRepository) => (req, res) => {
     const { id } = req.session.student;
-    classesRepository.findAllAvailableFor(id)
-        .then(classes => {
+    teachersRepository.findAllBy({})
+        .then(teachers =>
+            classesRepository.findAllAvailableFor(id).then(classes => ({ teachers, classes }))
+        )
+        .then(data => {
+            const { teachers, classes } = data;
             const classesSortedByDatetime = _.sortBy(classes.map(aClass => {
                 aClass.day = moment(aClass.datetime).format('DD/MM/yyyy');
+                if (aClass.teacherId) {
+                    logger.info(`Trying to find teacher ${aClass.teacherId} inside ${JSON.stringify(teachers)}`);
+                    aClass.teacher = teachers.find(teacher => teacher._id == aClass.teacherId);
+                }
+
+                if (!aClass.teacher) {
+                    aClass.teacher = defaultTeacher;
+                }
+
                 return aClass;
             }), 'datetime');
             const classesByDay = _.groupBy(classesSortedByDatetime, 'day');
@@ -162,12 +186,13 @@ const opsFindAll = repository => (req, res) => {
 module.exports = () => {
     const repository = require('./repository');
     const classesRepository = require('../classes/repository');
+    const teachersRepository = require('../teacher/repository');
 
     return {
-        homePage: homePage(classesRepository),
+        homePage: homePage(classesRepository, teachersRepository),
         studentAuthCheck: studentAuthCheck(repository),
         login: login(repository),
-        bookAClassPage: bookAClassPage(classesRepository),
+        bookAClassPage: bookAClassPage(classesRepository, teachersRepository),
         bookAClass: bookAClass(classesRepository),
         opsDumpAll: opsDumpAll(repository),
         opsDumpClasses: opsDumpClasses(repository),
