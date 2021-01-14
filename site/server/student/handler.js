@@ -7,23 +7,42 @@ const moment = require('moment');
 
 const maxStudentsInAClass = 8;
 
-const homePage = classesRepository => (req, res) => {
+const defaultTeacher = {
+    name: 'Ainda nao definido',
+    alias: 'Ainda nao definido',
+    picture: '../images/unknown_teacher.png'
+};
+
+const homePage = (classesRepository, teachersRepository) => (req, res) => {
     const student = req.session.student;
     student.classesIds = student.classesIds || [];
-    classesRepository.findAllByIds(student.classesIds).then(classes => {
-        student.nextClasses = [];
-        student.pastClasses = [];
-        classes.forEach(aClass => {
-            if (moment().isAfter(aClass.datetime)) {
-                student.pastClasses.push(aClass);
-            } else {
-                student.nextClasses.push(aClass);
-            }
-        })
 
-        student.nextClasses = [].filter(aClass => moment().isAfter(aClass.datetime));
-        res.render('student_home', { student: req.session.student });
-    });
+    teachersRepository.findAllBy({})
+        .then(teachers =>
+            classesRepository.findAllByIds(student.classesIds).then(classes => ({ teachers, classes }))
+        )
+        .then(data => {
+            const { teachers, classes } = data;
+            student.nextClasses = [];
+            student.pastClasses = [];
+            classes.forEach(aClass => {
+                if (aClass.teacherId) {
+                    logger.info(`Trying to find teacher ${aClass.teacherId} inside ${JSON.stringify(teachers)}`);
+                    aClass.teacher = teachers.find(teacher => teacher._id == aClass.teacherId);
+                }
+
+                if (!aClass.teacher) {
+                    aClass.teacher = defaultTeacher;
+                }
+
+                if (moment().isAfter(aClass.datetime)) {
+                    student.pastClasses.push(aClass);
+                } else {
+                    student.nextClasses.push(aClass);
+                }
+            });
+            res.render('student_home', { student: req.session.student, moment });
+        });
 };
 
 const studentAuthCheck = repository => (req, res, next) => {
@@ -82,12 +101,25 @@ const login = repository => (req, res) => {
         });
 };
 
-const bookAClassPage = classesRepository => (req, res) => {
+const bookAClassPage = (classesRepository, teachersRepository) => (req, res) => {
     const { id } = req.session.student;
-    classesRepository.findAllAvailableFor(id)
-        .then(classes => {
+    teachersRepository.findAllBy({})
+        .then(teachers =>
+            classesRepository.findAllAvailableFor(id).then(classes => ({ teachers, classes }))
+        )
+        .then(data => {
+            const { teachers, classes } = data;
             const classesSortedByDatetime = _.sortBy(classes.map(aClass => {
                 aClass.day = moment(aClass.datetime).format('DD/MM/yyyy');
+                if (aClass.teacherId) {
+                    logger.info(`Trying to find teacher ${aClass.teacherId} inside ${JSON.stringify(teachers)}`);
+                    aClass.teacher = teachers.find(teacher => teacher._id == aClass.teacherId);
+                }
+
+                if (!aClass.teacher) {
+                    aClass.teacher = defaultTeacher;
+                }
+
                 return aClass;
             }), 'datetime');
             const classesByDay = _.groupBy(classesSortedByDatetime, 'day');
@@ -100,25 +132,30 @@ const bookAClassPage = classesRepository => (req, res) => {
 };
 
 const bookAClass = classesRepository => (req, res) => {
-    const { id } = req.session.student;
+    const student = req.session.student;
     const { classId } = req.body;
-    if (!id || !classId) {
+    if (!student || !classId) {
         res.redirect('/student/bookaclass?booking=error');
         return;
     }
 
     classesRepository.findById(classId)
         .then(aClass => {
-            logger.info(`Class found: ${aClass}`);
+            logger.info(`Class found: ${JSON.stringify(aClass)}`);
             if (aClass.students.length < maxStudentsInAClass) {
-                logger.info(`Adding student ${id} to class ${aClass._id}`);
-                aClass.students.push(id);
-                aClass.save();
+                logger.info(`Adding student ${student._id} to class ${aClass._id}`);
+                aClass.students.push(student._id);
+                return aClass.save();
             } else {
-                Promise.reject('This class cannot accept more students!');
+                return Promise.reject('This class cannot accept more students!');
             }
         })
         .then(aClass => {
+            student.classesIds.push(aClass._id);
+            student.availableClasses--;
+            student.save();
+        })
+        .then(_ => {
             res.redirect('/student/bookaclass?booking=success');
         })
         .catch(err => {
@@ -133,6 +170,13 @@ const opsDumpAll = repository => (req, res) => {
         .catch(err => res.status(500).json({ message: err }));
 };
 
+const opsDumpClasses = repository => (req, res) => {
+    const { id } = req.params;
+    repository.removeAllClassesOf(id)
+        .then(result => res.status(200).json({ message: `All classes of student ${id} deleted` }))
+        .catch(err => res.status(500).json({ message: err }));
+};
+
 const opsFindAll = repository => (req, res) => {
     repository.findAllBy({})
         .then(students => res.status(200).json(students))
@@ -142,14 +186,16 @@ const opsFindAll = repository => (req, res) => {
 module.exports = () => {
     const repository = require('./repository');
     const classesRepository = require('../classes/repository');
+    const teachersRepository = require('../teacher/repository');
 
     return {
-        homePage: homePage(classesRepository),
+        homePage: homePage(classesRepository, teachersRepository),
         studentAuthCheck: studentAuthCheck(repository),
         login: login(repository),
-        bookAClassPage: bookAClassPage(classesRepository),
+        bookAClassPage: bookAClassPage(classesRepository, teachersRepository),
         bookAClass: bookAClass(classesRepository),
         opsDumpAll: opsDumpAll(repository),
+        opsDumpClasses: opsDumpClasses(repository),
         opsFindAll: opsFindAll(repository),
     }
 };

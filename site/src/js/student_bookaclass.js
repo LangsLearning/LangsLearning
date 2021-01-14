@@ -1,5 +1,6 @@
 const $joinClassModal = $('div[data-dialog="join_class"]');
 const $bookClassIdInput = $('input[data-id="class-id-to-schedule"]');
+const $classesAvailableToSchedule = $('b[data-id="classes-available-to-schedule"]');
 
 $(function() {
     $('.classes_by_date__article>.card-header').on('click', function() {
