@@ -11,6 +11,7 @@
     padding-left: .2rem;
     font-size: .7rem;
     vertical-align: top;
+    cursor: pointer;
 }
 
 .student_classes__container {

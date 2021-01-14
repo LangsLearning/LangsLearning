@@ -46,7 +46,7 @@
                                             </div>
                                             <div class="card-body">
                                                 <h6 class="class__title-style">
-                                                    <%= nextClass.title %> <i class="fas fa-info-circle info__icon"></i>
+                                                    <%= nextClass.title %> <i class="fas fa-info-circle info__icon" data-bs-toggle="tooltip" data-bs-placement="right" title="<%= nextClass.description %>"></i>
                                                 </h6>
                                                 <img src="../images/<%= nextClass.teacher.picture %>" class="rounded-circle teacher__image-size" alt="Foto do consultor">
                                                 <div class="card-text class__scheduled">
