@@ -508,7 +508,7 @@ footer {
 .facebook__icon {
     font-size: 2rem;
     margin-right: .5rem;
-    color: #cccccc;
+    color: var(--lighter-secondary);
 }
 
 .facebook__icon:hover {
