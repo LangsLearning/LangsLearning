@@ -1,10 +1,16 @@
 /* Card Next Classes */
 
 .class__title-style {
-    height: 2.3rem;
+    height: auto;
     font-size: 1.3rem;
     color: var(--primary-color);
-    height: 50px;
+}
+
+.info__icon {
+    color: gray;
+    padding-left: .2rem;
+    font-size: .7rem;
+    vertical-align: top;
 }
 
 .student_classes__container {

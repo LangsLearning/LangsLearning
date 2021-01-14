@@ -520,7 +520,7 @@ footer {
 
 .instagram__icon {
     font-size: 2rem;
-    color: #cccccc;
+    color: var(--lighter-secondary);
     border-radius: 25%;
 }
 
