@@ -80,6 +80,10 @@
 
 /* Card Next Class hour */
 
+.class__header-style {
+    padding: 0;
+}
+
 .current__classes-card {
     top: 70px;
     font-family: 'Quicksand';
