@@ -56,9 +56,9 @@
                                     <%= moment(aClass.datetime).format('HH:mm') %>
                                 </div>
                                 <div class="card-body">
-                                    <h4 class="class__title-style">
-                                        <%= aClass.title %>
-                                    </h4>
+                                    <h5 class="class__title-style">
+                                        <%= aClass.title %> <i class="fas fa-info-circle info__icon" data-bs-toggle="tooltip" data-bs-placement="right" title="<%= aClass.description %>"></i>
+                                    </h5>
                                     <img src="../images/<%= aClass.teacher.picture %>" class="rounded-circle teacher__image" alt="Foto do consultor">
                                     <p class="card-text">
                                         <%= aClass.teacher.alias%>

@@ -7,6 +7,22 @@
     flex-wrap: wrap;
 }
 
+.class__header-style {
+    padding: 0.2rem;
+}
+
+.class__title-style {
+    color: var(--primary-color);
+}
+
+.info__icon {
+    color: gray;
+    padding-left: .2rem;
+    font-size: 1rem;
+    vertical-align: top;
+    cursor: pointer;
+}
+
 .classes__section .card {
     margin-top: 30px;
 }
