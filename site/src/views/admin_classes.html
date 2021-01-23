@@ -1,186 +1,291 @@
 <!DOCTYPE html>
 <html>
-
-<head>
+  <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Langs learning</title>
-    <link rel="icon" href="/images/LangsLearnning_icon.png" type="image/x-icon">
+    <link
+      rel="icon"
+      href="/images/LangsLearnning_icon.png"
+      type="image/x-icon"
+    />
     <!-- JUST LIBRARIES -->
-    <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/@fortawesome/fontawesome-free/css/all.css">
+    <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/@fortawesome/fontawesome-free/css/all.css" />
     <!-- JUST LIBRARIES -->
-
 
     <!-- OUR CSS FILES HERE -->
-    <link rel="stylesheet" href="/styles/variables.css">
-    <link rel="stylesheet" href="/styles/styles.css">
-    <link rel="stylesheet" href="/styles/trials.css">
+    <link rel="stylesheet" href="/styles/variables.css" />
+    <link rel="stylesheet" href="/styles/styles.css" />
+    <link rel="stylesheet" href="/styles/trials.css" />
     <!-- OUR CSS FILES HERE -->
-</head>
+  </head>
 
-<body>
-
+  <body>
     <main class="container-fluid">
-        <section>
-            <h1>Classes</h1>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <td>Title</td>
-                        <td>Description</td>
-                        <td>Level</td>
-                        <td>Datetime</td>
-                        <td>Material link</td>
-                        <td>Class link</td>
-                        <td>Teacher</td>
-                        <td>Students</td>
-                        <td></td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% classes.forEach((aClass)=> { %>
-                        <tr>
-                            <td>
-                                <%= aClass.title %>
-                            </td>
-                            <td>
-                                <%= aClass.description %>
-                            </td>
-                            <td>
-                                <%= aClass.level %>
-                            </td>
-                            <td>
-                                <%= moment(aClass.datetime).format('dddd DD/MM/yyyy HH:mm') %>
-                            </td>
-                            <td>
-                                <%= aClass.materialLink %>
-                            </td>
-                            <td>
-                                <%= aClass.classLink %>
-                            </td>
-                            <td>
-                                <% if (aClass.teacher) { %>
-                                    <button class="btn btn-info assign_teacher_modal__button" data-classId="<%= aClass._id %>"><i class="fas fa-user-check"></i> <%= aClass.teacher.alias%></button>
-                                    <% } else { %>
-                                        <button class="btn btn-info assign_teacher_modal__button" data-classId="<%= aClass._id %>"><i class="fas fa-user-check"></i> Assign Teacher</button>
-                                        <% } %>
-                            </td>
-                            <td>
-                                <%= aClass.students %>
-                            </td>
-                            <td style="text-align: right;">
-                                <a class="btn btn-warning" href="/admin/classes/<%= aClass._id %>/edit"><i
-                                        class="fas fa-pencil-alt"></i></a>
-                                <a class="btn btn-danger" href="/admin/classes/<%= aClass._id %>/remove"><i
-                                        class="fas fa-trash-alt"></i></a>
-                            </td>
-                        </tr>
-                        <% }); %>
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td colspan="7"></td>
-                        <td colspan="2">
-                            <button class="btn btn-primary register_trial__btn" data-toggle="modal" data-target="#class-register-modal">Registrar class</button>
-                        </td>
-                    </tr>
-                </tfoot>
-            </table>
-        </section>
+      <section>
+        <h1>Classes</h1>
+        <table class="table">
+          <thead>
+            <tr>
+              <td>Title</td>
+              <td>Description</td>
+              <td>Level</td>
+              <td>Datetime</td>
+              <td>Material link</td>
+              <td>Class link</td>
+              <td>Teacher</td>
+              <td>Students</td>
+              <td></td>
+            </tr>
+          </thead>
+          <tbody>
+            <% classes.forEach((aClass)=> { %>
+            <tr>
+              <td><%= aClass.title %></td>
+              <td><%= aClass.description %></td>
+              <td><%= aClass.level %></td>
+              <td>
+                <%= moment(aClass.datetime).format('dddd DD/MM/yyyy HH:mm') %>
+              </td>
+              <td><%= aClass.materialLink %></td>
+              <td><%= aClass.classLink %></td>
+              <td>
+                <% if (aClass.teacher) { %>
+                <button
+                  class="btn btn-info assign_teacher_modal__button"
+                  data-classId="<%= aClass._id %>"
+                >
+                  <i class="fas fa-user-check"></i>
+                  <%= aClass.teacher.alias%>
+                </button>
+                <% } else { %>
+                <button
+                  class="btn btn-info assign_teacher_modal__button"
+                  data-classId="<%= aClass._id %>"
+                >
+                  <i class="fas fa-user-check"></i> Assign Teacher
+                </button>
+                <% } %>
+              </td>
+              <td><%= aClass.students %></td>
+              <td style="text-align: right">
+                <a
+                  class="btn btn-warning"
+                  href="/admin/classes/<%= aClass._id %>/edit"
+                  ><i class="fas fa-pencil-alt"></i
+                ></a>
+                <a
+                  class="btn btn-danger"
+                  href="/admin/classes/<%= aClass._id %>/remove"
+                  ><i class="fas fa-trash-alt"></i
+                ></a>
+              </td>
+            </tr>
+            <% }); %>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="7"></td>
+              <td colspan="2">
+                <button
+                  class="btn btn-primary register_trial__btn"
+                  data-toggle="modal"
+                  data-target="#class-register-modal"
+                >
+                  Registrar class
+                </button>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </section>
     </main>
 
-    <div class="modal fade" id="class-register-modal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Register Class</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form action="/admin/classes" method="POST">
-                        <div class="form-group">
-                            <label for="register-class-title" class="col-form-label">Title:</label>
-                            <input type="text" name="title" class="form-control" id="register-class-title" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="register-class-description" class="col-form-label">Description:</label>
-                            <textarea type="text" name="description" class="form-control" id="register-class-description" required></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="register-class-level" class="col-form-label">Level:</label>
-                            <select id="register-class-level" class="form-control" name="level">
-                                <option value="basic">Basic</option>
-                                <option value="intermediate">Intermediate</option>
-                                <option value="advanced">Advanced</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="register-class-datetime" class="col-form-label">Datetime:</label>
-                            <input type="datetime-local" name="datetime" class="form-control" id="register-class-datetime" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="register-class-material" class="col-form-label">Material link:</label>
-                            <input type="text" name="materialLink" class="form-control" id="register-class-material" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="register-class-classlink" class="col-form-label">Zoom link:</label>
-                            <input type="text" name="classLink" class="form-control" id="register-class-classlink" required>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Register</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+    <div
+      class="modal fade"
+      id="class-register-modal"
+      tabindex="-1"
+      role="dialog"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Register Class</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="/admin/classes" method="POST">
+              <div class="form-group">
+                <label for="register-class-title" class="col-form-label"
+                  >Title:</label
+                >
+                <input
+                  type="text"
+                  name="title"
+                  class="form-control"
+                  id="register-class-title"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="register-class-description" class="col-form-label"
+                  >Description:</label
+                >
+                <textarea
+                  type="text"
+                  name="description"
+                  class="form-control"
+                  id="register-class-description"
+                  required
+                ></textarea>
+              </div>
+              <div class="form-group">
+                <label for="register-class-level" class="col-form-label"
+                  >Level:</label
+                >
+                <select
+                  id="register-class-level"
+                  class="form-control"
+                  name="level"
+                >
+                  <option value="basic">Basic</option>
+                  <option value="intermediate">Intermediate</option>
+                  <option value="advanced">Advanced</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="register-class-datetime" class="col-form-label"
+                  >Datetime:</label
+                >
+                <input
+                  type="datetime-local"
+                  name="datetime"
+                  class="form-control"
+                  id="register-class-datetime"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="register-class-material" class="col-form-label"
+                  >Material link:</label
+                >
+                <input
+                  type="text"
+                  name="materialLink"
+                  class="form-control"
+                  id="register-class-material"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="register-class-classlink" class="col-form-label"
+                  >Zoom link:</label
+                >
+                <input
+                  type="text"
+                  name="classLink"
+                  class="form-control"
+                  id="register-class-classlink"
+                  required
+                />
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button type="submit" class="btn btn-primary">Register</button>
+              </div>
+            </form>
+          </div>
         </div>
+      </div>
     </div>
 
-    <div class="modal fade" id="class-assign-teacher-modal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Assign Teacher</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form action="/admin/classes/assign" method="POST">
-                        <div class="form-group">
-                            <label for="register-class-title" class="col-form-label">Teacher:</label>
-                            <select name="teacherId" class="form-control" required>
-                                <% teachers.forEach(teacher => { %>
-                                    <option value="<%= teacher._id %>"><%= teacher.name %></option>
-                                    <% }); %>
-                            </select>
-                            <input type="hidden" name="classId" id="ipt-class-assign-teacher">
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Assign</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+    <div
+      class="modal fade"
+      id="class-assign-teacher-modal"
+      tabindex="-1"
+      role="dialog"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Assign Teacher</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="/admin/classes/assign" method="POST">
+              <div class="form-group">
+                <label for="register-class-title" class="col-form-label"
+                  >Teacher:</label
+                >
+                <select name="teacherId" class="form-control" required>
+                  <% teachers.forEach(teacher=> { %>
+                  <option value="<%= teacher._id %>">
+                    <%= teacher.name %>
+                  </option>
+                  <% }); %>
+                </select>
+                <input
+                  type="hidden"
+                  name="classId"
+                  id="ipt-class-assign-teacher"
+                />
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button type="submit" class="btn btn-primary">Assign</button>
+              </div>
+            </form>
+          </div>
         </div>
+      </div>
     </div>
 
-    <div class="modal fade trial_failure__modal" tabindex="-1" id="modal-trial-failure">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-sm-2"><i class="fas fa-exclamation-triangle"></i></div>
-                        <div class="col-sm-10" id="modal-trial-failure-message">
-                        </div>
-                    </div>
-                </div>
+    <div
+      class="modal fade trial_failure__modal"
+      tabindex="-1"
+      id="modal-trial-failure"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-sm-2">
+                <i class="fas fa-exclamation-triangle"></i>
+              </div>
+              <div class="col-sm-10" id="modal-trial-failure-message"></div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
 
     <!-- JUST LIBRARIES -->
@@ -193,6 +298,5 @@
     <script src="/js/trials.js"></script>
     <script src="/js/admin_classes.js"></script>
     <!-- OUR JS FILES HERE -->
-</body>
-
+  </body>
 </html>
