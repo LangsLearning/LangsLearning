@@ -102,10 +102,10 @@ const login = repository => (req, res) => {
 };
 
 const bookAClassPage = (classesRepository, teachersRepository) => (req, res) => {
-    const { id } = req.session.student;
+    const { student } = req.session;
     teachersRepository.findAllBy({})
         .then(teachers =>
-            classesRepository.findAllAvailableFor(id).then(classes => ({ teachers, classes }))
+            classesRepository.findAllAvailableFor(student).then(classes => ({ teachers, classes }))
         )
         .then(data => {
             const { teachers, classes } = data;

@@ -21,9 +21,9 @@ const findAllBy = query => {
     return Class.find(query);
 };
 
-const findAllAvailableFor = studentId => {
-    logger.info(`Fetching all classes available for student ${studentId}`);
-    return Class.find({ active: true, students: { $nin: [studentId] } });
+const findAllAvailableFor = student => {
+    logger.info(`Fetching all classes available for student ${student._id}`);
+    return Class.find({ active: true, students: { $nin: [student._id] }, datetime: { $gte: new Date() }, level: { $eq: student.level } });
 };
 
 const findById = id => {
