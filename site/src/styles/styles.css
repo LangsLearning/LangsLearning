@@ -504,7 +504,6 @@ footer {
     margin-top: 1rem;
 }
 
-
 .facebook__icon {
     font-size: 2rem;
     margin-right: .5rem;
@@ -513,9 +512,9 @@ footer {
 
 .facebook__icon:hover {
     text-decoration: none;
-    -webkit-box-shadow: 4px 7px 26px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 4px 7px 26px 0px rgba(0,0,0,0.75);
-    box-shadow: 4px 7px 26px 0px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 4px 7px 26px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 4px 7px 26px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 4px 7px 26px 0px rgba(0, 0, 0, 0.75);
 }
 
 .instagram__icon {
@@ -526,9 +525,9 @@ footer {
 
 .instagram__icon:hover {
     text-decoration: none;
-    -webkit-box-shadow: 4px 7px 26px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 4px 7px 26px 0px rgba(0,0,0,0.75);
-    box-shadow: 4px 7px 26px 0px rgba(0,0,0,0.75); 
+    -webkit-box-shadow: 4px 7px 26px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 4px 7px 26px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 4px 7px 26px 0px rgba(0, 0, 0, 0.75);
 }
 
 .modal .modal-header {
@@ -540,7 +539,7 @@ footer {
 }
 
 .modal section {
-    padding: 30px;
+    padding: 25px;
 }
 
 .modal .input-group-text {
@@ -616,8 +615,8 @@ footer {
     padding: 10px;
 }
 
-.trial_registration__section button {
-    margin-top: 20px;
+.trial_registration__section button[type=submit] {
+    margin-top: 15px;
     width: 100%;
 }
 
