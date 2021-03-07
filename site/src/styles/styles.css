@@ -383,7 +383,7 @@
     background-color: #F9F9F3;
     box-sizing: border-box;
     height: 25rem;
-    width: 14rem;
+    width: 95%;
     bottom: 1.328rem;
     right: 0.527rem;
     z-index: 9999999;
@@ -678,6 +678,12 @@ footer {
 
 
 /* Responsive */
+
+@media (min-width: 600px) {
+    .contact {
+        width: 20rem;
+    }
+}
 
 @media (min-width: 768px) {
     .banner {
