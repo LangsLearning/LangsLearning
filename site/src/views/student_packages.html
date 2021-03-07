@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Langs learning</title>
-    <link
-      rel="icon"
-      href="/images/LangsLearnning_icon.png"
-      type="image/x-icon"
-    />
+    <link rel="icon" href="/images/LangsLearnning_icon.png" type="image/x-icon" />
     <!-- JUST LIBRARIES -->
     <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/@fortawesome/fontawesome-free/css/all.css" />
@@ -21,12 +18,16 @@
     <link rel="stylesheet" href="/styles/packages.css" />
     <link rel="stylesheet" href="/styles/student-navbar.css" />
     <!-- OUR CSS FILES HERE -->
-  </head>
+</head>
 
-  <body>
-    <header><%- include('components/student_navbar.html'); %></header>
+<body>
+    <header>
+        <%- include('components/student_navbar.html'); %>
+    </header>
 
-    <main><%- include('components/packages.html'); %></main>
+    <main>
+        <%- include('components/packages.html', {isStudent: true}); %>
+    </main>
 
     <!-- JUST LIBRARIES -->
     <script src="/jquery/dist/jquery.min.js"></script>
@@ -37,5 +38,6 @@
     <!-- OUR JS FILES HERE -->
     <script src="/js/index.js"></script>
     <!-- OUR JS FILES HERE -->
-  </body>
+</body>
+
 </html>
