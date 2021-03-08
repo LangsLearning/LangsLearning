@@ -57,6 +57,10 @@ module.exports = {
         app.get('/admin/login', passport.authenticate('basic'), (req, res) => {
             res.redirect('/admin/trials');
         });
+        app.get('/admin/logout', (req, res) => {
+            req.logout();
+            res.redirect('/?logout=true');
+        });
         app.get('/auth/facebook', passport.authenticate('facebook', { scope: ['email'] }));
 
         app.get('/auth/facebook/callback',

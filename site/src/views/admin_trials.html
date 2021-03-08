@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Langs learning</title>
-    <link
-      rel="icon"
-      href="/images/LangsLearnning_icon.png"
-      type="image/x-icon"
-    />
+    <link rel="icon" href="/images/LangsLearnning_icon.png" type="image/x-icon" />
     <!-- JUST LIBRARIES -->
     <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/@fortawesome/fontawesome-free/css/all.css" />
@@ -16,37 +13,44 @@
 
     <!-- OUR CSS FILES HERE -->
     <link rel="stylesheet" href="/styles/variables.css" />
-    <link rel="stylesheet" href="/styles/styles.css" />
     <link rel="stylesheet" href="/styles/trials.css" />
     <!-- OUR CSS FILES HERE -->
-  </head>
+</head>
 
-  <body>
+<body>
+    <header>
+        <%- include('components/admin_navbar.html'); %>
+    </header>
     <main class="container-fluid">
-      <section>
-        <h1>Trial Classes</h1>
-        <table class="table">
-          <thead>
-            <tr>
-              <td>Name</td>
-              <td>E-mail</td>
-              <td>Date/time</td>
-              <td>Link</td>
-              <td></td>
-            </tr>
-          </thead>
-          <tbody>
-            <% trials.forEach((trial) => { %>
-            <tr>
-              <td><%= trial.name %></td>
-              <td><%= trial.email %></td>
-              <td><%= trial.datetime %></td>
-              <td><%= trial.link %></td>
-              <td style="text-align: right">
-                <a
-                  class="btn btn-warning"
-                  href="/admin/trials/<%= trial._id %>/edit"
-                  >Change</a
+        <section>
+            <h1>Trial Classes</h1>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td>Name</td>
+                        <td>E-mail</td>
+                        <td>Date/time</td>
+                        <td>Link</td>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% trials.forEach((trial) => { %>
+                        <tr>
+                            <td>
+                                <%= trial.name %>
+                            </td>
+                            <td>
+                                <%= trial.email %>
+                            </td>
+                            <td>
+                                <%= trial.datetime %>
+                            </td>
+                            <td>
+                                <%= trial.link %>
+                            </td>
+                            <td style="text-align: right">
+                                <a class="btn btn-warning" href="/admin/trials/<%= trial._id %>/edit">Change</a
                 >
                 <a
                   class="btn btn-danger"

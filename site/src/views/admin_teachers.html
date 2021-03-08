@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Langs learning</title>
-    <link
-      rel="icon"
-      href="/images/LangsLearnning_icon.png"
-      type="image/x-icon"
-    />
+    <link rel="icon" href="/images/LangsLearnning_icon.png" type="image/x-icon" />
     <!-- JUST LIBRARIES -->
     <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/@fortawesome/fontawesome-free/css/all.css" />
@@ -16,97 +13,81 @@
 
     <!-- OUR CSS FILES HERE -->
     <link rel="stylesheet" href="/styles/variables.css" />
-    <link rel="stylesheet" href="/styles/styles.css" />
     <link rel="stylesheet" href="/styles/teachers.css" />
     <!-- OUR CSS FILES HERE -->
-  </head>
+</head>
 
-  <body>
+<body>
+    <header>
+        <%- include('components/admin_navbar.html'); %>
+    </header>
     <main class="container-fluid">
-      <section>
-        <h1>Teachers</h1>
-        <table class="table">
-          <thead>
-            <tr>
-              <td colspan="2">Name</td>
-              <td>Alias</td>
-              <td>Email</td>
-              <td>Description</td>
-              <td></td>
-            </tr>
-          </thead>
-          <tbody>
-            <% teachers.forEach(teacher => { %>
-            <tr>
-              <td>
-                <img
-                  height="40px"
-                  class="rounded"
-                  src="../images/<%= teacher.picture %>"
-                />
-              </td>
-              <td><%= teacher.name %></td>
-              <td><%= teacher.alias %></td>
-              <td><%= teacher.email %></td>
-              <td><%= teacher.description %></td>
-              <td style="text-align: right">
-                <a
-                  class="btn btn-warning"
-                  href="/admin/teachers/<%= teacher._id %>/edit"
-                  ><i class="fas fa-pencil-alt"></i
+        <section>
+            <h1>Teachers</h1>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td colspan="2">Name</td>
+                        <td>Alias</td>
+                        <td>Email</td>
+                        <td>Description</td>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% teachers.forEach(teacher => { %>
+                        <tr>
+                            <td>
+                                <img height="40px" class="rounded" src="../images/<%= teacher.picture %>" />
+                            </td>
+                            <td>
+                                <%= teacher.name %>
+                            </td>
+                            <td>
+                                <%= teacher.alias %>
+                            </td>
+                            <td>
+                                <%= teacher.email %>
+                            </td>
+                            <td>
+                                <%= teacher.description %>
+                            </td>
+                            <td style="text-align: right">
+                                <a class="btn btn-warning" href="/admin/teachers/<%= teacher._id %>/edit"><i class="fas fa-pencil-alt"></i
                 ></a>
-                <a
-                  class="btn btn-danger"
-                  href="/admin/teachers/<%= teacher._id %>/remove"
-                  ><i class="fas fa-trash-alt"></i
+                                <a class="btn btn-danger" href="/admin/teachers/<%= teacher._id %>/remove"><i class="fas fa-trash-alt"></i
                 ></a>
-              </td>
-            </tr>
-            <% }); %>
-          </tbody>
-          <tfoot>
-            <tr>
-              <td colspan="4"></td>
-              <td colspan="2">
-                <button
-                  class="btn btn-primary register_teacher__btn"
-                  data-toggle="modal"
-                  data-target="#teacher-register-modal"
-                >
+                            </td>
+                        </tr>
+                        <% }); %>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="4"></td>
+                        <td colspan="2">
+                            <button class="btn btn-primary register_teacher__btn" data-toggle="modal" data-target="#teacher-register-modal">
                   Registrar Teacher
                 </button>
-              </td>
-            </tr>
-          </tfoot>
-        </table>
-      </section>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </section>
     </main>
 
-    <div
-      class="modal fade"
-      id="teacher-register-modal"
-      tabindex="-1"
-      role="dialog"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Register Teacher</h5>
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
+    <div class="modal fade" id="teacher-register-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Register Teacher</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
-          </div>
-          <div class="modal-body">
-            <form action="/admin/teachers" method="POST">
-              <div class="form-group">
-                <label for="register-teacher-name" class="col-form-label"
-                  >Name:</label
+                </div>
+                <div class="modal-body">
+                    <form action="/admin/teachers" method="POST">
+                        <div class="form-group">
+                            <label for="register-teacher-name" class="col-form-label">Name:</label
                 >
                 <input
                   type="text"

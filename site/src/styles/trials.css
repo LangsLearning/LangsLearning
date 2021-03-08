@@ -5,3 +5,7 @@ h1 {
 .register_trial__btn {
     width: 100%;
 }
+
+main {
+    padding-top: 80px;
+}
