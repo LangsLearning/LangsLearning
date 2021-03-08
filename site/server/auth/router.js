@@ -1,74 +1,17 @@
-const passport = require('passport');
-const BasicStrategy = require('passport-http').BasicStrategy;
-const pino = require('pino');
-const logger = pino({ level: process.env.LOG_LEVEL || 'info' });
-const mail = require('../contact/mail');
+const logger = require('../logger'),
+    handler = require('./handler'),
+    passport = require('passport');
 
-const { adminUserConfig, facebookConfig } = require('../config');
+module.exports = app => {
+    app.get('/admin/login', passport.authenticate('basic'), handler.login);
+    app.get('/admin/logout', handler.logout);
 
-const FacebookStrategy = require('passport-facebook').Strategy;
-
-const getEmail = profile => {
-    try {
-        return profile.emails[0].value;
-    } catch (error) {
-        return null;
-    }
-};
-
-passport.serializeUser((user, done) => {
-    done(null, user);
-});
-
-passport.deserializeUser((user, done) => {
-    done(null, user);
-});
-
-passport.use(new BasicStrategy(
-    (username, password, done) => {
-        if (username === adminUserConfig.username && password === adminUserConfig.password) {
-            done(null, { username, role: 'admin' });
-        } else {
-            done(null, false);
-        }
-    }
-));
-
-passport.use(new FacebookStrategy({
-        clientID: facebookConfig.clientId,
-        clientSecret: facebookConfig.clientSecret,
-        callbackURL: facebookConfig.callbackUrl,
-        profileFields: ['emails']
-    },
-    (accessToken, refreshToken, profile, done) => {
-        const email = getEmail(profile);
-        if (email) {
-            logger.info(`Sending trial class e-mail for email: ${email}...`);
-            mail.sendToTeachers('Trial class', `There is a new user requesting trial class. Email: ${email}`)
-            done(null, { email });
-        } else {
-            done(new Error("User has no e-mail"), profile);
-        }
-    }
-));
-
-module.exports = {
-    apply: app => {
-        app.get('/admin/login', passport.authenticate('basic'), (req, res) => {
-            res.redirect('/admin/trials');
-        });
-        app.get('/admin/logout', (req, res) => {
-            req.logout();
-            res.redirect('/?logout=true');
-        });
-        app.get('/auth/facebook', passport.authenticate('facebook', { scope: ['email'] }));
-
-        app.get('/auth/facebook/callback',
-            passport.authenticate('facebook', {
-                successRedirect: '/?trial_class=success',
-                failureRedirect: '/?trial_class=error'
-            }));
-    }
+    app.get('/auth/facebook', passport.authenticate('facebook', { scope: ['email'] }));
+    app.get('/auth/facebook/callback',
+        passport.authenticate('facebook', {
+            successRedirect: '/?trial_class=success',
+            failureRedirect: '/?trial_class=error'
+        }));
 };
 
 /**

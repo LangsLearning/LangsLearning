@@ -37,9 +37,12 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 const port = process.env.PORT || 3000;
+
+
+require('./auth')(app);
+
 const contactRouter = require('./contact/router');
 const staticRouter = require('./static/router');
-const authRouter = require('./auth/router');
 const trialRouter = require('./trial/router');
 const classesRouter = require('./classes/router');
 const teacherRouter = require('./teacher/router');
@@ -49,7 +52,6 @@ const signinRouter = require('./signin/router');
 
 contactRouter.apply(app);
 staticRouter.apply(app);
-authRouter.apply(app);
 trialRouter.apply(app);
 classesRouter.apply(app);
 teacherRouter.apply(app);
