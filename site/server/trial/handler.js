@@ -27,11 +27,9 @@ const getSetPasswordTemplate = (id, name, level, token) => {
 const getTrials = (studentsRepository, trialsRepository) => (req, res) =>
     trialsRepository
     .findAllBy({ level: null })
-    .then(trials => studentsRepository.findAllBy({}).then(students => ({ trials, students })))
-    .then(data => {
-        const { trials, students } = data;
-        logger.info(`Rendering trials page: ${trials.length} trials found, ${students.length} students found`);
-        res.render('admin_trials', { trials, students });
+    .then(trials => {
+        logger.info(`Rendering trials page: ${trials.length} trials found`);
+        res.render('admin_trials', { trials });
     })
     .catch(err => {
         logger.error(err);

@@ -164,6 +164,13 @@ const bookAClass = classesRepository => (req, res) => {
         });
 };
 
+const adminGetStudents = repository => (req, res) => {
+    repository.findAllBy({})
+        .then(students => {
+            res.render('admin_students', { students });
+        })
+};
+
 const opsDumpAll = repository => (req, res) => {
     repository.removeAllBy({})
         .then(result => res.status(200).json({ message: 'All students deleted' }))
@@ -194,6 +201,7 @@ module.exports = () => {
         login: login(repository),
         bookAClassPage: bookAClassPage(classesRepository, teachersRepository),
         bookAClass: bookAClass(classesRepository),
+        adminGetStudents: adminGetStudents(repository),
         opsDumpAll: opsDumpAll(repository),
         opsDumpClasses: opsDumpClasses(repository),
         opsFindAll: opsFindAll(repository),
