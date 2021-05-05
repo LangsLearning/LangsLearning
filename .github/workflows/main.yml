@@ -4,14 +4,20 @@ on:
   push:
     branches:
       - master
+      - leo
+      - lara
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
       - uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "langslearning-dev"
+          heroku_app_name: "langslearning-${{ steps.extract_branch.outputs.branch }}"
           heroku_email: "leosilvadev@gmail.com"
