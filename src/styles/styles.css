@@ -692,10 +692,8 @@ footer {
     .banner__text {
         font-size: 1.7rem;
     }
-    
     .calling__text {
-        top: 400px;
-        background-color: unset;
+        top: 16rem;
     }
     .calling__one {
         font-size: 1.5rem;
@@ -736,6 +734,10 @@ footer {
     }
     .navbar-collapse {
         margin-right: 10px;
+    }
+    .calling__text {
+        top: 400px;
+        background-color: unset;
     }
     .all__texts{
         display: flex;
