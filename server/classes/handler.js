@@ -1,13 +1,12 @@
-const pino = require("pino");
-const logger = pino({ level: process.env.LOG_LEVEL || 'info' });
-const mail = require('../contact/mail');
-const ejs = require('ejs');
-const path = require('path');
-const repository = require("./repository");
-const { serverConfig } = require('../config');
-const moment = require('moment');
+const logger = require('../logger'),
+    mail = require('../contact/mail'),
+    ejs = require('ejs'),
+    path = require('path'),
+    { serverConfig } = require('../config'),
+    moment = require('moment'),
+    Class = require('./class');
 
-const getClasses = (classesRepository, teachersRepository) => (req, res) => classesRepository.findAllBy({})
+const getClasses = (teachersRepository) => (req, res) => Class.find({})
     .then(classes =>
         teachersRepository.findAllBy({ active: true }).map(teachers => ({ classes, teachers }))
     )
@@ -29,7 +28,7 @@ const getClasses = (classesRepository, teachersRepository) => (req, res) => clas
         res.render('admin_classes', { classes: [], teachers: [], error: err.message, moment });
     });
 
-const registerClass = classesRepository => (req, res) => {
+const registerClass = (req, res) => {
     const newClass = { title, description, level, datetime, materialLink, classLink } = req.body;
     if (!title || !description || !level || !datetime || !materialLink || !classLink) {
         logger.error(`Invalid class data to be registered, ${JSON.stringify(req.body)}`);
@@ -37,7 +36,7 @@ const registerClass = classesRepository => (req, res) => {
         return;
     }
 
-    classesRepository.register(newClass)
+    Class.register(newClass)
         .then(registered => {
             logger.info(`Class ${JSON.stringify(registered)} registered`);
             res.redirect('/admin/classes');
@@ -48,9 +47,9 @@ const registerClass = classesRepository => (req, res) => {
         });
 };
 
-const removeClass = classesRepository => (req, res) => {
+const removeClass = (req, res) => {
     const { id } = req.params;
-    classesRepository.remove(id)
+    Class.deactivateById(id)
         .then(result => {
             res.redirect('/admin/classes');
         })
@@ -60,14 +59,14 @@ const removeClass = classesRepository => (req, res) => {
         });
 };
 
-const assignTeacher = classesRepository => (req, res) => {
+const assignTeacher = (req, res) => {
     const { classId, teacherId } = req.body;
     if (!classId || !teacherId) {
         res.redirect('/admin/classes');
         return;
     }
 
-    classesRepository.assignTeacher(classId, teacherId)
+    Class.assignTeacher(classId, teacherId)
         .then(result => {
             res.redirect('/admin/classes');
         })
@@ -77,27 +76,26 @@ const assignTeacher = classesRepository => (req, res) => {
         });
 };
 
-const opsDumpAll = repository => (req, res) => {
-    repository.removeAllBy({})
+const opsDumpAll = (req, res) => {
+    Class.deleteMany({})
         .then(result => res.status(200).json({ message: 'All classes deleted' }))
         .catch(err => res.status(500).json({ message: err }));
 };
 
-const opsFindAll = repository => (req, res) => {
-    repository.findAllBy({})
+const opsFindAll = (req, res) => {
+    Class.find({})
         .then(trials => res.status(200).json(trials))
         .catch(err => res.status(500).json({ message: err }));
 };
 
 module.exports = () => {
-    const classesRepository = require('./repository');
     const teachersRepository = require('../teacher/repository');
     return {
-        getClasses: getClasses(classesRepository, teachersRepository),
-        registerClass: registerClass(classesRepository),
-        removeClass: removeClass(classesRepository),
-        assignTeacher: assignTeacher(classesRepository),
-        opsDumpAll: opsDumpAll(classesRepository),
-        opsFindAll: opsFindAll(classesRepository),
+        getClasses: getClasses(teachersRepository),
+        registerClass,
+        removeClass,
+        assignTeacher,
+        opsDumpAll,
+        opsFindAll,
     }
 };

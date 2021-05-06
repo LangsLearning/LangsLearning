@@ -4,6 +4,7 @@ const logger = pino({ level: process.env.LOG_LEVEL || 'info' });
 const md5 = require('md5');
 const _ = require('lodash');
 const moment = require('moment');
+const Class = require('../classes/class');
 
 const maxStudentsInAClass = 8;
 
@@ -13,13 +14,13 @@ const defaultTeacher = {
     picture: '../images/unknown_teacher.png'
 };
 
-const homePage = (classesRepository, teachersRepository) => (req, res) => {
+const homePage = (teachersRepository) => (req, res) => {
     const student = req.session.student;
     student.classesIds = student.classesIds || [];
 
     teachersRepository.findAllBy({})
         .then(teachers =>
-            classesRepository.findAllByIds(student.classesIds).then(classes => ({ teachers, classes }))
+            Class.findAllByIds(student.classesIds).then(classes => ({ teachers, classes }))
         )
         .then(data => {
             const { teachers, classes } = data;
@@ -101,11 +102,11 @@ const login = repository => (req, res) => {
         });
 };
 
-const bookAClassPage = (classesRepository, teachersRepository) => (req, res) => {
+const bookAClassPage = (teachersRepository) => (req, res) => {
     const { student } = req.session;
     teachersRepository.findAllBy({})
         .then(teachers =>
-            classesRepository.findAllAvailableFor(student).then(classes => ({ teachers, classes }))
+            Class.findAllAvailableFor(student).then(classes => ({ teachers, classes }))
         )
         .then(data => {
             const { teachers, classes } = data;
@@ -131,7 +132,7 @@ const bookAClassPage = (classesRepository, teachersRepository) => (req, res) => 
         });
 };
 
-const bookAClass = classesRepository => (req, res) => {
+const bookAClass = (req, res) => {
     const student = req.session.student;
     const { classId } = req.body;
     if (!student || !classId) {
@@ -139,7 +140,7 @@ const bookAClass = classesRepository => (req, res) => {
         return;
     }
 
-    classesRepository.findById(classId)
+    Class.findById(classId)
         .then(aClass => {
             logger.info(`Class found: ${JSON.stringify(aClass)}`);
             if (aClass.students.length < maxStudentsInAClass) {
@@ -192,15 +193,15 @@ const opsFindAll = repository => (req, res) => {
 
 module.exports = () => {
     const repository = require('./repository');
-    const classesRepository = require('../classes/repository');
+    const Class = require('../classes/class');
     const teachersRepository = require('../teacher/repository');
 
     return {
-        homePage: homePage(classesRepository, teachersRepository),
+        homePage: homePage(teachersRepository),
         studentAuthCheck: studentAuthCheck(repository),
         login: login(repository),
-        bookAClassPage: bookAClassPage(classesRepository, teachersRepository),
-        bookAClass: bookAClass(classesRepository),
+        bookAClassPage: bookAClassPage(teachersRepository),
+        bookAClass,
         adminGetStudents: adminGetStudents(repository),
         opsDumpAll: opsDumpAll(repository),
         opsDumpClasses: opsDumpClasses(repository),
