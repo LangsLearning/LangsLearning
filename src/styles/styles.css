@@ -692,10 +692,7 @@ footer {
     .banner__text {
         font-size: 1.7rem;
     }
-    .all__texts {
-        top: 315px;
-        display: flex;
-    }
+    
     .calling__text {
         top: 400px;
         background-color: unset;
@@ -740,6 +737,10 @@ footer {
     .navbar-collapse {
         margin-right: 10px;
     }
+    .all__texts{
+        display: flex;
+        top: 22rem;
+    }
     .tryit__button {
         margin-left: .5rem;
     }
@@ -761,6 +762,16 @@ footer {
     .join__text {
         display: none;
     }
+
+    .whole__card {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        width: 18rem;
+        margin-left: .5rem;
+        margin-right: .5rem;
+    }
+
     .contact {
         bottom: 1.375rem;
         right: 1.375rem;
