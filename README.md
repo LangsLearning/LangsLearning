@@ -21,12 +21,12 @@ git status
 If there is something to be commited, do it.
 
 
-Change to main branch:
+Change to master branch:
 ```
-git checkout main
+git checkout master
 ```
 
-Update your local main branch:
+Update your local master branch:
 ```
 git pull
 ```
@@ -36,7 +36,7 @@ Move back to your branch:
 git checkout lara
 ```
 
-Get the updates from main and apply them to your branch:
+Get the updates from master and apply them to your branch:
 ```
-git merge main
+git merge master
 ```
