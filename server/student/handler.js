@@ -1,10 +1,9 @@
-const pino = require("pino");
-const repository = require("./repository");
-const logger = pino({ level: process.env.LOG_LEVEL || 'info' });
-const md5 = require('md5');
-const _ = require('lodash');
-const moment = require('moment');
-const Class = require('../class/class');
+const md5 = require('md5'),
+    _ = require('lodash'),
+    moment = require('moment'),
+    Class = require('../class/class'),
+    Student = require('./student'),
+    logger = require('../logger');
 
 const maxStudentsInAClass = 8;
 
@@ -46,7 +45,7 @@ const homePage = (teachersRepository) => (req, res) => {
         });
 };
 
-const studentAuthCheck = repository => (req, res, next) => {
+const studentAuthCheck = (req, res, next) => {
     const { student } = req.session;
     if (!student || !student._id) {
         logger.warn(`Student check: access denied, invalid session`);
@@ -54,7 +53,7 @@ const studentAuthCheck = repository => (req, res, next) => {
         return;
     }
 
-    repository.findById(student._id)
+    Student.findById(student._id)
         .then(persistedStudent => {
             req.session.student = persistedStudent;
             next();
@@ -65,7 +64,7 @@ const studentAuthCheck = repository => (req, res, next) => {
         });
 };
 
-const login = repository => (req, res) => {
+const login = (req, res) => {
     const { email, password } = req.body;
     if (!email || !password) {
         res.redirect('/?login=error');
@@ -73,7 +72,7 @@ const login = repository => (req, res) => {
     }
 
     logger.info(`Student trying to login with email ${email}`);
-    repository.findByEmail(email)
+    Student.findOne({ email })
         .then(student => {
             if (!student) {
                 return Promise.reject('Invalid e-mail');
@@ -165,46 +164,44 @@ const bookAClass = (req, res) => {
         });
 };
 
-const adminGetStudents = repository => (req, res) => {
-    repository.findAllBy({})
+const adminGetStudents = (req, res) => {
+    Student.find({})
         .then(students => {
             res.render('admin_students', { students });
         })
 };
 
-const opsDumpAll = repository => (req, res) => {
-    repository.removeAllBy({})
+const opsDumpAll = (req, res) => {
+    Student.deleteMany({})
         .then(result => res.status(200).json({ message: 'All students deleted' }))
         .catch(err => res.status(500).json({ message: err }));
 };
 
-const opsDumpClasses = repository => (req, res) => {
+const opsDumpClasses = (req, res) => {
     const { id } = req.params;
-    repository.removeAllClassesOf(id)
+    Student.removeAllClassesOf(id)
         .then(result => res.status(200).json({ message: `All classes of student ${id} deleted` }))
         .catch(err => res.status(500).json({ message: err }));
 };
 
-const opsFindAll = repository => (req, res) => {
-    repository.findAllBy({})
+const opsFindAll = (req, res) => {
+    Student.find({})
         .then(students => res.status(200).json(students))
         .catch(err => res.status(500).json({ message: err }));
 };
 
 module.exports = () => {
-    const repository = require('./repository');
-    const Class = require('../class/class');
     const teachersRepository = require('../teacher/repository');
 
     return {
         homePage: homePage(teachersRepository),
-        studentAuthCheck: studentAuthCheck(repository),
-        login: login(repository),
+        studentAuthCheck,
+        login,
         bookAClassPage: bookAClassPage(teachersRepository),
         bookAClass,
-        adminGetStudents: adminGetStudents(repository),
-        opsDumpAll: opsDumpAll(repository),
-        opsDumpClasses: opsDumpClasses(repository),
-        opsFindAll: opsFindAll(repository),
+        adminGetStudents,
+        opsDumpAll,
+        opsDumpClasses,
+        opsFindAll,
     }
 };

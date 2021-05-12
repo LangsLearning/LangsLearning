@@ -13,16 +13,14 @@ const StudentSchema = new mongoose.Schema({
     classesIds: [String]
 });
 
-const Student = mongoose.model('Student', StudentSchema);
-
-const register = object => {
+StudentSchema.statics.register = function(object) {
     object.password = md5(object.password);
     const student = new Student(object);
     logger.info(`Registering Student with email ${student.email}`);
     return student.save();
 };
 
-const addAvailableClasses = (email, classesToAdd) => {
+StudentSchema.statics.addAvailableClasses = function(email, classesToAdd) {
     return Student.findOne({ email })
         .then(student => {
             if (!student) {
@@ -37,7 +35,7 @@ const addAvailableClasses = (email, classesToAdd) => {
         });
 };
 
-const registerOrUpdate = object => {
+StudentSchema.statics.registerOrUpdate = function(object) {
     const { name, email, password, availableClasses } = object;
     logger.info(`Looking for student with email ${email}`);
     return Student.findOne({ email })
@@ -62,6 +60,10 @@ const registerOrUpdate = object => {
         });
 };
 
+StudentSchema.statics.removeAllClassesOf = function(studentId) {
+    return Student.updateOne({ _id: studentId }, { $set: { classesIds: [] } });
+};
+
 const findAllBy = query => {
     return Student.find(query);
 };
@@ -78,17 +80,4 @@ const removeAllBy = query => {
     return Student.deleteMany(query);
 };
 
-const removeAllClassesOf = studentId => {
-    return Student.updateOne({ _id: studentId }, { $set: { classesIds: [] } });
-};
-
-module.exports = {
-    register,
-    addAvailableClasses,
-    registerOrUpdate,
-    findAllBy,
-    findById,
-    findByEmail,
-    removeAllBy,
-    removeAllClassesOf,
-};
+module.exports = mongoose.model('Student', StudentSchema);

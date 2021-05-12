@@ -5,6 +5,7 @@ const ejs = require('ejs');
 const path = require('path');
 const repository = require("./repository");
 const { serverConfig } = require('../config');
+const Student = require('../student/student');
 
 const getRegisterTrialTemplate = (name, datetime, link) => {
     return ejs.renderFile(path.join(__dirname, '../mails/register-trial.html'), {
@@ -24,7 +25,7 @@ const getSetPasswordTemplate = (id, name, level, token) => {
     });
 };
 
-const getTrials = (studentsRepository, trialsRepository) => (req, res) =>
+const getTrials = (trialsRepository) => (req, res) =>
     trialsRepository
     .findAllBy({ level: null })
     .then(trials => {
@@ -36,7 +37,7 @@ const getTrials = (studentsRepository, trialsRepository) => (req, res) =>
         res.render('admin_trials', { trials: [], students: [], error: err.message });
     });
 
-const registerTrial = (studentRepository, trialRepository) => (req, res) => {
+const registerTrial = (trialRepository) => (req, res) => {
     const { name, email, datetime, link } = req.body;
 
     if (!name || !email || !datetime || !link) {
@@ -45,7 +46,7 @@ const registerTrial = (studentRepository, trialRepository) => (req, res) => {
         return;
     }
 
-    studentRepository.findByEmail(email)
+    Student.findOne({ email })
         .then(student => {
             if (student) {
                 return Promise.reject({ message: 'There is already a Student registered', type: 'existent_student' });
@@ -125,12 +126,11 @@ const opsFindAll = repository => (req, res) => {
 };
 
 module.exports = () => {
-    const studentRepository = require('../student/repository');
     const repository = require('./repository');
     const tokens = require('../token/tokens');
     return {
-        getTrials: getTrials(studentRepository, repository),
-        registerTrial: registerTrial(studentRepository, repository),
+        getTrials: getTrials(repository),
+        registerTrial: registerTrial(repository),
         setLevel: setLevel(tokens, repository),
         removeTrial: removeTrial(repository),
         opsDumpAll: opsDumpAll(repository),

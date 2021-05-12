@@ -3,7 +3,8 @@ const md5 = require('md5'),
     mail = require('../contact/mail'),
     ejs = require('ejs'),
     path = require('path'),
-    logger = require('../logger');
+    logger = require('../logger'),
+    Student = require('../student/student');
 
 //Lara,
 const apiKeys = ['ccb291bc22'];
@@ -27,7 +28,7 @@ const getStudentNewClassesTemplate = (studentName, packageName, packageClasses, 
     });
 };
 
-const registerOrder = studentRepository => (req, res) => {
+const registerOrder = (req, res) => {
     const order = req.body;
     logger.info(`New order received: ${JSON.stringify(order)}`);
     if (isValidSid(order)) {
@@ -39,7 +40,7 @@ const registerOrder = studentRepository => (req, res) => {
             return;
         }
 
-        studentRepository.addAvailableClasses(email, product.classes)
+        Student.addAvailableClasses(email, product.classes)
             .then(student =>
                 getStudentNewClassesTemplate(student.name, product.name, product.classes, student.availableClasses).then(html => ({ html, student }))
             )
@@ -62,8 +63,7 @@ const registerOrder = studentRepository => (req, res) => {
 };
 
 module.exports = () => {
-    const studentRepository = require('../student/repository');
     return {
-        registerOrder: registerOrder(studentRepository)
+        registerOrder
     };
 };

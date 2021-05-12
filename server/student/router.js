@@ -3,7 +3,6 @@ const moment = require('moment');
 
 module.exports = {
     apply: app => {
-        const repository = require('./repository');
         const handler = require('./handler')();
 
         app.post('/student/classes/book', handler.studentAuthCheck, handler.bookAClass);
