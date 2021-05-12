@@ -1,8 +1,8 @@
-const mail = require('./mail');
-const uuid = require('uuid');
-const pino = require('pino');
-const logger = pino({ level: process.env.LOG_LEVEL || 'info' });
+const mail = require('./mail'),
+    uuid = require('uuid'),
+    logger = require('../logger');
 
+//TODO: needs to be inside the DB when running more than one instance
 const tokens = {};
 
 const getContactToken = (req, res) => {
@@ -27,17 +27,17 @@ const sendContact = (req, res) => {
         mail.sendToSupport('Visitant Contact', content).then((info, err) => {
             if (err) {
                 logger.error(err);
-                res.status(500).json({message: 'Error sending the e-mail'});
+                res.status(500).json({ message: 'Error sending the e-mail' });
             } else {
                 logger.info(`Contact e-mail from ${email} sent successfully`);
-                res.status(200).json({message: 'E-mail sent!'});
+                res.status(200).json({ message: 'E-mail sent!' });
             }
         });
     }
 };
 
 const requestTrial = (req, res) => {
-    const {email} = req.body;
+    const { email } = req.body;
     mail.sendToTeachers('Trial class', `There is a new user requesting trial class. Email: ${email}`);
     res.redirect('/?trial_class=success');
 };

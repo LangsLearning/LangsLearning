@@ -1,5 +1,5 @@
-const nodemailer = require('nodemailer');
-const senderEmail = 'support@langslearning.com';
+const nodemailer = require('nodemailer'),
+    senderEmail = 'support@langslearning.com';
 
 const transport = nodemailer.createTransport({
     host: 'email-smtp.eu-west-1.amazonaws.com',
@@ -21,7 +21,7 @@ const sendToTeachers = (subject, content) => {
 const send = (email, subject, content) => {
     const message = {
         from: senderEmail, // Sender address
-        to: email,         // List of recipients
+        to: email, // List of recipients
         subject: subject, // Subject line
         text: content // Plain text body
     };
@@ -31,7 +31,7 @@ const send = (email, subject, content) => {
 const sendHtml = (email, subject, content) => {
     const message = {
         from: senderEmail, // Sender address
-        to: email,         // List of recipients
+        to: email, // List of recipients
         subject: subject, // Subject line
         html: content // Plain text body
     };
