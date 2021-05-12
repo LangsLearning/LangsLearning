@@ -1,10 +1,9 @@
-const md5 = require('md5');
-const sha1 = require('sha1');
-const pino = require("pino");
-const logger = pino({ level: process.env.LOG_LEVEL || 'info' });
-const mail = require('../contact/mail');
-const ejs = require('ejs');
-const path = require('path');
+const md5 = require('md5'),
+    sha1 = require('sha1'),
+    mail = require('../contact/mail'),
+    ejs = require('ejs'),
+    path = require('path'),
+    logger = require('../logger');
 
 //Lara,
 const apiKeys = ['ccb291bc22'];
