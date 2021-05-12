@@ -47,7 +47,7 @@ const trialRouter = require('./trial/router');
 const classesRouter = require('./classes/router');
 const teacherRouter = require('./teacher/router');
 const studentRouter = require('./student/router');
-const orderRouter = require('./orders/router');
+const orderRouter = require('./order/router');
 const signinRouter = require('./signin/router');
 
 contactRouter.apply(app);
