@@ -44,16 +44,20 @@ require('./auth')(app);
 const contactRouter = require('./contact/router');
 const staticRouter = require('./static/router');
 const trialRouter = require('./trial/router');
-const classesRouter = require('./class/router');
 const teacherRouter = require('./teacher/router');
 const studentRouter = require('./student/router');
 const orderRouter = require('./order/router');
 const signinRouter = require('./signin/router');
 
+const routers = [
+    require('./class').router
+];
+
+routers.forEach(route => route.apply(app));
+
 contactRouter.apply(app);
 staticRouter.apply(app);
 trialRouter.apply(app);
-classesRouter.apply(app);
 teacherRouter.apply(app);
 studentRouter.apply(app);
 orderRouter.apply(app);
