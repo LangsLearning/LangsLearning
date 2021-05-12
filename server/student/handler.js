@@ -3,6 +3,7 @@ const md5 = require('md5'),
     moment = require('moment'),
     Class = require('../class/class'),
     Student = require('./student'),
+    Teacher = require('../teacher/teacher'),
     logger = require('../logger');
 
 const maxStudentsInAClass = 8;
@@ -13,11 +14,11 @@ const defaultTeacher = {
     picture: '../images/unknown_teacher.png'
 };
 
-const homePage = (teachersRepository) => (req, res) => {
+const homePage = (req, res) => {
     const student = req.session.student;
     student.classesIds = student.classesIds || [];
 
-    teachersRepository.findAllBy({})
+    Teacher.find({})
         .then(teachers =>
             Class.findAllByIds(student.classesIds).then(classes => ({ teachers, classes }))
         )
@@ -101,9 +102,9 @@ const login = (req, res) => {
         });
 };
 
-const bookAClassPage = (teachersRepository) => (req, res) => {
+const bookAClassPage = (req, res) => {
     const { student } = req.session;
-    teachersRepository.findAllBy({})
+    Teacher.find({})
         .then(teachers =>
             Class.findAllAvailableFor(student).then(classes => ({ teachers, classes }))
         )
@@ -191,13 +192,11 @@ const opsFindAll = (req, res) => {
 };
 
 module.exports = () => {
-    const teachersRepository = require('../teacher/repository');
-
     return {
-        homePage: homePage(teachersRepository),
+        homePage,
         studentAuthCheck,
         login,
-        bookAClassPage: bookAClassPage(teachersRepository),
+        bookAClassPage,
         bookAClass,
         adminGetStudents,
         opsDumpAll,

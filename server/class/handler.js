@@ -4,11 +4,12 @@ const logger = require('../logger'),
     path = require('path'),
     { serverConfig } = require('../config'),
     moment = require('moment'),
-    Class = require('./class');
+    Class = require('./class'),
+    Teacher = require('../teacher/teacher');
 
-const getClasses = (teachersRepository) => (req, res) => Class.find({})
+const getClasses = (req, res) => Class.find({})
     .then(classes =>
-        teachersRepository.findAllBy({ active: true }).map(teachers => ({ classes, teachers }))
+        Teacher.find({ active: true }).map(teachers => ({ classes, teachers }))
     )
     .then(data => {
         const { classes, teachers } = data;
@@ -89,9 +90,8 @@ const opsFindAll = (req, res) => {
 };
 
 module.exports = () => {
-    const teachersRepository = require('../teacher/repository');
     return {
-        getClasses: getClasses(teachersRepository),
+        getClasses,
         registerClass,
         removeClass,
         assignTeacher,

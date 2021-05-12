@@ -64,20 +64,4 @@ StudentSchema.statics.removeAllClassesOf = function(studentId) {
     return Student.updateOne({ _id: studentId }, { $set: { classesIds: [] } });
 };
 
-const findAllBy = query => {
-    return Student.find(query);
-};
-
-const findById = id => {
-    return Student.findById(id);
-};
-
-const findByEmail = email => {
-    return Student.findOne({ email });
-};
-
-const removeAllBy = query => {
-    return Student.deleteMany(query);
-};
-
 module.exports = mongoose.model('Student', StudentSchema);

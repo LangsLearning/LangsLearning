@@ -1,5 +1,5 @@
-const passport = require('passport');
-const moment = require('moment');
+const passport = require('passport'),
+    moment = require('moment');
 
 module.exports = {
     apply: app => {

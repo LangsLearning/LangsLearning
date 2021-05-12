@@ -1,7 +1,7 @@
-const pino = require("pino");
-const logger = pino({ level: process.env.LOG_LEVEL || 'info' });
+const logger = require('../logger'),
+    Teacher = require('./teacher');
 
-const getTeachers = repository => (req, res) => repository.findAllBy({})
+const getTeachers = (req, res) => Teacher.find({})
     .then(teachers => {
         logger.info(`Rendering admin teachers page: ${teachers.length} teachers found`);
         res.render('admin_teachers', { teachers });
@@ -11,14 +11,14 @@ const getTeachers = repository => (req, res) => repository.findAllBy({})
         res.render('admin_teachers', { teachers: [], error: err.message });
     });
 
-const registerClass = repository => (req, res) => {
+const registerClass = (req, res) => {
     const teacher = { name, alias, email, description, picture } = req.body;
     if (!name || !alias || !email || !description || !picture) {
         logger.error(`Invalid teacher data to be registered, ${JSON.stringify(req.body)}`);
         res.redirect('/admin/teachers');
         return;
     }
-    repository.register(teacher)
+    Teacher.register(teacher)
         .then(registered => {
             logger.info(`Teacher ${JSON.stringify(registered)} registered`);
             res.redirect('/admin/teachers');
@@ -29,10 +29,7 @@ const registerClass = repository => (req, res) => {
         });
 };
 
-module.exports = () => {
-    const repository = require('./repository');
-    return {
-        getTeachers: getTeachers(repository),
-        registerClass: registerClass(repository),
-    }
+module.exports = {
+    getTeachers,
+    registerClass,
 };
