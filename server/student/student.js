@@ -1,8 +1,7 @@
-const uuid = require('uuid');
-const md5 = require('md5');
-const pino = require("pino");
-const logger = pino({ level: process.env.LOG_LEVEL || 'info' });
-const mongoose = require('mongoose');
+const uuid = require('uuid'),
+    md5 = require('md5'),
+    logger = require('../logger'),
+    mongoose = require('mongoose');
 
 const StudentSchema = new mongoose.Schema({
     name: String,
