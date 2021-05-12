@@ -1,9 +1,8 @@
-const passport = require('passport');
+const passport = require('passport'),
+    handler = require('./handler');
 
 module.exports = {
     apply: app => {
-        const handler = require('./handler')();
-
         app.get('/admin/trials', passport.authenticate('basic'), handler.getTrials);
         app.post('/admin/trials', passport.authenticate('basic'), handler.registerTrial);
         app.post('/admin/trials/level', passport.authenticate('basic'), handler.setLevel);

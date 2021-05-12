@@ -62,8 +62,6 @@ const registerOrder = (req, res) => {
     }
 };
 
-module.exports = () => {
-    return {
-        registerOrder
-    };
+module.exports = {
+    registerOrder
 };

@@ -89,13 +89,11 @@ const opsFindAll = (req, res) => {
         .catch(err => res.status(500).json({ message: err }));
 };
 
-module.exports = () => {
-    return {
-        getClasses,
-        registerClass,
-        removeClass,
-        assignTeacher,
-        opsDumpAll,
-        opsFindAll,
-    }
+module.exports = {
+    getClasses,
+    registerClass,
+    removeClass,
+    assignTeacher,
+    opsDumpAll,
+    opsFindAll,
 };

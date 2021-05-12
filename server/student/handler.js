@@ -191,16 +191,14 @@ const opsFindAll = (req, res) => {
         .catch(err => res.status(500).json({ message: err }));
 };
 
-module.exports = () => {
-    return {
-        homePage,
-        studentAuthCheck,
-        login,
-        bookAClassPage,
-        bookAClass,
-        adminGetStudents,
-        opsDumpAll,
-        opsDumpClasses,
-        opsFindAll,
-    }
+module.exports = {
+    homePage,
+    studentAuthCheck,
+    login,
+    bookAClassPage,
+    bookAClass,
+    adminGetStudents,
+    opsDumpAll,
+    opsDumpClasses,
+    opsFindAll,
 };

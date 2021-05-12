@@ -1,10 +1,9 @@
 const passport = require('passport'),
-    moment = require('moment');
+    moment = require('moment'),
+    handler = require('./handler');
 
 module.exports = {
     apply: app => {
-        const handler = require('./handler')();
-
         app.post('/student/classes/book', handler.studentAuthCheck, handler.bookAClass);
 
         app.get('/student/bookaclass', handler.studentAuthCheck, handler.bookAClassPage);

@@ -1,11 +1,11 @@
-const pino = require("pino");
-const logger = pino({ level: process.env.LOG_LEVEL || 'info' });
-const mail = require('../contact/mail');
-const ejs = require('ejs');
-const path = require('path');
-const repository = require("./repository");
-const { serverConfig } = require('../config');
-const Student = require('../student/student');
+const logger = require('../logger'),
+    mail = require('../contact/mail'),
+    ejs = require('ejs'),
+    path = require('path'),
+    { serverConfig } = require('../config'),
+    Student = require('../student/student'),
+    tokens = require('../token/tokens'),
+    Trial = require('./trial');
 
 const getRegisterTrialTemplate = (name, datetime, link) => {
     return ejs.renderFile(path.join(__dirname, '../mails/register-trial.html'), {
@@ -25,9 +25,8 @@ const getSetPasswordTemplate = (id, name, level, token) => {
     });
 };
 
-const getTrials = (trialsRepository) => (req, res) =>
-    trialsRepository
-    .findAllBy({ level: null })
+const getTrials = (req, res) =>
+    Trial.find({ level: null })
     .then(trials => {
         logger.info(`Rendering trials page: ${trials.length} trials found`);
         res.render('admin_trials', { trials });
@@ -37,7 +36,7 @@ const getTrials = (trialsRepository) => (req, res) =>
         res.render('admin_trials', { trials: [], students: [], error: err.message });
     });
 
-const registerTrial = (trialRepository) => (req, res) => {
+const registerTrial = (req, res) => {
     const { name, email, datetime, link } = req.body;
 
     if (!name || !email || !datetime || !link) {
@@ -54,7 +53,7 @@ const registerTrial = (trialRepository) => (req, res) => {
                 return Promise.resolve({});
             }
         })
-        .then(result => trialRepository.register({ name, email, datetime, link }))
+        .then(result => Trial.register({ name, email, datetime, link }))
         .then(result => {
             return getRegisterTrialTemplate(name, datetime, link);
         })
@@ -71,7 +70,7 @@ const registerTrial = (trialRepository) => (req, res) => {
         });
 };
 
-const setLevel = (tokens, repository) => (req, res) => {
+const setLevel = (req, res) => {
     const { id, level } = req.body;
 
     if (!id || !level) {
@@ -80,8 +79,8 @@ const setLevel = (tokens, repository) => (req, res) => {
         return;
     }
 
-    repository.setLevel(id, level)
-        .then(result => repository.findById(id))
+    Trial.setLevel(id, level)
+        .then(result => Trial.findById(id))
         .then(trial => tokens.createSignInToken(trial._id, trial.email).then(token => [trial, token]))
         .then(data => {
             const [trial, token] = data;
@@ -101,9 +100,9 @@ const setLevel = (tokens, repository) => (req, res) => {
         });
 };
 
-const removeTrial = repository => (req, res) => {
+const removeTrial = (req, res) => {
     const { id } = req.params;
-    repository.remove(id)
+    Trial.deleteOne({ _id: id })
         .then(result => {
             res.redirect('/admin/trials');
         })
@@ -113,27 +112,23 @@ const removeTrial = repository => (req, res) => {
         });
 };
 
-const opsDumpAll = repository => (req, res) => {
-    repository.removeAllBy({})
+const opsDumpAll = (req, res) => {
+    Trial.deleteMany({})
         .then(result => res.status(200).json({ message: 'All trials deleted' }))
         .catch(err => res.status(500).json({ message: err }));
 };
 
-const opsFindAll = repository => (req, res) => {
-    repository.findAllBy({})
+const opsFindAll = (req, res) => {
+    Trial.find({})
         .then(trials => res.status(200).json(trials))
         .catch(err => res.status(500).json({ message: err }));
 };
 
-module.exports = () => {
-    const repository = require('./repository');
-    const tokens = require('../token/tokens');
-    return {
-        getTrials: getTrials(repository),
-        registerTrial: registerTrial(repository),
-        setLevel: setLevel(tokens, repository),
-        removeTrial: removeTrial(repository),
-        opsDumpAll: opsDumpAll(repository),
-        opsFindAll: opsFindAll(repository),
-    }
+module.exports = {
+    getTrials,
+    registerTrial,
+    setLevel,
+    removeTrial,
+    opsDumpAll,
+    opsFindAll,
 };
