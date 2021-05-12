@@ -4,7 +4,7 @@ const logger = pino({ level: process.env.LOG_LEVEL || 'info' });
 const md5 = require('md5');
 const _ = require('lodash');
 const moment = require('moment');
-const Class = require('../classes/class');
+const Class = require('../class/class');
 
 const maxStudentsInAClass = 8;
 
@@ -193,7 +193,7 @@ const opsFindAll = repository => (req, res) => {
 
 module.exports = () => {
     const repository = require('./repository');
-    const Class = require('../classes/class');
+    const Class = require('../class/class');
     const teachersRepository = require('../teacher/repository');
 
     return {
