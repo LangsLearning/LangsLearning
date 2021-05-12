@@ -3,8 +3,8 @@ const logger = require('../logger'),
     ejs = require('ejs'),
     path = require('path'),
     { serverConfig } = require('../config'),
-    Student = require('../student/student'),
-    tokens = require('../token/tokens'),
+    { Student } = require('../student'),
+    { Token } = require('../token'),
     Trial = require('./trial');
 
 const getRegisterTrialTemplate = (name, datetime, link) => {
@@ -81,7 +81,7 @@ const setLevel = (req, res) => {
 
     Trial.setLevel(id, level)
         .then(result => Trial.findById(id))
-        .then(trial => tokens.createSignInToken(trial._id, trial.email).then(token => [trial, token]))
+        .then(trial => Token.createSignInToken(trial._id, trial.email).then(token => [trial, token]))
         .then(data => {
             const [trial, token] = data;
             return getSetPasswordTemplate(trial._id, trial.name, trial.level, token._id).then(html => [trial.email, html]);

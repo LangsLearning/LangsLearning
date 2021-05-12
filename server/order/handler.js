@@ -4,7 +4,7 @@ const md5 = require('md5'),
     ejs = require('ejs'),
     path = require('path'),
     logger = require('../logger'),
-    Student = require('../student/student');
+    { Student } = require('../student');
 
 //Lara,
 const apiKeys = ['ccb291bc22'];

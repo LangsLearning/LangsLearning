@@ -1,13 +1,12 @@
 const Router = require('../router'),
-    Student = require('../student/student'),
-    Trial = require('../trial/trial');
+    { Student } = require('../student'),
+    { Trial } = require('../trial'),
+    { Token } = require('../token');
 
 module.exports = new Router(app => {
-    const tokens = require('../token/tokens');
-
     app.get('/signin/:token', (req, res) => {
         const { token } = req.params;
-        tokens.getSigninToken(token)
+        Token.getSigninToken(token)
             .then(token => Trial.findById(token.trialId))
             .then(trial => {
                 res.render('signin', { email: trial.email, token: token });
@@ -16,7 +15,7 @@ module.exports = new Router(app => {
 
     app.post('/signin', (req, res) => {
         const { token, password } = req.body;
-        tokens.getSigninToken(token)
+        Token.getSigninToken(token)
             .then(signinToken => Trial.findById(signinToken.trialId))
             .then(trial => {
                 const { name, email, level } = trial;

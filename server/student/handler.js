@@ -1,9 +1,9 @@
 const md5 = require('md5'),
     _ = require('lodash'),
     moment = require('moment'),
-    Class = require('../class/class'),
+    { Class } = require('../class'),
     Student = require('./student'),
-    Teacher = require('../teacher/teacher'),
+    { Teacher } = require('../teacher'),
     logger = require('../logger');
 
 const maxStudentsInAClass = 8;

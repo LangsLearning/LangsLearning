@@ -5,7 +5,7 @@ const logger = require('../logger'),
     { serverConfig } = require('../config'),
     moment = require('moment'),
     Class = require('./class'),
-    Teacher = require('../teacher/teacher');
+    { Teacher } = require('../teacher');
 
 const getClasses = (req, res) => Class.find({})
     .then(classes =>
