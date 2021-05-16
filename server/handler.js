@@ -7,6 +7,7 @@ class Handler {
 
     onErrorRedirect(path) {
         return this.wrapFn((res, err) => {
+            logger.info("Redirecting...")
             res.redirect(path);
         });
     }
@@ -31,10 +32,15 @@ class Handler {
 
     wrapFn(onErrorFn) {
         return (req, res) => {
-            this.fn(req, res).catch(err => {
+            try {
+                this.fn(req, res).then(bla => logger.info("Done")).catch(err => {
+                    logger.error(err);
+                    onErrorFn(res, err);
+                });
+            } catch (err) {
                 logger.error(err);
                 onErrorFn(res, err);
-            });
+            }
         }
     }
 }
