@@ -1,6 +1,6 @@
-const adminUserJsonConfig = require('./admin.json');
-const facebookJsonConfig = require('./facebook.json');
-const serverJsonConfig = require('./server.json');
+const adminUserJsonConfig = require('./admin.json'),
+    facebookJsonConfig = require('./facebook.json'),
+    serverJsonConfig = require('./server.json');
 
 const adminUserConfig = {
     username: process.env.ADMIN_USERNAME || adminUserJsonConfig.username,

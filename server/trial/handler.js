@@ -1,10 +1,12 @@
-const pino = require("pino");
-const logger = pino({ level: process.env.LOG_LEVEL || 'info' });
-const mail = require('../contact/mail');
-const ejs = require('ejs');
-const path = require('path');
-const repository = require("./repository");
-const { serverConfig } = require('../config');
+const logger = require('../logger'),
+    mail = require('../contact/mail'),
+    ejs = require('ejs'),
+    path = require('path'),
+    { serverConfig } = require('../config'),
+    { Student } = require('../student'),
+    { Token } = require('../token'),
+    Trial = require('./trial'),
+    Handler = require('../handler');
 
 const getRegisterTrialTemplate = (name, datetime, link) => {
     return ejs.renderFile(path.join(__dirname, '../mails/register-trial.html'), {
@@ -24,19 +26,14 @@ const getSetPasswordTemplate = (id, name, level, token) => {
     });
 };
 
-const getTrials = (studentsRepository, trialsRepository) => (req, res) =>
-    trialsRepository
-    .findAllBy({ level: null })
-    .then(trials => {
-        logger.info(`Rendering trials page: ${trials.length} trials found`);
-        res.render('admin_trials', { trials });
-    })
-    .catch(err => {
-        logger.error(err);
-        res.render('admin_trials', { trials: [], students: [], error: err.message });
-    });
+const getTrials = new Handler(async(req, res) => {
+    const trials = await Trial.find({ level: null });
+    logger.info(`Rendering trials page: ${trials.length} trials found`);
+    res.render('admin_trials', { trials });
 
-const registerTrial = (studentRepository, trialRepository) => (req, res) => {
+}).onErrorRedirect('admin_trials', err => ({ trials: [], students: [], error: err.message }));
+
+const registerTrial = new Handler(async(req, res) => {
     const { name, email, datetime, link } = req.body;
 
     if (!name || !email || !datetime || !link) {
@@ -45,32 +42,21 @@ const registerTrial = (studentRepository, trialRepository) => (req, res) => {
         return;
     }
 
-    studentRepository.findByEmail(email)
-        .then(student => {
-            if (student) {
-                return Promise.reject({ message: 'There is already a Student registered', type: 'existent_student' });
-            } else {
-                return Promise.resolve({});
-            }
-        })
-        .then(result => trialRepository.register({ name, email, datetime, link }))
-        .then(result => {
-            return getRegisterTrialTemplate(name, datetime, link);
-        })
-        .then(html => {
-            logger.info(`Sending trial e-mail to user ${email} with content ${html}`);
-            return mail.sendHtml(email, 'LangsLearning - Aula Experimental', html);
-        })
-        .then(result => {
-            res.redirect('/admin/trials');
-        })
-        .catch(err => {
-            logger.error(err.message || err);
-            res.redirect(`/admin/trials?error=${err.type || err}`);
-        });
-};
+    const student = await Student.findOne({ email });
+    if (student) {
+        res.redirect('/admin/trials?error=existent_student');
+        return;
+    }
 
-const setLevel = (tokens, repository) => (req, res) => {
+    const trialRegistered = await Trial.register({ name, email, datetime, link });
+    const html = await getRegisterTrialTemplate(name, datetime, link);
+    logger.info(`Sending trial e-mail to user ${email} with content ${html}`);
+    const mailSent = await mail.sendHtml(email, 'LangsLearning - Aula Experimental', html);
+    res.redirect('/admin/trials');
+
+}).onErrorRedirect('/admin/trials?error=trial');
+
+const setLevel = new Handler(async(req, res) => {
     const { id, level } = req.body;
 
     if (!id || !level) {
@@ -79,61 +65,40 @@ const setLevel = (tokens, repository) => (req, res) => {
         return;
     }
 
-    repository.setLevel(id, level)
-        .then(result => repository.findById(id))
-        .then(trial => tokens.createSignInToken(trial._id, trial.email).then(token => [trial, token]))
-        .then(data => {
-            const [trial, token] = data;
-            return getSetPasswordTemplate(trial._id, trial.name, trial.level, token._id).then(html => [trial.email, html]);
-        })
-        .then(data => {
-            const [email, html] = data;
-            logger.info(`Sending signin e-mail to user ${email} with content ${html}`);
-            return mail.sendHtml(email, 'LangsLearning - Bem vindo a Langs Learning!', html);
-        })
-        .then(result => {
-            res.redirect('/admin/trials');
-        })
-        .catch(err => {
-            logger.error(err);
-            res.redirect('/admin/trials');
-        });
-};
+    const levelSet = await Trial.setLevel(id, level);
+    const trial = await Trial.findById(id);
+    const token = await Token.createSignInToken(trial._id, trial.email);
+    const html = await getSetPasswordTemplate(trial._id, trial.name, trial.level, token._id);
+    logger.info(`Sending signin e-mail to user ${email} with content ${html}`);
+    const emailSent = await mail.sendHtml(email, 'LangsLearning - Bem vindo a Langs Learning!', html);
+    res.redirect('/admin/trials');
 
-const removeTrial = repository => (req, res) => {
+}).onErrorRedirect('/admin/trials');
+
+const removeTrial = new Handler(async(req, res) => {
     const { id } = req.params;
-    repository.remove(id)
-        .then(result => {
-            res.redirect('/admin/trials');
-        })
-        .catch(err => {
-            logger.error(err);
-            res.redirect('/admin/trials');
-        });
-};
+    const _ = await Trial.deleteOne({ _id: id });
+    res.redirect('/admin/trials');
 
-const opsDumpAll = repository => (req, res) => {
-    repository.removeAllBy({})
-        .then(result => res.status(200).json({ message: 'All trials deleted' }))
-        .catch(err => res.status(500).json({ message: err }));
-};
+}).onErrorRedirect('/admin/trials');
 
-const opsFindAll = repository => (req, res) => {
-    repository.findAllBy({})
-        .then(trials => res.status(200).json(trials))
-        .catch(err => res.status(500).json({ message: err }));
-};
+const opsDumpAll = new Handler(async(req, res) => {
+    const _ = await Trial.deleteMany({});
+    res.status(200).json({ message: 'All trials deleted' });
 
-module.exports = () => {
-    const studentRepository = require('../student/repository');
-    const repository = require('./repository');
-    const tokens = require('../token/tokens');
-    return {
-        getTrials: getTrials(studentRepository, repository),
-        registerTrial: registerTrial(studentRepository, repository),
-        setLevel: setLevel(tokens, repository),
-        removeTrial: removeTrial(repository),
-        opsDumpAll: opsDumpAll(repository),
-        opsFindAll: opsFindAll(repository),
-    }
+}).onErrorRespondJson(500);
+
+const opsFindAll = new Handler(async(req, res) => {
+    const trials = await Trial.find({});
+    res.status(200).json(trials);
+
+}).onErrorRespondJson(500);
+
+module.exports = {
+    getTrials,
+    registerTrial,
+    setLevel,
+    removeTrial,
+    opsDumpAll,
+    opsFindAll,
 };

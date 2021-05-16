@@ -1,23 +1,21 @@
-const express = require('express');
-const cookieParser = require('cookie-parser');
-const session = require('express-session');
-const MongoStore = require('connect-mongo')(session);
-const bodyParser = require('body-parser');
-const pino = require('pino');
-const expressPino = require('express-pino-logger');
-const passport = require('passport');
-const cors = require('cors');
+const express = require('express'),
+    cookieParser = require('cookie-parser'),
+    session = require('express-session'),
+    MongoStore = require('connect-mongo')(session),
+    bodyParser = require('body-parser'),
+    expressPino = require('express-pino-logger'),
+    logger = require('./logger'),
+    expressLogger = expressPino({ logger }),
+    passport = require('passport'),
+    cors = require('cors'),
+    mail = require('./contact/mail'),
+    mongoose = require('mongoose'),
+    port = process.env.PORT || 3000;
 
 const uri =
     "mongodb+srv://langslearning:q1w2e3@cluster0.zuiev.mongodb.net/langslearning?retryWrites=true&w=majority";
 
-const mongoose = require('mongoose');
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-
-const mail = require('./contact/mail');
-
-const logger = pino({ level: process.env.LOG_LEVEL || 'info' });
-const expressLogger = expressPino({ logger });
 
 const app = express();
 app.use(bodyParser.json());
@@ -36,28 +34,20 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-const port = process.env.PORT || 3000;
-
-
 require('./auth')(app);
 
-const contactRouter = require('./contact/router');
-const staticRouter = require('./static/router');
-const trialRouter = require('./trial/router');
-const classesRouter = require('./classes/router');
-const teacherRouter = require('./teacher/router');
-const studentRouter = require('./student/router');
-const orderRouter = require('./orders/router');
-const signinRouter = require('./signin/router');
+const routers = [
+    require('./class').router,
+    require('./contact').router,
+    require('./order').router,
+    require('./signin').router,
+    require('./static').router,
+    require('./student').router,
+    require('./teacher').router,
+    require('./trial').router,
+];
 
-contactRouter.apply(app);
-staticRouter.apply(app);
-trialRouter.apply(app);
-classesRouter.apply(app);
-teacherRouter.apply(app);
-studentRouter.apply(app);
-orderRouter.apply(app);
-signinRouter.apply(app);
+routers.forEach(route => route.apply(app));
 
 app.listen(port, () => {
     logger.info(`Example app listening at port ${port}`)

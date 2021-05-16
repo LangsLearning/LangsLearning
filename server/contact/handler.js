@@ -1,46 +1,47 @@
-const mail = require('./mail');
-const uuid = require('uuid');
-const pino = require('pino');
-const logger = pino({ level: process.env.LOG_LEVEL || 'info' });
+const mail = require('./mail'),
+    uuid = require('uuid'),
+    logger = require('../logger'),
+    Handler = require('../handler');
 
+//TODO: needs to be inside the DB when running more than one instance
 const tokens = {};
 
-const getContactToken = (req, res) => {
+const getContactToken = new Handler((req, res) => {
     const clientIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
     const token = `contact-${uuid.v4()}`;
     tokens[token] = clientIp;
     res.status(200).json({ token });
-};
 
-const sendContact = (req, res) => {
+}).onErrorRespondJson(500);
+
+//TODO: REFACTOR
+const sendContact = new Handler(async(req, res) => {
     const clientIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
     const { email, text, token } = req.body;
     if (!email || !text || !token || tokens[token] != clientIp) {
         logger.info("Invalid contact data");
         res.status(400).json({ message: 'Invalid contact data' });
-    } else {
-        delete tokens[token];
-        const content = `
+        return;
+    }
+
+    delete tokens[token];
+    const content = `
             Contact from: ${email}.
             Message: ${text}
         `;
-        mail.sendToSupport('Visitant Contact', content).then((info, err) => {
-            if (err) {
-                logger.error(err);
-                res.status(500).json({message: 'Error sending the e-mail'});
-            } else {
-                logger.info(`Contact e-mail from ${email} sent successfully`);
-                res.status(200).json({message: 'E-mail sent!'});
-            }
-        });
-    }
-};
 
-const requestTrial = (req, res) => {
-    const {email} = req.body;
+    const _ = await mail.sendToSupport('Visitant Contact', content);
+    logger.info(`Contact e-mail from ${email} sent successfully`);
+    res.status(200).json({ message: 'E-mail sent!' });
+
+}).onErrorReturnJson(500, err => ({ message: 'Error sending the e-mail' }));
+
+const requestTrial = new Handler((req, res) => {
+    const { email } = req.body;
     mail.sendToTeachers('Trial class', `There is a new user requesting trial class. Email: ${email}`);
     res.redirect('/?trial_class=success');
-};
+
+}).onErrorRespondJson(500);
 
 module.exports = {
     getContactToken,

@@ -1,5 +1,6 @@
-const mongoose = require('mongoose');
-const moment = require('moment');
+const mongoose = require('mongoose'),
+    moment = require('moment'),
+    SIGNIN = 'signin';
 
 const TokenSchema = new mongoose.Schema({
     type: String,
@@ -9,11 +10,7 @@ const TokenSchema = new mongoose.Schema({
     email: String
 });
 
-const Token = mongoose.model('Token', TokenSchema);
-
-const SIGNIN = 'signin';
-
-const createSignInToken = (trialId, email) => {
+TokenSchema.statics.createSignInToken = function(trialId, email) {
     const token = new Token({
         type: SIGNIN,
         expiresAt: moment().utc().add(7, 'days'),
@@ -24,7 +21,7 @@ const createSignInToken = (trialId, email) => {
     return token.save();
 };
 
-const getSigninToken = id => {
+TokenSchema.statics.getSigninToken = function(trialId, email) {
     return Token.findById(id).then(token => {
         if (!token || token.type !== SIGNIN || token.usedAt) {
             return Promise.reject('Invalid token');
@@ -34,7 +31,4 @@ const getSigninToken = id => {
     });
 };
 
-module.exports = {
-    createSignInToken,
-    getSigninToken
-};
+module.exports = mongoose.model('Token', TokenSchema);
