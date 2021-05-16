@@ -1,33 +1,27 @@
 const logger = require('../logger'),
-    Teacher = require('./teacher');
+    Teacher = require('./teacher'),
+    Handler = require('../handler');
 
-const getTeachers = (req, res) => Teacher.find({})
-    .then(teachers => {
-        logger.info(`Rendering admin teachers page: ${teachers.length} teachers found`);
-        res.render('admin_teachers', { teachers });
-    })
-    .catch(err => {
-        logger.error(err);
-        res.render('admin_teachers', { teachers: [], error: err.message });
-    });
+const getTeachers = new Handler(async(req, res) => {
+    const teachers = await Teacher.find({});
+    logger.info(`Rendering admin teachers page: ${teachers.length} teachers found`);
+    res.render('admin_teachers', { teachers });
 
-const registerClass = (req, res) => {
+}).onErrorRender('admin_teachers', err => ({ teachers: [], error: err.message }));
+
+const registerClass = new Handler(async(req, res) => {
     const teacher = { name, alias, email, description, picture } = req.body;
     if (!name || !alias || !email || !description || !picture) {
         logger.error(`Invalid teacher data to be registered, ${JSON.stringify(req.body)}`);
         res.redirect('/admin/teachers');
         return;
     }
-    Teacher.register(teacher)
-        .then(registered => {
-            logger.info(`Teacher ${JSON.stringify(registered)} registered`);
-            res.redirect('/admin/teachers');
-        })
-        .catch(err => {
-            logger.error(err);
-            res.redirect('/admin/teachers');
-        });
-};
+
+    const registered = await Teacher.register(teacher);
+    logger.info(`Teacher ${JSON.stringify(registered)} registered`);
+    res.redirect('/admin/teachers');
+
+}).onErrorRedirect('/admin/teachers');
 
 module.exports = {
     getTeachers,
