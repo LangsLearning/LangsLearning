@@ -23,6 +23,12 @@ class Handler {
         });
     }
 
+    onErrorRespondJson(status) {
+        return this.wrapFn((res, err) => {
+            res.status(status)(path, { message: err.message });
+        });
+    }
+
     wrapFn(onErrorFn) {
         return (req, res) => {
             this.fn(req, res).catch(err => {
