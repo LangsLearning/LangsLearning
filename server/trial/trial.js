@@ -10,14 +10,14 @@ const TrialSchema = new mongoose.Schema({
 });
 
 TrialSchema.statics.register = function(object) {
-    const trial = new Trial(object);
+    const trial = this(object);
     logger.info(`Registering Trial ${trial}`);
     return trial.save();
 };
 
 TrialSchema.statics.setLevel = function(object) {
     logger.info(`Set level for Trial with id ${id} to level ${level}`);
-    return Trial.updateOne({ _id: id }, { $set: { level } });
+    return this.updateOne({ _id: id }, { $set: { level } });
 };
 
 module.exports = mongoose.model('Trial', TrialSchema);

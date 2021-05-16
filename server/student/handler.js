@@ -44,6 +44,7 @@ const homePage = new Handler(async(req, res) => {
         }
     });
     res.render('student_home', { student: req.session.student, moment });
+    return student;
 
 }).onErrorRedirect('/?error=home');
 
@@ -57,6 +58,7 @@ const studentAuthCheck = new Handler(async(req, res, next) => {
 
     const persistedStudent = await Student.findById(student._id);
     req.session.student = persistedStudent;
+    next();
 
 }).onErrorRedirect('/?error=student_check');
 

@@ -20,23 +20,20 @@ class Handler {
 
     onErrorReturnJson(status, buildJsonFn = err => ({})) {
         return this.wrapFn((res, err) => {
-            res.status(status)(path, buildJsonFn(err));
+            res.status(status).json(buildJsonFn(err));
         });
     }
 
     onErrorRespondJson(status) {
         return this.wrapFn((res, err) => {
-            res.status(status)(path, { message: err.message });
+            res.status(status).json({ message: err.message });
         });
     }
 
     wrapFn(onErrorFn) {
-        return (req, res) => {
+        return async(req, res, next) => {
             try {
-                this.fn(req, res).then(bla => logger.info("Done")).catch(err => {
-                    logger.error(err);
-                    onErrorFn(res, err);
-                });
+                const _ = await this.fn(req, res, next);
             } catch (err) {
                 logger.error(err);
                 onErrorFn(res, err);
