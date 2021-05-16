@@ -20,7 +20,7 @@ StudentSchema.statics.register = function(object) {
 };
 
 StudentSchema.statics.addAvailableClasses = async function(email, classesToAdd) {
-    const student = await Student.findOne({ email });
+    const student = await this.findOne({ email });
     if (!student) {
         throw `Invalid student, ${email}`;
     }
@@ -29,13 +29,13 @@ StudentSchema.statics.addAvailableClasses = async function(email, classesToAdd) 
         availableClasses: student.availableClasses + classesToAdd
     };
     logger.info(`Adding ${classesToAdd} classes to student with id ${student._id} and email ${student.email}`);
-    return Student.updateOne({ _id: student._id }, { $set: updatedStudent });
+    return this.updateOne({ _id: student._id }, { $set: updatedStudent });
 };
 
 StudentSchema.statics.registerOrUpdate = async function(object) {
     const { name, email, password, availableClasses } = object;
     logger.info(`Looking for student with email ${email}`);
-    const student = await Student.findOne({ email });
+    const student = await this.findOne({ email });
     if (student) {
         const updatedStudent = {
             name: name || student.name,
@@ -43,7 +43,7 @@ StudentSchema.statics.registerOrUpdate = async function(object) {
             availableClasses: availableClasses || student.availableClasses
         }
         logger.info(`Updating student with id ${student._id} and email ${updatedStudent.email}`);
-        return Student.updateOne({ _id: student._id }, { $set: updatedStudent });
+        return this.updateOne({ _id: student._id }, { $set: updatedStudent });
 
     } else {
         return register({
@@ -56,7 +56,7 @@ StudentSchema.statics.registerOrUpdate = async function(object) {
 };
 
 StudentSchema.statics.removeAllClassesOf = function(studentId) {
-    return Student.updateOne({ _id: studentId }, { $set: { classesIds: [] } });
+    return this.updateOne({ _id: studentId }, { $set: { classesIds: [] } });
 };
 
 module.exports = mongoose.model('Student', StudentSchema);

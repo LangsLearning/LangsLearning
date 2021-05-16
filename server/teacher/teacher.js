@@ -11,9 +11,8 @@ const TeacherSchema = new mongoose.Schema({
 });
 
 TeacherSchema.statics.register = function(object) {
-    const teacher = new Teacher(object);
-    logger.info(`Registering Teacher ${teacher.name}`);
-    return teacher.save();
+    logger.info(`Registering Teacher ${object.name}`);
+    return this(object).save();
 };
 
 module.exports = mongoose.model('Teacher', TeacherSchema);

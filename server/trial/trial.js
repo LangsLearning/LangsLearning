@@ -10,9 +10,8 @@ const TrialSchema = new mongoose.Schema({
 });
 
 TrialSchema.statics.register = function(object) {
-    const trial = this(object);
-    logger.info(`Registering Trial ${trial}`);
-    return trial.save();
+    logger.info(`Registering Trial ${object.email}`);
+    return this(object).save();
 };
 
 TrialSchema.statics.setLevel = function(object) {
