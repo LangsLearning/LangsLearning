@@ -2,313 +2,272 @@
 <html>
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Langs learning</title>
-    <link rel="icon" href="/images/LangsLearnning_icon.png" type="image/x-icon" />
-    <!-- JUST LIBRARIES -->
-    <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="/@fortawesome/fontawesome-free/css/all.css" />
-    <!-- JUST LIBRARIES -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Langs learning</title>
+  <link rel="icon" href="/images/LangsLearnning_icon.png" type="image/x-icon" />
+  <!-- JUST LIBRARIES -->
+  <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="/@fortawesome/fontawesome-free/css/all.css" />
+  <!-- JUST LIBRARIES -->
 
-    <!-- OUR CSS FILES HERE -->
-    <link rel="stylesheet" href="/styles/variables.css" />
-    <link rel="stylesheet" href="/styles/styles.css" />
-    <!-- OUR CSS FILES HERE -->
+  <!-- OUR CSS FILES HERE -->
+  <link rel="stylesheet" href="/styles/variables.css" />
+  <link rel="stylesheet" href="/styles/styles.css" />
+  <!-- OUR CSS FILES HERE -->
 </head>
 
 <body>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light nav__invisible navsize fixed-top">
-            <a class="navbar-brand whole__title" href="#"><span class="title__color-primary">Langs</span
-          ><span class="title__color-secondary">learning</span></a
-        >
-        <button
-          class="navbar-toggler hamburger__icon"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbar_home"
-          aria-controls="navbar_home"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div
-          class="collapse navbar-collapse justify-content-end"
-          id="navbar_home"
-        >
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link" href="#" data-target="advantages" data-extraspace="50">Vantagens</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#" data-target="methodology" data-extraspace="60">Metodologia</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#" data-target="plans" data-extraspace="60">Planos</a>
-            </li>
-            <li>
-                <button type="button" class="btn btn-outline-warning enter__button" data-toggle="modal" data-target="#modal-login">
-                Entrar
-              </button>
-            </li>
-            <li>
-                <button type="button" class="btn btn-warning tryit__button" data-toggle="modal" data-target="#modal-trial">
-                Experimente
-              </button>
-            </li>
-            </ul>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-light nav__invisible navsize fixed-top">
+      <a class="navbar-brand whole__title" href="#"><span class="title__color-primary">Langs</span><span class="title__color-secondary">learning</span></a>
+      <button class="navbar-toggler hamburger__icon" type="button" data-toggle="collapse" data-target="#navbar_home" aria-controls="navbar_home" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbar_home">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="#" data-target="advantages" data-extraspace="50">Vantagens</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" data-target="methodology" data-extraspace="60">Metodologia</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" data-target="plans" data-extraspace="60">Planos</a>
+          </li>
+          <li>
+            <button type="button" class="btn btn-outline-warning enter__button" data-toggle="modal" data-target="#modal-login">
+              Entrar
+            </button>
+          </li>
+          <li>
+            <button type="button" class="btn btn-warning tryit__button" data-toggle="modal" data-target="#modal-trial">
+              Experimente
+            </button>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <section class="banner">
+      <div class="all__texts">
+        <p class="banner__text">Aulas com foco em conversação</p>
+        <p class="banner__text">Desde o nível básico ao avançado</p>
+        <p class="banner__text">Grupos pequenos por sala</p>
+      </div>
+      <div class="calling__text">
+        <p class="calling__one">Desenrola e vem com a gente!</p>
+        <p class="calling__two">
+          Marque uma aula experimental <br /> agora mesmo
+        </p>
+      </div>
+    </section>
+
+    <section class="background__definition container-fluid" id="advantages">
+      <h2 class="title__style why">Por que juntar-se a nós?</h2>
+      <div class="why__container row">
+        <div class="why__icons col-sm-3">
+          <img src="/images/schedule_icon.png" class="why__img" alt="Ícone do agendamento" />
+          <p class="why__text">
+            Agende sua aula para o dia e hora que melhor se encaixar na sua agenda
+          </p>
+        </div>
+        <div class="why__icons col-sm-3">
+          <img src="/images/material_icon.png" class="why__img" alt="Ícone do material" />
+          <p class="why__text">
+            Material exclusivo com abordagem dinâmica e descontraída
+          </p>
+        </div>
+        <div class="why__icons col-sm-3">
+          <img src="/images/download_icon.png" class="why__img" alt="Ícone do download" />
+          <p class="why__text">
+            Material do aluno disponível para download antes da aula
+          </p>
+        </div>
+        <div class="why__icons col-sm-3">
+          <img src="/images/conversation_icon.png" class="why__img" alt="Ícone da conversação" />
+          <p class="why__text">
+            Aulas de conversação com abordagem em todas as outras habilidades
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="methodology" class="methodology">
+      <h1 class="title__style methodology">Metodologia</h1>
+      <div class="methodology__content">
+        <div class="methodology__content-container">
+          <div class="methodology__image">
+            <img src="../images/methodology_desktop.png" class="large" />
+            <img src="/images/methodology_mobile.png" class="small" />
+          </div>
+          <div class="txt methodology__txt-schedule">
+            <p class="schedule__text">Escolha o horário</p>
+          </div>
+          <div class="txt methodology__txt-material">
+            <p class="material__text">Baixe o material</p>
+          </div>
+          <div class="txt methodology__txt-join">
+            <p class="join__text">Entre em aula e pratique</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <%- include('components/packages.html', {isStudent: false}); %>
+
+    <section id="contact-container" class="contact" style="display: none">
+      <div id="contact-alert-sucess" class="alert alert-success" role="alert" style="display: none">
+        Sua mensagem foi recebida com sucesso, muito obrigado pelo seu interesse!
+      </div>
+      <div id="contact-alert-error" class="alert alert-warning" role="alert" style="display: none">
+        Infelizmente nao conseguimos receber sua mensagem, tente novamente mais tarde...
+      </div>
+      <div class="contact__body">
+        <i id="contact-close-button" class="far fa-times-circle close__button"></i>
+        <h1 class="title__style contact__text">Como podemos te ajudar?</h1>
+        <div class="contact__form-container">
+          <form id="form-contact">
+            <input type="text" class="form-control" id="ipt-contact-name" aria-describedby="emailHelp" placeholder="Nome" />
+            <input type="email" class="form-control" id="ipt-contact-email" placeholder="E-mail" />
+            <textarea class="form-control textarea__contact" id="ipt-contact-text" placeholder="Deixe o seu comentário aqui!"></textarea>
+            <input type="hidden" id="ipt-contact-token" />
+            <button id="btn-contact-submit" type="button" class="btn btn-primary contact__button">
+              <i class="far fa-paper-plane"></i> Enviar
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <div id="question-button" class="question__mark fas fa-question-circle"></div>
+  </main>
+
+  <div class="modal fade trial__modal" id="modal-trial" tabindex="-1" aria-labelledby="modal-trial-label" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+          <section class="trial_socialmedia__section">
+            <div>
+              <h5>Solicite aqui sua aula experimental!</h5>
+              <p>
+                Precisamos do seu e-mail para que um de nossos professores entre em contato e agende sua aula experimental
+              </p>
             </div>
-        </nav>
-    </header>
-    <main>
-        <section class="banner">
-            <div class="all__texts">
-                <p class="banner__text">Aulas com foco em conversação</p>
-                <p class="banner__text">Desde o nível básico ao avançado</p>
-                <p class="banner__text">Grupos pequenos por sala</p>
+            <div>
+              <a class="facebook_login__button" href="/auth/facebook">Solicitar aula através do Facebook</a>
             </div>
-            <div class="calling__text">
-                <p class="calling__one">Desenrola e vem com a gente!</p>
-                <p class="calling__two">
-                    Marque uma aula experimental <br /> agora mesmo
-                </p>
+          </section>
+          <div class="separator">OU</div>
+          <section class="trial_registration__section">
+            <div>
+              <form action="/contact/trial" method="POST">
+                <input type="text" class="form-control" id="ipt-trial-email" placeholder="Insira seu e-mail" name="email" />
+                <button id="btn-trial-submit" type="submit" class="btn btn-primary" disabled="true">
+                  Soliciar minha aula experimental
+                </button>
+              </form>
             </div>
-        </section>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
 
-        <section class="background__definition container-fluid" id="advantages">
-            <h2 class="title__style why">Por que juntar-se a nós?</h2>
-            <div class="why__container row">
-                <div class="why__icons col-sm-3">
-                    <img src="/images/schedule_icon.png" class="why__img" alt="Ícone do agendamento" />
-                    <p class="why__text">
-                        Agende sua aula para o dia e hora que melhor se encaixar na sua agenda
-                    </p>
-                </div>
-                <div class="why__icons col-sm-3">
-                    <img src="/images/material_icon.png" class="why__img" alt="Ícone do material" />
-                    <p class="why__text">
-                        Material exclusivo com abordagem dinâmica e descontraída
-                    </p>
-                </div>
-                <div class="why__icons col-sm-3">
-                    <img src="/images/download_icon.png" class="why__img" alt="Ícone do download" />
-                    <p class="why__text">
-                        Material do aluno disponível para download antes da aula
-                    </p>
-                </div>
-                <div class="why__icons col-sm-3">
-                    <img src="/images/conversation_icon.png" class="why__img" alt="Ícone da conversação" />
-                    <p class="why__text">
-                        Aulas de conversação com abordagem em todas as outras habilidades
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <section id="methodology" class="methodology">
-            <h1 class="title__style methodology">Metodologia</h1>
-            <div class="methodology__content">
-                <div class="methodology__content-container">
-                    <div class="methodology__image">
-                        <img src="../images/methodology_desktop.png" class="large" />
-                        <img src="/images/methodology_mobile.png" class="small" />
+  <div class="modal fade" tabindex="-1" id="modal-login">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">Acesso à plataforma do aluno</div>
+        <div class="modal-body">
+          <form action="/student/login" method="POST">
+            <section>
+              <div class="form-group row">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <i class="fas fa-at"></i>
                     </div>
-                    <div class="txt methodology__txt-schedule">
-                        <p class="schedule__text">Escolha o horário</p>
-                    </div>
-                    <div class="txt methodology__txt-material">
-                        <p class="material__text">Baixe o material</p>
-                    </div>
-                    <div class="txt methodology__txt-join">
-                        <p class="join__text">Entre em aula e pratique</p>
-                    </div>
+                  </div>
+                  <input id="login-email" name="email" type="text" class="form-control" placeholder="Insira seu e-mail aqui" />
                 </div>
-            </div>
-        </section>
-
-        <%- include('components/packages.html', {isStudent: false}); %>
-
-            <section id="contact-container" class="contact" style="display: none">
-                <div id="contact-alert-sucess" class="alert alert-success" role="alert" style="display: none">
-                    Sua mensagem foi recebida com sucesso, muito obrigado pelo seu interesse!
-                </div>
-                <div id="contact-alert-error" class="alert alert-warning" role="alert" style="display: none">
-                    Infelizmente nao conseguimos receber sua mensagem, tente novamente mais tarde...
-                </div>
-                <div class="contact__body">
-                    <i id="contact-close-button" class="far fa-times-circle close__button"></i>
-                    <h1 class="title__style contact__text">Como podemos te ajudar?</h1>
-                    <div class="contact__form-container">
-                        <form id="form-contact">
-                            <input type="text" class="form-control" id="ipt-contact-name" aria-describedby="emailHelp" placeholder="Nome" />
-                            <input type="email" class="form-control" id="ipt-contact-email" placeholder="E-mail" />
-                            <textarea class="form-control textarea__contact" id="ipt-contact-text" placeholder="Deixe o seu comentário aqui!"></textarea>
-                            <input type="hidden" id="ipt-contact-token" />
-                            <button id="btn-contact-submit" type="button" class="btn btn-primary contact__button">
-                <i class="far fa-paper-plane"></i> Enviar
-              </button>
-                        </form>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <i class="fas fa-unlock-alt"></i>
                     </div>
+                  </div>
+                  <input id="login-password" name="password" type="password" class="form-control" placeholder="Insira sua senha aqui" />
                 </div>
-            </section>
-
-            <div id="question-button" class="question__mark fas fa-question-circle"></div>
-    </main>
-
-    <div class="modal fade trial__modal" id="modal-trial" tabindex="-1" aria-labelledby="modal-trial-label" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <section class="trial_socialmedia__section">
-                        <div>
-                            <h5>Solicite aqui sua aula experimental!</h5>
-                            <p>
-                                Precisamos do seu e-mail para que um de nossos professores entre em contato e agende sua aula experimental
-                            </p>
-                        </div>
-                        <div>
-                            <a class="facebook_login__button" href="/auth/facebook">Solicitar aula através do Facebook</a
-                >
               </div>
-            </section>
-            <div class="separator">OU</div>
-            <section class="trial_registration__section">
-              <div>
-                <form action="/contact/trial" method="POST">
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="ipt-trial-email"
-                    placeholder="Insira seu e-mail"
-                    name="email"
-                  />
-                  <button
-                    id="btn-trial-submit"
-                    type="submit"
-                    class="btn btn-primary"
-                    disabled="true"
-                  >
-                    Soliciar minha aula experimental
+              <div class="form-group row">
+                <div class="col-5 login_forgot_password">
+                  <a href="#">Esqueceu sua senha <i class="fas fa-question"></i></a>
+                </div>
+                <div class="col-7">
+                  <button type="submit" class="btn btn-primary">
+                    Entrar <i class="fas fa-sign-in-alt"></i>
                   </button>
-                </form>
+                </div>
               </div>
             </section>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade trial_success__modal" tabindex="-1" id="modal-trial-success">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-sm-2"><i class="fas fa-check-circle"></i></div>
+            <div class="col-sm-10">
+              Recebemos seu interesse, entraremos em contato nas proximas 24 horas
+            </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <div class="modal fade" tabindex="-1" id="modal-login">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">Acesso à plataforma do aluno</div>
-          <div class="modal-body">
-            <form action="/student/login" method="POST">
-              <section>
-                <div class="form-group row">
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <div class="input-group-text">
-                        <i class="fas fa-at"></i>
-                      </div>
-                    </div>
-                    <input
-                      id="login-email"
-                      name="email"
-                      type="text"
-                      class="form-control"
-                      placeholder="Insira seu e-mail aqui"
-                    />
-                  </div>
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <div class="input-group-text">
-                        <i class="fas fa-unlock-alt"></i>
-                      </div>
-                    </div>
-                    <input
-                      id="login-password"
-                      name="password"
-                      type="password"
-                      class="form-control"
-                      placeholder="Insira sua senha aqui"
-                    />
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <div class="col-5 login_forgot_password">
-                    <a href="#"
-                      >Esqueceu sua senha <i class="fas fa-question"></i
-                    ></a>
-                        </div>
-                        <div class="col-7">
-                            <button type="submit" class="btn btn-primary">
-                      Entrar <i class="fas fa-sign-in-alt"></i>
-                    </button>
-                        </div>
-                </div>
-                </section>
-                </form>
+  <div class="modal fade trial_failure__modal" tabindex="-1" id="modal-trial-failure">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-sm-2">
+              <i class="fas fa-exclamation-triangle"></i>
             </div>
-        </div>
-    </div>
-    </div>
-
-    <div class="modal fade trial_success__modal" tabindex="-1" id="modal-trial-success">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-sm-2"><i class="fas fa-check-circle"></i></div>
-                        <div class="col-sm-10">
-                            Recebemos seu interesse, entraremos em contato nas proximas 24 horas
-                        </div>
-                    </div>
-                </div>
+            <div class="col-sm-10">
+              Tivemos um problema interno e nao conseguimos receber seu e-mail, por favor tente novamente
             </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 
-    <div class="modal fade trial_failure__modal" tabindex="-1" id="modal-trial-failure">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-sm-2">
-                            <i class="fas fa-exclamation-triangle"></i>
-                        </div>
-                        <div class="col-sm-10">
-                            Tivemos um problema interno e nao conseguimos receber seu e-mail, por favor tente novamente
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+  <!-- JUST LIBRARIES -->
+  <script src="/jquery/dist/jquery.min.js"></script>
+  <script src="/lodash/lodash.min.js"></script>
+  <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+  <!-- JUST LIBRARIES -->
 
-    <!-- JUST LIBRARIES -->
-    <script src="/jquery/dist/jquery.min.js"></script>
-    <script src="/lodash/lodash.min.js"></script>
-    <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- JUST LIBRARIES -->
-
-    <!-- OUR JS FILES HERE -->
-    <script src="/js/index.js"></script>
-    <!-- OUR JS FILES HERE -->
+  <!-- OUR JS FILES HERE -->
+  <script src="/js/index.js"></script>
+  <!-- OUR JS FILES HERE -->
 </body>
 <footer>
-    <div class="container footer">
-        <p class="followus__text">Siga-nos!</p>
-        <div class="icons">
-            <a href="https://www.facebook.com/langslearninginglesonline" target="_blank"><i class="fab fa-facebook-square facebook__icon"></i
-        ></a>
-            <a href="https://www.instagram.com/langs.learning/" target="_blank"><i class="fab fa-instagram instagram__icon"></i
-        ></a>
-            <!--<a href="#"><img src="/images/twitter_icon.ico" class="twitter__icon" alt="Ícone do Twitter"></a>-->
-        </div>
+  <div class="container footer">
+    <p class="followus__text">Siga-nos!</p>
+    <div class="icons">
+      <a href="https://www.facebook.com/langslearninginglesonline" target="_blank"><i class="fab fa-facebook-square facebook__icon"></i></a>
+      <a href="https://www.instagram.com/langs.learning/" target="_blank"><i class="fab fa-instagram instagram__icon"></i></a>
+      <!--<a href="#"><img src="/images/twitter_icon.ico" class="twitter__icon" alt="Ícone do Twitter"></a>-->
     </div>
+  </div>
 </footer>
 
 </html>

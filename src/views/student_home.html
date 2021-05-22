@@ -2,178 +2,161 @@
 <html>
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Langs learning</title>
-    <link rel="icon" href="/images/LangsLearnning_icon.png" type="image/x-icon" />
-    <!-- JUST LIBRARIES -->
-    <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="/@fortawesome/fontawesome-free/css/all.css" />
-    <!-- JUST LIBRARIES -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Langs learning</title>
+  <link rel="icon" href="/images/LangsLearnning_icon.png" type="image/x-icon" />
+  <!-- JUST LIBRARIES -->
+  <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="/@fortawesome/fontawesome-free/css/all.css" />
+  <!-- JUST LIBRARIES -->
 
-    <!-- OUR CSS FILES HERE -->
-    <link rel="stylesheet" href="/styles/variables.css" />
-    <link rel="stylesheet" href="/styles/styles.css" />
-    <link rel="stylesheet" href="/styles/student.css" />
-    <link rel="stylesheet" href="/styles/packages.css" />
-    <link rel="stylesheet" href="/styles/student_home.css" />
-    <link rel="stylesheet" href="/styles/student-navbar.css" />
-    <!-- OUR CSS FILES HERE -->
+  <!-- OUR CSS FILES HERE -->
+  <link rel="stylesheet" href="/styles/variables.css" />
+  <link rel="stylesheet" href="/styles/styles.css" />
+  <link rel="stylesheet" href="/styles/student.css" />
+  <link rel="stylesheet" href="/styles/packages.css" />
+  <link rel="stylesheet" href="/styles/student_home.css" />
+  <link rel="stylesheet" href="/styles/student-navbar.css" />
+  <!-- OUR CSS FILES HERE -->
 </head>
 
 <body>
-    <header>
-        <%- include('components/student_navbar.html'); %>
-    </header>
+  <header>
+    <%- include('components/student_navbar.html'); %>
+  </header>
 
-    <main class="container-fluid">
-        <section>
-            <div class="row">
-                <div class="col-lg-8 order-12 order-lg-1">
-                    <div class="card h-100 student_classes__container">
-                        <h5 class="card-header card__header-classes">Próximas aulas</h5>
-                        <div class="card-body">
-                            <div class="row">
-                                <% student.nextClasses.forEach(nextClass => { %>
-                                    <div class="col-sm-12 col-md-6 col-lg-3 student_class_card__container">
-                                        <div class="card class__card">
-                                            <div class="card-header class__header-style">
-                                                <p class="class__scheduled">
-                                                    <%= moment(nextClass.datetime).format('ddd DD/MM/yyyy HH:mm') %>
-                                                </p>
-                                            </div>
-                                            <div class="card-body">
-                                                <h6 class="class__title-style">
-                                                    <%= nextClass.title %>
-                                                        <i class="fas fa-info-circle info__icon" data-bs-toggle="tooltip" data-bs-placement="right" title="<%= nextClass.description %>"></i>
-                                                </h6>
-                                                <img src="../images/<%= nextClass.teacher.picture %>" class="rounded-circle teacher__image-size" alt="Foto do consultor" />
-                                                <div class="card-text class__scheduled">
-                                                    <%= nextClass.teacher.alias %>
-                                                </div>
-                                                <div class="button__icon">
-                                                    <i class="fas fa-couch couch__icon"><span class="people__inclass">1</span></i
-                          >
-                        </div>
-                        <div>
-                          <a href="#" class="btn btn-sm schedule__button"
-                            >Cancelar</a
-                          >
-                        </div>
+  <main class="container-fluid">
+    <section>
+      <div class="row">
+        <div class="col-lg-8 order-12 order-lg-1">
+          <div class="card h-100 student_classes__container">
+            <h5 class="card-header card__header-classes">Próximas aulas</h5>
+            <div class="card-body">
+              <div class="row">
+                <% student.nextClasses.forEach(nextClass => { %>
+                <div class="col-sm-12 col-md-6 col-lg-3 student_class_card__container">
+                  <div class="card class__card">
+                    <div class="card-header class__header-style">
+                      <p class="class__scheduled">
+                        <%= moment(nextClass.datetime).format('ddd DD/MM/yyyy HH:mm') %>
+                      </p>
+                    </div>
+                    <div class="card-body">
+                      <h6 class="class__title-style">
+                        <%= nextClass.title %>
+                        <i class="fas fa-info-circle info__icon" data-bs-toggle="tooltip" data-bs-placement="right" title="<%= nextClass.description %>"></i>
+                      </h6>
+                      <img src="../images/<%= nextClass.teacher.picture %>" class="rounded-circle teacher__image-size" alt="Foto do consultor" />
+                      <div class="card-text class__scheduled">
+                        <%= nextClass.teacher.alias %>
+                      </div>
+                      <div class="button__icon">
+                        <i class="fas fa-couch couch__icon"><span class="people__inclass">1</span></i>
+                      </div>
+                      <div>
+                        <a href="#" class="btn btn-sm schedule__button">Cancelar</a>
                       </div>
                     </div>
                   </div>
-                  <% }) %>
                 </div>
-
-                <div
-                  class="card-footer footer__style"
-                  data-total-classes="<%= student.nextClasses.length %>"
-                >
-                <% if (student.nextClasses.length > 4) { %> 
-                  <a href="#" class="btn btn-md showmore__button"
-                    >Mostrar mais</a
-                  >
-                <% } %>
-                </div>
+                <% }) %>
               </div>
-            </div>
-          </div>
-          <div class="col-lg-4 order-1 order-lg-12">
-            <div class="card text-center current__classes-card">
-              <h5 class="card-header card__header-classes">Prepare-se!</h5>
-              <div class="card-body">
-                <% if (student.nextClass) { %>
-                <h6 class="card-title">Sua próxima aula começa em:</h6>
-                <p class="card-text card__hour">00:00:00</p>
-                <% } else { %>
-                <h4 class="card-title no_class">
-                  Nenhuma aula marcada ate o momento
-                  <i class="far fa-grin-beam-sweat"></i>
-                                                    </h4>
-                                                    <% } %>
-                                                </div>
 
-                                                <br />
-                                                <div class="card-footer footer__style">
-                                                    <p class="name__title">
-                                                        Nível: <span class="name__text"><%= student.level %></span>
-                                                    </p>
-                                                    <p class="name__title">
-                                                        Aulas disponiveis:
-                                                        <span class="name__text">
-                    <%= student.availableClasses%>
-                  </span>
-                                                    </p>
-
-                                                    <% if (student.availableClasses > 0) { %>
-                                                        <a href="/student/bookaclass" class="btn btn-md schedule__classes-button">Marcar Aulas</a
-                >
-                <% } else { %>
-                <a
-                  href="/student/packages"
-                  class="btn btn-md buy__classes-button"
-                  >Comprar pacote de aulas</a
-                >
+              <div class="card-footer footer__style" data-total-classes="<%= student.nextClasses.length %>">
+                <% if (student.nextClasses.length > 4) { %>
+                <a href="#" class="btn btn-md showmore__button">Mostrar mais</a>
                 <% } %>
               </div>
             </div>
           </div>
         </div>
-      </section>
+        <div class="col-lg-4 order-1 order-lg-12">
+          <div class="card text-center current__classes-card">
+            <h5 class="card-header card__header-classes">Prepare-se!</h5>
+            <div class="card-body">
+              <% if (student.nextClass) { %>
+              <h6 class="card-title">Sua próxima aula começa em:</h6>
+              <p class="card-text card__hour">00:00:00</p>
+              <% } else { %>
+              <h4 class="card-title no_class">
+                Nenhuma aula marcada ate o momento
+                <i class="far fa-grin-beam-sweat"></i>
+              </h4>
+              <% } %>
+            </div>
 
-      <section>
-        <div class="card past_classes__container">
-          <h5 class="card-header card__header-classes">Aulas Passadas</h5>
-          <div class="card-body">
-            <div class="row row-cols-lg-4">
-              <% student.pastClasses.forEach(aClass => { %>
-              <div class="col-sm-3">
-                <div class="card h-100">
-                  <div class="card-header class__header-style">
-                    <p class="class__scheduled">
-                      <%= moment(aClass.datetime).format('ddd DD/MM/yyyy HH:mm')
+            <br />
+            <div class="card-footer footer__style">
+              <p class="name__title">
+                Nível: <span class="name__text"><%= student.level %></span>
+              </p>
+              <p class="name__title">
+                Aulas disponiveis:
+                <span class="name__text">
+                  <%= student.availableClasses%>
+                </span>
+              </p>
+
+              <% if (student.availableClasses > 0) { %>
+              <a href="/student/bookaclass" class="btn btn-md schedule__classes-button">Marcar Aulas</a>
+              <% } else { %>
+              <a href="/student/packages" class="btn btn-md buy__classes-button">Comprar pacote de aulas</a>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="card past_classes__container">
+        <h5 class="card-header card__header-classes">Aulas Passadas</h5>
+        <div class="card-body">
+          <div class="row row-cols-lg-4">
+            <% student.pastClasses.forEach(aClass => { %>
+            <div class="col-sm-3">
+              <div class="card h-100">
+                <div class="card-header class__header-style">
+                  <p class="class__scheduled">
+                    <%= moment(aClass.datetime).format('ddd DD/MM/yyyy HH:mm')
                       %>
-                    </p>
-                  </div>
-                  <div class="card-body">
-                    <h6 class="class__title-style"><%= aClass.title %></h6>
-                    <img
-                      src="/images/<%= aClass.teacher.picture %>"
-                      class="rounded-circle teacher__image-size"
-                      alt="Foto do consultor"
-                    />
-                    <p class="card-text class__scheduled">
-                      <%= aClass.teacher.alias %>
-                    </p>
-                    <div class="button__icon">
-                      <i class="fas fa-calendar-check scheduled__icon-yes"></i>
-                    </div>
+                  </p>
+                </div>
+                <div class="card-body">
+                  <h6 class="class__title-style"><%= aClass.title %></h6>
+                  <img src="/images/<%= aClass.teacher.picture %>" class="rounded-circle teacher__image-size" alt="Foto do consultor" />
+                  <p class="card-text class__scheduled">
+                    <%= aClass.teacher.alias %>
+                  </p>
+                  <div class="button__icon">
+                    <i class="fas fa-calendar-check scheduled__icon-yes"></i>
                   </div>
                 </div>
               </div>
-              <% }); %>
             </div>
+            <% }); %>
           </div>
+        </div>
 
-          <br />
-          <div class="card-footer footer__style">
-            <% if (student.pastClasses.length > 4) { %>
-              <a href="#" class="btn btn-md showmore__button">Mostrar mais</a>
-                                                        <% } %>
-                                                </div>
-                                            </div>
-        </section>
-    </main>
+        <br />
+        <div class="card-footer footer__style">
+          <% if (student.pastClasses.length > 4) { %>
+          <a href="#" class="btn btn-md showmore__button">Mostrar mais</a>
+          <% } %>
+        </div>
+      </div>
+    </section>
+  </main>
 
-    <!-- JUST LIBRARIES -->
-    <script src="/jquery/dist/jquery.min.js"></script>
-    <script src="/lodash/lodash.min.js"></script>
-    <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- JUST LIBRARIES -->
+  <!-- JUST LIBRARIES -->
+  <script src="/jquery/dist/jquery.min.js"></script>
+  <script src="/lodash/lodash.min.js"></script>
+  <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+  <!-- JUST LIBRARIES -->
 
-    <!-- OUR JS FILES HERE -->
-    <!-- OUR JS FILES HERE -->
+  <!-- OUR JS FILES HERE -->
+  <!-- OUR JS FILES HERE -->
 </body>
 
 </html>

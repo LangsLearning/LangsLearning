@@ -2,280 +2,183 @@
 <html>
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Langs learning</title>
-    <link rel="icon" href="/images/LangsLearnning_icon.png" type="image/x-icon" />
-    <!-- JUST LIBRARIES -->
-    <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="/@fortawesome/fontawesome-free/css/all.css" />
-    <!-- JUST LIBRARIES -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Langs learning</title>
+  <link rel="icon" href="/images/LangsLearnning_icon.png" type="image/x-icon" />
+  <!-- JUST LIBRARIES -->
+  <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="/@fortawesome/fontawesome-free/css/all.css" />
+  <!-- JUST LIBRARIES -->
 
-    <!-- OUR CSS FILES HERE -->
-    <link rel="stylesheet" href="/styles/variables.css" />
-    <link rel="stylesheet" href="/styles/trials.css" />
-    <!-- OUR CSS FILES HERE -->
+  <!-- OUR CSS FILES HERE -->
+  <link rel="stylesheet" href="/styles/variables.css" />
+  <link rel="stylesheet" href="/styles/trials.css" />
+  <!-- OUR CSS FILES HERE -->
 </head>
 
 <body>
-    <header>
-        <%- include('components/admin_navbar.html'); %>
-    </header>
-    <main class="container-fluid">
-        <section>
-            <h1>Trial Classes</h1>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <td>Name</td>
-                        <td>E-mail</td>
-                        <td>Date/time</td>
-                        <td>Link</td>
-                        <td></td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% trials.forEach((trial) => { %>
-                        <tr>
-                            <td>
-                                <%= trial.name %>
-                            </td>
-                            <td>
-                                <%= trial.email %>
-                            </td>
-                            <td>
-                                <%= trial.datetime %>
-                            </td>
-                            <td>
-                                <%= trial.link %>
-                            </td>
-                            <td style="text-align: right">
-                                <a class="btn btn-warning" href="/admin/trials/<%= trial._id %>/edit">Change</a
-                >
-                <a
-                  class="btn btn-danger"
-                  href="/admin/trials/<%= trial._id %>/remove"
-                  >Remove</a
-                >
-                <button
-                  class="btn btn-success"
-                  data-toggle="modal"
-                  data-target="#trial-set-level-modal"
-                  data-id="<%= trial._id %>"
-                  data-name="<%= trial.name %>"
-                >
-                  Set Level
-                </button>
-              </td>
-            </tr>
-            <% }); %>
-          </tbody>
-          <tfoot>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td>
-                <button
-                  class="btn btn-primary register_trial__btn"
-                  data-toggle="modal"
-                  data-target="#trial-register-modal"
-                >
-                  Registrar trial
-                </button>
-              </td>
-            </tr>
-          </tfoot>
-        </table>
-      </section>
-    </main>
-    
-    <div
-      class="modal fade"
-      id="trial-set-level-modal"
-      tabindex="-1"
-      role="dialog"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">
-              Set Student Level
-            </h5>
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form action="/admin/trials/level" method="POST">
-              <div class="form-group">
-                <label for="trial-level-student-name" class="col-form-label"
-                  >Student name:</label
-                >
-                <input
-                  type="text"
-                  name="name"
-                  class="form-control"
-                  id="trial-level-student-name"
-                  required
-                  disabled
-                />
-              </div>
-              <div class="form-group">
-                <label for="trial-level-student-level" class="col-form-label"
-                  >Level:</label
-                >
-                <select name="level" class="form-control">
-                  <option selected value="beginner">Beginner</option>
-                  <option value="intermediate">Intermediate</option>
-                  <option value="advanced">Advanced</option>
-                </select>
-              </div>
-              <input
-                type="hidden"
-                name="id"
-                class="form-control"
-                id="trial-level-student-id"
-                required
-              />
-              <div class="modal-footer">
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-dismiss="modal"
-                >
-                  Close
-                </button>
-                <button type="submit" class="btn btn-primary">Set Level</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
+  <header>
+    <%- include('components/admin_navbar.html'); %>
+  </header>
+  <main class="container-fluid">
+    <section>
+      <h1>Trial Classes</h1>
+      <table class="table">
+        <thead>
+          <tr>
+            <td>Name</td>
+            <td>E-mail</td>
+            <td>Date/time</td>
+            <td>Link</td>
+            <td></td>
+          </tr>
+        </thead>
+        <tbody>
+          <% trials.forEach((trial) => { %>
+          <tr>
+            <td>
+              <%= trial.name %>
+            </td>
+            <td>
+              <%= trial.email %>
+            </td>
+            <td>
+              <%= trial.datetime %>
+            </td>
+            <td>
+              <%= trial.link %>
+            </td>
+            <td style="text-align: right">
+              <a class="btn btn-warning" href="/admin/trials/<%= trial._id %>/edit">Change</a>
+              <a class="btn btn-danger" href="/admin/trials/<%= trial._id %>/remove">Remove</a>
+              <button class="btn btn-success" data-toggle="modal" data-target="#trial-set-level-modal" data-id="<%= trial._id %>" data-name="<%= trial.name %>">
+                Set Level
+              </button>
+            </td>
+          </tr>
+          <% }); %>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+              <button class="btn btn-primary register_trial__btn" data-toggle="modal" data-target="#trial-register-modal">
+                Registrar trial
+              </button>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </section>
+  </main>
 
-    <div
-      class="modal fade"
-      id="trial-register-modal"
-      tabindex="-1"
-      role="dialog"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">
-              Register Trial class
-            </h5>
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form action="/admin/trials" method="POST">
-              <div class="form-group">
-                <label for="trial-student-name" class="col-form-label"
-                  >Student name:</label
-                >
-                <input
-                  type="text"
-                  name="name"
-                  class="form-control"
-                  id="trial-student-name"
-                  required
-                />
-              </div>
-              <div class="form-group">
-                <label for="trial-student-email" class="col-form-label"
-                  >Student email:</label
-                >
-                <input
-                  type="email"
-                  name="email"
-                  class="form-control"
-                  id="trial-student-email"
-                  required
-                />
-              </div>
-              <div class="form-group">
-                <label for="trial-student-datetime" class="col-form-label"
-                  >Trial datetime:</label
-                >
-                <input
-                  type="datetime-local"
-                  name="datetime"
-                  class="form-control"
-                  id="trial-student-datetime"
-                  required
-                />
-              </div>
-              <div class="form-group">
-                <label for="trial-student-link" class="col-form-label"
-                  >Zoom Link:</label
-                >
-                <input
-                  type="text"
-                  name="link"
-                  class="form-control"
-                  id="trial-student-link"
-                  required
-                />
-              </div>
-              <div class="modal-footer">
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-dismiss="modal"
-                >
-                  Close
-                </button>
-                <button type="submit" class="btn btn-primary">Register</button>
-              </div>
-            </form>
-          </div>
+  <div class="modal fade" id="trial-set-level-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">
+            Set Student Level
+          </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-      </div>
-    </div>
-
-    <div
-      class="modal fade trial_failure__modal"
-      tabindex="-1"
-      id="modal-trial-failure"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-body">
-            <div class="row">
-              <div class="col-sm-2">
-                <i class="fas fa-exclamation-triangle"></i>
-              </div>
-              <div class="col-sm-10" id="modal-trial-failure-message"></div>
+        <div class="modal-body">
+          <form action="/admin/trials/level" method="POST">
+            <div class="form-group">
+              <label for="trial-level-student-name" class="col-form-label">Student name:</label>
+              <input type="text" name="name" class="form-control" id="trial-level-student-name" required disabled />
             </div>
+            <div class="form-group">
+              <label for="trial-level-student-level" class="col-form-label">Level:</label>
+              <select name="level" class="form-control">
+                <option selected value="beginner">Beginner</option>
+                <option value="intermediate">Intermediate</option>
+                <option value="advanced">Advanced</option>
+              </select>
+            </div>
+            <input type="hidden" name="id" class="form-control" id="trial-level-student-id" required />
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                Close
+              </button>
+              <button type="submit" class="btn btn-primary">Set Level</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="trial-register-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">
+            Register Trial class
+          </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="/admin/trials" method="POST">
+            <div class="form-group">
+              <label for="trial-student-name" class="col-form-label">Student name:</label>
+              <input type="text" name="name" class="form-control" id="trial-student-name" required />
+            </div>
+            <div class="form-group">
+              <label for="trial-student-email" class="col-form-label">Student email:</label>
+              <input type="email" name="email" class="form-control" id="trial-student-email" required />
+            </div>
+            <div class="form-group">
+              <label for="trial-student-datetime" class="col-form-label">Trial datetime:</label>
+              <input type="datetime-local" name="datetime" class="form-control" id="trial-student-datetime" required />
+            </div>
+            <div class="form-group">
+              <label for="trial-student-link" class="col-form-label">Zoom Link:</label>
+              <input type="text" name="link" class="form-control" id="trial-student-link" required />
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                Close
+              </button>
+              <button type="submit" class="btn btn-primary">Register</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade trial_failure__modal" tabindex="-1" id="modal-trial-failure">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-sm-2">
+              <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <div class="col-sm-10" id="modal-trial-failure-message"></div>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- JUST LIBRARIES -->
-    <script src="/jquery/dist/jquery.min.js"></script>
-    <script src="/lodash/lodash.min.js"></script>
-    <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- JUST LIBRARIES -->
+  <!-- JUST LIBRARIES -->
+  <script src="/jquery/dist/jquery.min.js"></script>
+  <script src="/lodash/lodash.min.js"></script>
+  <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+  <!-- JUST LIBRARIES -->
 
-    <!-- OUR JS FILES HERE -->
-    <script src="/js/trials.js"></script>
-    <!-- OUR JS FILES HERE -->
-  </body>
+  <!-- OUR JS FILES HERE -->
+  <script src="/js/admin_trials.js"></script>
+  <!-- OUR JS FILES HERE -->
+</body>
+
 </html>
