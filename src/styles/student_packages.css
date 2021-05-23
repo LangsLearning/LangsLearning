@@ -1,0 +1,8 @@
+@import url('/styles/student.css');
+@import url('/styles/main_packages.css');
+
+.packages__section {
+    padding-top: 4rem;
+    background-color: whitesmoke;
+    background-image: none;
+}

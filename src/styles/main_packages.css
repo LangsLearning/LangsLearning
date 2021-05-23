@@ -1,0 +1,97 @@
+/* Plans */
+
+.packages__section {
+    background-color: var(--secondary-color);
+    padding-bottom: 2rem;
+    z-index: 1;
+}
+
+.packages__section .card__header {
+    background-color: var(--white);
+    border-bottom: thin;
+    border-bottom-style: solid;
+    border-bottom-color: gray;
+}
+
+.title__style {
+    font-family: 'Spartwell';
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 3.5rem;
+    padding-top: 2rem;
+}
+
+.whole__card {
+    font-family: 'Quicksand';
+    width: 20rem;
+    height: auto;
+    border-radius: .5rem;
+    border-color: gray;
+    margin-bottom: 1.5rem;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 1;
+}
+
+.card {
+    z-index: 1;
+}
+
+.cards__title {
+    text-align: center;
+    margin-bottom: 0;
+}
+
+.cards__text {
+    font-size: .8rem;
+    text-align: center;
+    margin-bottom: 0;
+    color: gray;
+}
+
+.number__classes {
+    font-size: 2rem;
+    text-align: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.class__price {
+    text-align: center;
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 0;
+}
+
+.text__price {
+    font-size: 1rem;
+    font-weight: bold;
+    color: black;
+    display: block;
+    text-align: center;
+    margin-bottom: .75rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.main__price {
+    text-align: center;
+}
+
+.prices__button {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 10rem;
+}
+
+
+@media (min-width: 768px) {
+    .only__cards {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        align-content: center;
+    }
+}
