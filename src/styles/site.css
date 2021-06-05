@@ -170,18 +170,18 @@
 
 /* Why joining us */
 
-.background__definition {
+.why_section {
     background-color: #F9F9F3;
     padding-top: 3rem;
     padding-bottom: 3rem;
     margin-top: -0.4rem;
 }
 
-.title__style.why {
+.why_section>h2 {
     color: black;
 }
 
-.why__icons {
+.why__container>div {
     text-align: center;
 }
 
@@ -221,7 +221,7 @@
     grid-template-columns: 1fr 2fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
     gap: 0px 0px;
-    grid-template-areas: ". image schedule" "material image ." ". image join";
+    grid-template-areas: ". image schedule""material image ."". image join";
 }
 
 .methodology__content-container>div.txt {
@@ -278,6 +278,7 @@
     display: block;
 }
 
+
 /* Contact */
 
 .contact {
@@ -323,6 +324,9 @@
     border-bottom-color: black;
     overflow: auto;
 }
+
+
+/* TODO: CHECK */
 
 .title__style.contact__text {
     font-size: 1.5rem;
@@ -380,7 +384,7 @@
 }
 
 .question__mark:hover {
-    color: var( --button-enter-hover);
+    color: var(--button-enter-hover);
 }
 
 .invisible {
@@ -642,7 +646,7 @@ footer {
     .tryit__button {
         margin-left: .5rem;
     }
-    .background__definition {
+    .why_section {
         margin-top: 0;
     }
     .methodology__content img {
@@ -670,6 +674,7 @@ footer {
     .close__button {
         font-size: 1.5rem;
     }
+    /* TODO:CHECK */
     .title__style.contact__text {
         font-size: 2rem;
     }

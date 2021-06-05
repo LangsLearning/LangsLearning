@@ -1,5 +1,3 @@
-/* Plans */
-
 .packages__section {
     background-color: var(--secondary-color);
     padding-bottom: 2rem;
@@ -13,7 +11,7 @@
     border-bottom-color: gray;
 }
 
-.title__style {
+.packages__section > h1 {
     font-family: 'Spartwell';
     font-size: 3rem;
     text-align: center;
