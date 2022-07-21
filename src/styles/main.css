@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
+@font-face {
+    font-family: 'Spartwell';
+    src: url('/fonts/Spartwell.otf');
+}
+
+:root {
+    --primary-color:#F50057;
+    --secondary-color: #FFD600;
+    --lighter-secondary: #FFEC8F;
+    --white: #ffffff;
+
+
+    --background-color-nav: #4db6ac;
+
+    --button-enter-hover: #C00045;
+}
+
+main h1 {
+    text-align: center;
+}

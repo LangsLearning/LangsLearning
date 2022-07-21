@@ -1,73 +1,73 @@
-<section class="plans__area">
-    <h1 class="title__style plans" id="plans">Planos</h1>
-    <div class="only__cards">
-        <div class="card whole__card">
-            <div class="card-header card__header-style">
-                <h4 class="cards__title">Primeiros Passos</h4>
-                <p class="cards__text">Pequenos passos para quem tem uma agenda limitada</p>
-            </div>
-            <div class="card-body body__card">
-                <p class="number__classes">5 aulas</p>
-                <h1 class="card-title class__price">R$ 25,00</h1>
-                <span class="text__price">POR AULA</span>
-                <p class="card-text main__price">TOTAL: R$ 125,00</p>
-                <% if (isStudent) { %>
-                    <a href="#eduzzlink" class="btn btn-warning prices__button">Quero este</a>
-                    <% } else { %>
-                        <a href="#" class="btn btn-warning prices__button" data-toggle="modal" data-target="#modal-trial">Quero este</a>
-                        <% } %>
-            </div>
+<section class="packages__section">
+  <h1 class="plans" id="plans">Planos</h1>
+  <div class="only__cards">
+    <div class="card whole__card">
+      <div class="card-header">
+        <h4 class="cards__title">Primeiros Passos</h4>
+        <p class="cards__text">Pequenos passos para quem tem uma agenda limitada</p>
+      </div>
+      <div class="card-body body__card">
+        <p class="number__classes">5 aulas</p>
+        <p class="card-title class__price">R$ 25,00</p>
+        <span class="text__price">POR AULA</span>
+        <p class="card-text main__price">TOTAL: R$ 125,00</p>
+        <% if (isStudent) { %>
+          <a href="#eduzzlink" class="btn btn-warning prices__button">Quero este</a>
+          <% } else { %>
+            <a href="#" class="btn btn-warning prices__button" data-toggle="modal" data-target="#modal-trial">Quero este</a>
+            <% } %>
+          </div>
         </div>
         <div class="card whole__card">
-            <div class="card-header card__header-style">
-                <h4 class="cards__title">Mantendo o ritmo</h4>
-                <p class="cards__text">Para quem quer começar a manter um ritmo de estudos</p>
+          <div class="card-header">
+            <h4 class="cards__title">Mantendo o ritmo</h4>
+            <p class="cards__text">Para quem quer começar a manter um ritmo de estudos</p>
+          </div>
+          <div class="card-body body__card">
+            <p class="number__classes">10 aulas</p>
+            <p class="card-title class__price">R$ 22,00</p>
+            <span class="text__price">POR AULA</span>
+            <p class="card-text main__price">TOTAL: R$ 220,00</p>
+            <% if (isStudent) { %>
+              <a href="#eduzzlink" class="btn btn-warning prices__button">Quero este</a>
+              <% } else { %>
+                <a href="#" class="btn btn-warning prices__button" data-toggle="modal" data-target="#modal-trial">Quero este</a>
+                <% } %>
+              </div>
             </div>
-            <div class="card-body body__card">
-                <p class="number__classes">10 aulas</p>
-                <h1 class="card-title class__price">R$ 22,00</h1>
-                <span class="text__price">POR AULA</span>
-                <p class="card-text main__price">TOTAL: R$ 220,00</p>
-                <% if (isStudent) { %>
-                    <a href="#eduzzlink" class="btn btn-warning prices__button">Quero este</a>
-                    <% } else { %>
-                        <a href="#" class="btn btn-warning prices__button" data-toggle="modal" data-target="#modal-trial">Quero este</a>
-                        <% } %>
-            </div>
-        </div>
-        <div class="card whole__card">
-            <div class="card-header card__header-style">
+            <div class="card whole__card">
+              <div class="card-header">
                 <h4 class="cards__title">Aprofundando</h4>
                 <p class="cards__text">Para intensificar e aprofundar os estudos</p>
-            </div>
-            <div class="card-body body__card">
+              </div>
+              <div class="card-body body__card">
                 <p class="number__classes">15 aulas</p>
-                <h1 class="card-title class__price">R$ 20,00</h1>
+                <p class="class__price">R$ 20,00</p>
                 <span class="text__price">POR AULA</span>
                 <p class="card-text main__price">TOTAL: R$ 300,00</p>
                 <% if (isStudent) { %>
-                    <a href="#eduzzlink" class="btn btn-warning prices__button">Quero este</a>
-                    <% } else { %>
-                        <a href="#" class="btn btn-warning prices__button" data-toggle="modal" data-target="#modal-trial">Quero este</a>
-                        <% } %>
-            </div>
-        </div>
-        <div class="card whole__card">
-            <div class="card-header card__header-style">
-                <h4 class="cards__title">Imersão</h3>
-                    <p class="cards__text">Para quem deseja fazer uma imersão no idioma</p>
-            </div>
-            <div class="card-body body__card">
-                <p class="number__classes">20 aulas</p>
-                <h1 class="card-title class__price">R$ 18,00</h1>
-                <span class="text__price">POR AULA</span>
-                <p class="card-text main__price">TOTAL: R$ 540,00</p>
-                <% if (isStudent) { %>
-                    <a href="#eduzzlink" class="btn btn-warning prices__button">Quero este</a>
-                    <% } else { %>
-                        <a href="#" class="btn btn-warning prices__button" data-toggle="modal" data-target="#modal-trial">Quero este</a>
-                        <% } %>
-            </div>
-        </div>
-    </div>
-</section>
+                  <a href="#eduzzlink" class="btn btn-warning prices__button">Quero este</a>
+                  <% } else { %>
+                    <a href="#" class="btn btn-warning prices__button" data-toggle="modal" data-target="#modal-trial">Quero este</a>
+                    <% } %>
+                  </div>
+                </div>
+                <div class="card whole__card">
+                  <div class="card-header">
+                    <h4 class="cards__title">Imersão</h3>
+                      <p class="cards__text">Para quem deseja fazer uma imersão no idioma</p>
+                    </div>
+                    <div class="card-body body__card">
+                      <p class="number__classes">20 aulas</p>
+                      <p class="card-title class__price">R$ 18,00</p>
+                      <span class="text__price">POR AULA</span>
+                      <p class="card-text main__price">TOTAL: R$ 540,00</p>
+                      <% if (isStudent) { %>
+                        <a href="#eduzzlink" class="btn btn-warning prices__button">Quero este</a>
+                        <% } else { %>
+                          <a href="#" class="btn btn-warning prices__button" data-toggle="modal" data-target="#modal-trial">Quero este</a>
+                          <% } %>
+                        </div>
+                      </div>
+                    </div>
+                  </section>

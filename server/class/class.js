@@ -33,9 +33,9 @@ ClassSchema.statics.findAllByIds = function(ids) {
     logger.info(`Fetching all classes available by ids ${ids}`);
     return this.find({ _id: { $in: ids } });
 };
-ClassSchema.statics.findAllAvailableFor = student => {
+ClassSchema.statics.findAllAvailableFor = function(student) {
     logger.info(`Fetching all classes available for student ${student._id}`);
-    return Class.find({ active: true, students: { $nin: [student._id] }, datetime: { $gte: new Date() }, level: { $eq: student.level } });
+    return this.find({ active: true, students: { $nin: [student._id] }, datetime: { $gte: new Date() }, level: { $eq: student.level } });
 };
 
 module.exports = mongoose.model('Class', ClassSchema);

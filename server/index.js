@@ -10,6 +10,7 @@ const express = require('express'),
     cors = require('cors'),
     mail = require('./contact/mail'),
     mongoose = require('mongoose'),
+    fileUpload = require('express-fileupload'),
     port = process.env.PORT || 3000;
 
 const uri =
@@ -18,6 +19,9 @@ const uri =
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const app = express();
+app.use(fileUpload({
+    createParentPath: true
+}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 //app.use(expressLogger);
@@ -38,6 +42,7 @@ require('./auth')(app);
 
 const routers = [
     require('./class').router,
+    require('./class_template').router,
     require('./contact').router,
     require('./order').router,
     require('./signin').router,
